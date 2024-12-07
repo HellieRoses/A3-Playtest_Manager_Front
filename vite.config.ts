@@ -15,4 +15,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    host: true,
+    port: 5173
+  },
+  base: "/playtest_manager_front/dist"
 })
