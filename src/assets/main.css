@@ -42,7 +42,7 @@ main{
   align-items: center;
 }
 
-p{
+p,h1,h2{
   margin: 0;
   height: fit-content;
   font-family: "Montserrat", sans-serif ;
@@ -143,6 +143,21 @@ header > #connectButton {
   padding: 10px;
   width: fit-content;
 }
+.yellowRound{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: #FFE285;
+  padding: 10px;
+  width: fit-content;
+}
  a, a > p{
    text-decoration: none;
  }
+
+h1,h2{
+  font-weight: normal;
+  margin-bottom: 50px;
+  width: fit-content;
+}
