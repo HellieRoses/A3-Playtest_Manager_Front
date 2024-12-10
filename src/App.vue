@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
+import router from "@/router";
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
     <div id="mainHeader">
-      <img src="@/assets/img/logo.png" alt="logo">
+      <img @click="$router.push({name : 'home2'})" src="@/assets/img/logo.png" alt="logo">
       <div id="tabs">
       <div><p>Entreprises</p></div>
       <div><p>Playtests</p></div>
@@ -27,7 +25,7 @@ import TheWelcome from './components/TheWelcome.vue'
   </header>
 
   <main>
-    <TheWelcome />
+    <router-view />
   </main>
 </template>
 

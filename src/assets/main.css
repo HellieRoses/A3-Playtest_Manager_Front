@@ -17,6 +17,9 @@ header{
     margin-right: 35px;
     margin-bottom: 6px;
   }
+  & #mainHeader img:hover{
+    cursor:pointer;
+  }
   margin-bottom: 10px;
 }
 
@@ -26,6 +29,10 @@ main{
   height: 88vh;
   border-radius: 15px;
   scroll-behavior: smooth;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #app{
   display: flex;
@@ -114,5 +121,9 @@ header > #connectButton {
 .button:hover{
   filter: brightness(120%);
   cursor: pointer;
+}
+
+.textOnBlue{
+  color: #B2EBFF;
 }
 
