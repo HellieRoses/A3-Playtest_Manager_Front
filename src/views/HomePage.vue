@@ -31,4 +31,8 @@
   text-align: center;
   font-size: 20px;
 }
+main{
+
+  align-items: center;
+}
 </style>

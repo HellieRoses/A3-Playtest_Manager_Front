@@ -6,11 +6,11 @@ import router from "@/router";
 <template>
   <header>
     <div id="mainHeader">
-      <img @click="$router.push({name : 'home2'})" src="@/assets/img/logo.png" alt="logo">
+      <img @click="$router.push({name : 'home'})" src="@/assets/img/logo.png" alt="logo">
       <div id="tabs">
-      <div><p>Entreprises</p></div>
-      <div><p>Playtests</p></div>
-      <div><p>Jeux Vidéo</p></div>
+      <router-link :to="{name : 'companies'}" active-class="active-header"><p>Entreprises</p></router-link>
+        <router-link :to="{name : 'playtests'}" active-class="active-header"><p>Playtests</p></router-link>
+        <router-link :to="{name : 'videogames'}" active-class="active-header"><p>Jeux Vidéo</p></router-link>
       </div>
     </div>
 
