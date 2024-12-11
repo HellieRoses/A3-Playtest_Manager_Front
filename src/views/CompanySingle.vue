@@ -42,7 +42,6 @@
   .content{
     padding: 15px;
     & #upper-infos{
-      height: 50%;
       & #description{
         width: 80%;
         text-align: center;

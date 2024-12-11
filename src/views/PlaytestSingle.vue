@@ -60,7 +60,6 @@
   align-items: center;
   padding: 15px;
   & #upper-infos{
-    height: 50%;
     & > div{
       display: grid;
       grid-template-columns: 1fr 1Fr;

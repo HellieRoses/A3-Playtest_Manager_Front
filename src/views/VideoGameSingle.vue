@@ -80,12 +80,11 @@
     }
   }
   & #lower-infos {
-    height: 50%;
     & h2 {
       margin-bottom: 0;
     }
     & .list{
-      row-gap: 70%!important;
+      row-gap: 3em!important;
       column-gap: 10%;
     }
   }
