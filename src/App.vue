@@ -1,48 +1,34 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
+import router from "@/router";
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <router-view/>
+    <div id="mainHeader">
+      <img @click="$router.push({name : 'home'})" src="@/assets/img/logo.png" alt="logo">
+      <div id="tabs">
+      <router-link :to="{name : 'companies'}" active-class="active-header"><p>Entreprises</p></router-link>
+        <router-link :to="{name : 'playtests'}" active-class="active-header"><p>Playtests</p></router-link>
+        <router-link :to="{name : 'videogames'}" active-class="active-header"><p>Jeux Vidéo</p></router-link>
+      </div>
     </div>
+
+    <div id="connectButton">
+      <div class="button" id="login"><p>Log In</p></div>
+      <div class="button" id="getStarted"><p>Get Started</p></div>
+      <div class="button" id="profileButton">
+        <img src="@/assets/img/profile.png" alt="profile">
+      </div>
+    </div>
+
   </header>
 
   <main>
-    <TheWelcome />
+    <router-view />
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+@import "@/assets/app.css";
 </style>

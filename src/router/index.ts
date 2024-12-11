@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Test from "@/views/Test.vue";
+import HomePage from "@/views/HomePage.vue";
 
 
 const router = createRouter({
@@ -10,8 +10,39 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'test',
-      component: Test
+      name: 'home',
+      component: HomePage
+    },
+    {
+      path: '/companies',
+      name : 'companies',
+      component : () => import('@/views/CompanyList.vue')
+    },
+    {
+      path: '/company',//todo change to /companies/:id
+      name : 'company',
+      component : () => import('@/views/CompanySingle.vue')
+    }
+    ,
+    {
+      path: '/videogames',
+      name : 'videogames',
+      component : () => import('@/views/VideoGameList.vue')
+    },
+    {
+      path: '/videogame',//todo change to /videogames/:id
+      name : 'videogame',
+      component : () => import('@/views/VideoGameSingle.vue')
+    },
+    {
+      path: '/playtests',
+      name : 'playtests',
+      component : () => import('@/views/PlaytestList.vue')
+    },
+    {
+      path: '/playtest',//todo change to /playtests/:id
+      name : 'playtest',
+      component : () => import('@/views/PlaytestSingle.vue')
     }
   ]
 })
