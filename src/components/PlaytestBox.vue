@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+import type {Playtest} from '@/types';
+defineProps<{playtest: Playtest}>();
 </script>
 
 <template>
@@ -7,24 +8,24 @@
     <div>
       <router-link :to="{name: 'playtest' }" class="clickable" id="router-link">
         <img src="@/assets/img/playtest.png" alt="playtest"/>
-        <p>Playtest 1</p>
+        <p>Playtest {{ playtest.id }}</p>
       </router-link>
-      <p>Début : 15/05/2025 8h</p>
-      <p>Fin :  15/05/2025 17h</p>
-      <p>Lieu : 3 rue du studio Ubisoft, Montpellier 34000</p>
+      <p>Début : {{ (new Date(playtest.begin)).toLocaleString("fr") }}</p>
+      <p>Fin :  {{ (new Date(playtest.end)).toLocaleString("fr") }}</p>
+      <p>Lieu : {{ playtest.adress }}</p>
     </div>
     <div id="infos">
       <div>
         <div class="blueRound">
           <img src="@/assets/img/building.png"/>
         </div>
-        <p>Ubisoft</p>
+        <p>{{playtest.company.name}}</p>
       </div>
       <div>
         <div class="blueRound">
           <img src="@/assets/img/videoGame.png"/>
         </div>
-        <p>Assasin's Creed</p>
+        <p>{{playtest.videoGame.name}}</p>
       </div>
     </div>
 

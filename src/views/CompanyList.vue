@@ -1,13 +1,22 @@
 <script setup lang="ts">
-
+import { apiStore } from '@/util/apiStore'
+import {ref} from 'vue';
 import CompanyBox from "@/components/CompanyBox.vue";
+
+const companies=ref([]);
+apiStore.getAll('companies')
+  .then(reponseJSON => {
+    companies.value = reponseJSON["member"];
+  });
+
 </script>
 
 <template>
   <div class="list">
-    <CompanyBox />
-    <CompanyBox />
-    <CompanyBox />
+    <CompanyBox
+      v-for="company in companies" :key="company.id"
+      :company="company"
+    />
   </div>
 </template>
 
