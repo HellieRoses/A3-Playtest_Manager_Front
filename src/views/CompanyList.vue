@@ -7,7 +7,6 @@ import CompanyBox from "@/components/CompanyBox.vue";
   <div class="list">
     <CompanyBox />
     <CompanyBox />
-    <CompanyBox />
   </div>
 </template>
 
