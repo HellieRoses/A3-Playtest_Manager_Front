@@ -119,6 +119,9 @@ header > #connectButton {
     font-weight: bolder;
   }
 }
+.delete-button {
+  background-color: #E65759!important;
+}
 .clickable:hover, .button:hover, a:hover{
   filter: brightness(120%);
   cursor: pointer;

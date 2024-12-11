@@ -32,7 +32,7 @@
         <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
         <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
       </div>
-     <div><div class="button" @click="$router.push({name : 'videogames'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+     <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogames'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
     </div>
   </div>
 </template>

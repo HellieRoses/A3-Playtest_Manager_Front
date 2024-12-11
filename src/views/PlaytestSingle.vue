@@ -47,7 +47,9 @@
     <div id="lower">
      <div> <h2>Type de joueurs Recherchés</h2></div>
       <p>Casual, connaisseur, ont dejà joués à des jeux de la license Assasin’s creed</p>
-      <div><div class="button" @click=""><p>S'inscrire</p></div></div> <!-- TODO inscrire user à un playtest -->
+      <div class="bottom-button"><div class="button" @click=""><p>S'inscrire</p></div></div> <!-- TODO inscrire user à un playtest à n'afficher que si player + pas inscrit -->
+      <div class="bottom-button"><div class="button" @click=""><p>Désinscrire</p></div></div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
+      <div class="bottom-button"><div class="button delete-button" @click=""><p>Supprimer</p></div></div> <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
     </div>
   </div>
 </template>
@@ -92,7 +94,7 @@
     &  > div {
       width: 100%;
     }
-    & div:last-child{
+    & .bottom-button{
       display: flex;
       justify-content: center;
     }
