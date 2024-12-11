@@ -64,3 +64,19 @@
     color: #FFFFFF;
     font-size: 55px;
 }
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    & #upper-infos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & img{
+            width: 48px;
+            height: 48px;
+        }
+    }
+}

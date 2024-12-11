@@ -40,14 +40,8 @@
 <style scoped>
 @import "@/assets/singleVue.css";
   .content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     padding: 15px;
     & #upper-infos{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       height: 50%;
       & #description{
         width: 80%;

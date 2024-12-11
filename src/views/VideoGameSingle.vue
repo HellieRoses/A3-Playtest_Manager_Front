@@ -7,12 +7,14 @@
     <div id="upper-infos">
       <h1 class="title">Assasin's Creed</h1>
       <div>
-        <div class="main-infos">
-          <div class="yellowRound">
-            <img src="@/assets/img/building.png" alt="building"/>
+        <router-link :to="{name : 'company'}">
+          <div class="main-infos">
+            <div class="yellowRound">
+              <img src="@/assets/img/building.png" alt="building"/>
+            </div>
+            <p class="textOnBlue">Ubisoft</p>
           </div>
-          <p class="textOnBlue">Ubisoft</p>
-        </div>
+        </router-link>
         <div class="main-infos">
           <div class="yellowRound">
             <img src="@/assets/img/controller_2.png" alt="controller"/>
@@ -32,7 +34,7 @@
       </div>
     </div>
     <div id="lower-infos">
-      <h2>Jeux Vidéo</h2>
+      <h2>Playtests</h2>
       <div class="list">
         <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
         <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
@@ -49,19 +51,8 @@
 <style scoped>
 @import '@/assets/singleVue.css';
 .content{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 15px;
   width: 100%;
   & #upper-infos{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    & img{
-      width: 48px;
-      height: 48px;
-    }
     & > div{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -79,7 +70,6 @@
     }
     & .list{
       row-gap: 70%!important;
-
       column-gap: 10%;
     }
   }

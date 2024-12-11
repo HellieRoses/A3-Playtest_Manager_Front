@@ -55,20 +55,10 @@
 <style scoped>
 @import "@/assets/singleVue.css";
 .content{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   padding: 15px;
   & #upper-infos{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 50%;
-    & img{
-      width: 48px;
-      height: 48px;
-    }
     & > div{
       display: grid;
       grid-template-columns: 1fr 1Fr;
