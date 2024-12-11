@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type {Company} from '@/types';
+defineProps<{company: Company}>();
 
 </script>
 
@@ -7,16 +9,16 @@
   <div>
   <router-link :to="{name: 'company' }" class="clickable" id="router-link">
     <img src="@/assets/img/building.png" alt="building"/>
-    <p>Ubisoft</p>
+    <p>{{ company.name }}</p>
   </router-link>
-  <p id="description">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsumorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsu</p>
+    <p id="description">{{company.description}}</p>
   </div>
   <div id="infos">
     <div>
     <div class="blueRound">
       <img src="@/assets/img/phone.png"/>
     </div>
-    <p>099398239</p>
+    <p>{{ company.contact }}</p>
     </div>
   </div>
 
