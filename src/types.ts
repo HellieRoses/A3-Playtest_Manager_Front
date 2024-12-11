@@ -3,7 +3,7 @@ export interface VideoGame {
   name: string;
   type: string;
   support: string;
-  playtests:  Playtest[]
+  playtests:  Playtest[];
   company: Company;
 }
 export interface Playtest{

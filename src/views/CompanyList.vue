@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { apiStore } from '@/util/apiStore'
 import {ref} from 'vue';
+import CompanyBox from "@/components/CompanyBox.vue";
 
 const companies=ref([]);
 apiStore.getAll('companies')
@@ -8,8 +9,6 @@ apiStore.getAll('companies')
     companies.value = reponseJSON["member"];
   });
 
-import CompanyBox from "@/components/CompanyBox.vue";
-console.log(companies);
 </script>
 
 <template>
