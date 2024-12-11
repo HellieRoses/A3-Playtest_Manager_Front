@@ -32,7 +32,7 @@
         <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
         <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
       </div>
-     <div><div class="button" @click="$router.push($router.push({name : 'videogames'}))"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+     <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogames'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
     </div>
   </div>
 </template>
@@ -40,14 +40,8 @@
 <style scoped>
 @import "@/assets/singleVue.css";
   .content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     padding: 15px;
     & #upper-infos{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       height: 50%;
       & #description{
         width: 80%;
