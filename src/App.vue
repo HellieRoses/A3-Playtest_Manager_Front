@@ -30,5 +30,4 @@ import router from "@/router";
 </template>
 
 <style scoped>
-@import "@/assets/app.css";
 </style>
