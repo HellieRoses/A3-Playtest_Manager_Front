@@ -2,7 +2,7 @@
 
 import PlaytestMinListBox from "@/components/minList/PlaytestMinListBox.vue";
 import VideoGameMinListBox from "@/components/minList/VideoGameMinListBox.vue";
-const title1 = "Jeux Vidéo"
+const title1 = "Playtests Organisés"
 </script>
 
 <template>
