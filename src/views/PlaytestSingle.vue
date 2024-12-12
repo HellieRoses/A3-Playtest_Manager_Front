@@ -19,7 +19,7 @@
         </router-link>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/calendar.png" alt="calendar"/>
+            <img src="@/assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
             <p class="textOnBlue">Début : 15/05/2025 8h</p>
@@ -38,7 +38,7 @@
         </router-link>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/pin.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">3 rue du studio Ubisoft, Montpellier 34000</p>
         </div>

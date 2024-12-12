@@ -122,6 +122,21 @@ header > #connectButton {
 .delete-button {
   background-color: #E65759!important;
 }
+
+.bottom-button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  & .button {
+    background-color: #BBFFE9;
+
+    & p {
+      font-weight: normal;
+    }
+  }
+}
+
 .clickable:hover, .button:hover, a:hover{
   filter: brightness(120%);
   cursor: pointer;

@@ -26,17 +26,6 @@
         }
         height: fit-content;
     }
-    & .bottom-button{
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        & .button{
-            background-color: #BBFFE9;
-            & p{
-                font-weight: normal;
-            }
-        }
-    }
 }
 
 .main-infos {
