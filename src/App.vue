@@ -17,9 +17,11 @@ import router from "@/router";
     <div id="connectButton">
       <div class="button" id="login"><p>Log In</p></div>
       <div class="button" id="getStarted"><p>Get Started</p></div>
-      <div class="button" id="profileButton">
+      <router-link :to="{name : 'profile'}" active-class="active-profile">
+        <div class="button blueRound" id="profileButton">
         <img src="@/assets/img/profile.png" alt="profile">
       </div>
+      </router-link>
     </div>
 
   </header>

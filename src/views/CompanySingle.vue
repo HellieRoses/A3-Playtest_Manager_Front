@@ -10,13 +10,13 @@
       <div>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/pin.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">3 rue du studio Ubisoft, Montpellier 34000</p>
         </div>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/phone.png" alt="phone"/>
+            <img src="@/assets/img/phone_light.png" alt="phone"/>
           </div>
           <div>
             <p class="textOnBlue">0541451372</p>
@@ -42,7 +42,6 @@
   .content{
     padding: 15px;
     & #upper-infos{
-      height: 50%;
       & #description{
         width: 80%;
         text-align: center;

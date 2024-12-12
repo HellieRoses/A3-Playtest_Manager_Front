@@ -1,9 +1,8 @@
-@import "@/assets/list.css";
+@import "./list.css";
 #lower-infos {
     background-color: #D9D9D9;
     margin-top: 40px;
     border-radius: 10px;
-    height: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,17 +24,7 @@
                 color: #FFFFFF
             }
         }
-    }
-    & .bottom-button{
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        & .button{
-            background-color: #BBFFE9;
-            & p{
-                font-weight: normal;
-            }
-        }
+        height: fit-content;
     }
 }
 

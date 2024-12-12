@@ -43,6 +43,11 @@ const router = createRouter({
       path: '/playtest',//todo change to /playtests/:id
       name : 'playtest',
       component : () => import('@/views/PlaytestSingle.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component : () => import('@/views/users/ProfileUser.vue')
     }
   ]
 })
