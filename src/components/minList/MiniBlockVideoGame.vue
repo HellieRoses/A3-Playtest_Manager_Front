@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <router-link :to="{name : 'videoGame'}">
+  <router-link :to="{name : 'videogame'}">
     <p>Assasin's Creed</p>
   </router-link>
 </template>

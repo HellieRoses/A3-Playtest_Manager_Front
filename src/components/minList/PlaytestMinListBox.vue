@@ -14,7 +14,7 @@ defineProps<{title:string}>();
     <MiniBlockPlaytest />
     <MiniBlockPlaytest />
   </div>
-  <div class="bottom-button"><div class="button" @click="$router.push({name : 'playtests'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+  <div class="bottom-button"><div class="button" @click="$router.push({name : 'playtests'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des playtests de l'utilisateur -->
 </div>
 </template>
 

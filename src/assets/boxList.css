@@ -22,11 +22,16 @@
             margin-bottom: 10px ;
             & img{
                 width: 48px;
-                height: 48px    ;
+                height: 48px;
             }
         }
     }
-
+    & #description{
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
     & p{
         color: #000000;
     }

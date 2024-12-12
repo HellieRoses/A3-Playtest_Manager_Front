@@ -5,7 +5,7 @@ import MiniBlockVideoGame from "@/components/minList/MiniBlockVideoGame.vue";
 
 <template>
   <div class="blockContent">
-    <h2>{{ title }}</h2>
+    <h2>Jeux Vidéo</h2>
     <div class="list">
       <MiniBlockVideoGame />
       <MiniBlockVideoGame />

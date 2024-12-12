@@ -37,7 +37,7 @@ const title2 = "Playtest Passés"
         </div>
       </div>
     </div>
-    <div class="bottom-button"><div class="button" @click="$router.push({name : 'playtests'})"><p>Modifier Son Compte</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+    <div class="bottom-button"><div class="button" @click="$router.push({name : 'playtests'})"><p>Modifier Son Compte</p></div></div> <!-- TODO mise a jour compte player -->
 
   </div>
   <div id="additional-content">
@@ -48,60 +48,5 @@ const title2 = "Playtest Passés"
 </template>
 
 <style scoped>
-@import "@/assets/list.css";
 @import "@/assets/profileStyle.css";
-.main-content{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  & > div:first-child{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    & > div:first-child {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      & > h1 {
-        font-size: 40px;
-        margin-bottom: 30px;
-      }
-
-      & > p {
-        width: fit-content;
-      }
-    }
-  }
-
-  & .infos {
-    margin-top: 15px;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    & .icon {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      & img {
-        width: 48px;
-        height: 48px;
-        margin-right: 15px;
-      }
-      & p{
-        font-size: 20px;
-      }
-    }
-  }
-  & .bottom-button{
-    justify-content: center;
-    & .button{
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-  }
-}
 </style>
