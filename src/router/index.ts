@@ -19,11 +19,15 @@ const router = createRouter({
       component : () => import('@/views/CompanyList.vue')
     },
     {
-      path: '/company',//todo change to /companies/:id
+      path: '/company/:id',//todo change to /companies/:id
       name : 'company',
       component : () => import('@/views/CompanySingle.vue')
-    }
-    ,
+    },
+    {
+      path: '/company/:id/videogames',
+      name : 'videogamesByCompany',
+      component : () => import('@/views/VideoGamesByCompany.vue')
+    },
     {
       path: '/videogames',
       name : 'videogames',

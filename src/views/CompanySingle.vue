@@ -50,7 +50,7 @@ apiStore.getById('companies', id)
         </router-link>
       </div>
       <div class="bottom-button">
-        <div class="button" @click="$router.push({name : 'videogames'})"><p>Voir plus</p></div>
+        <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir plus</p></div>
       </div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
     </div>
   </div>
