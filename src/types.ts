@@ -18,7 +18,7 @@ export interface Playtest{
 }
 
 export interface Company{
-  id: number;
+  id: string;
   login: string;
   email: string;
   password: string;
@@ -26,4 +26,5 @@ export interface Company{
   description: string;
   adress: string;
   contact: string;
+  videoGames: VideoGame[];
 }

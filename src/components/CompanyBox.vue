@@ -7,7 +7,7 @@ defineProps<{company: Company}>();
 <template>
 <div class="content-box">
   <div>
-  <router-link :to="{name: 'company' }" class="clickable" id="router-link">
+  <router-link :to="{name: 'company', params: {id:company.id}}" class="clickable" id="router-link">
     <img src="@/assets/img/building.png" alt="building"/>
     <p>{{ company.name }}</p>
   </router-link>
