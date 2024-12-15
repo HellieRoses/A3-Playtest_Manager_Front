@@ -4,10 +4,10 @@ import LoginForm from "@/components/user/LoginForm.vue";
 import RegisterForm from "@/components/user/RegisterForm.vue";
 
 const route = useRoute();
-const type = route.params.type;
+let type = route.params.type;
 console.log(type);
 </script>
-
+<!-- TODO mon v-if marche pas (quand on change clique direct sur le bouton de login ou d'inscription) -->
 <template>
   <div class="before-form">
     <div>
