@@ -13,17 +13,27 @@ apiStore.getById('playtests', id)
   })
 
 function canSubscribe(){
-  if (apiStore.utilisateurConnecte){
-    if (playtest.value.participants.length < playtest.value.nbMaxPlayer && playtest.value.participants.contains(utilisateurConnecte))
+  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
+    if (playtest.value.participants.length < playtest.value.nbMaxPlayer && !playtest.value.participants.contains(utilisateurConnecte))
     return true;
   }
   return false;
 }
 function canUnSubscribe(){
-
+  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
+    if (playtest.value.participants.contains(utilisateurConnecte)){
+      return true;
+    }
+  }
+  return false;
 }
 function canDelete(){
-
+  if (apiStore.utilisateurConnecte){
+    if (playtest.value.company == apiStore.utilisateurConnecte){
+      return true;
+    }
+  }
+  return false;
 }
 
 </script>

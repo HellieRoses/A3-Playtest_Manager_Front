@@ -17,7 +17,12 @@ apiStore.getById('video_games', id)
   })
 
 function canDelete() {
-
+  if (apiStore.utilisateurConnecte){
+    if (videogame.value.company == apiStore.utilisateurConnecte){
+      return true;
+    }
+  }
+  return false;
 }
 </script>
 
