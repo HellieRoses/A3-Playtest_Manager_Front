@@ -50,8 +50,13 @@ const router = createRouter({
       component : () => import('@/views/users/ProfileUser.vue')
     },
     {
-      path: '/connect/:type',
+      path: '/:type',
       name: 'login',
+      component : () => import('@/views/users/UserForms.vue')
+    },
+    {
+      path: '/:type',
+      name: 'register',
       component : () => import('@/views/users/UserForms.vue')
     }
   ]
