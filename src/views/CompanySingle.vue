@@ -43,7 +43,7 @@ apiStore.getById('companies', id)
     <div id="lower-infos">
       <h2>Jeux Vidéo</h2>
       <div class="list">
-        <router-link :to="{name:'videogame'}" class="block"
+        <router-link :to="{name:'videogame',params:{id:videogame.id}}" class="block"
                      v-for="videogame in listVideoGames" :key="videogame.id"
         >
           <p>{{videogame.name}}</p>
@@ -51,7 +51,7 @@ apiStore.getById('companies', id)
       </div>
       <div class="bottom-button">
         <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir plus</p></div>
-      </div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+      </div>
     </div>
   </div>
 </template>

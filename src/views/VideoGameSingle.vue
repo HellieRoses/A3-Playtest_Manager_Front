@@ -1,21 +1,41 @@
 <script setup lang="ts">
+import {useRoute} from "vue-router";
+import {apiStore} from "@/util/apiStore.ts";
+import {ref} from 'vue';
 
+const route = useRoute();
+const id = route.params.id;
+const videogame = ref();
+const listePlayTests = [];
+
+apiStore.getById('video_games', id)
+  .then(reponseJSON => {
+    videogame.value = reponseJSON;
+    for (let i = 0; i < Math.min(6, videogame.value.playtests.length); i++) {
+      listePlayTests.push(videogame.value.playtests[i]);
+    }
+  })
+
+function canDelete() {
+
+}
 </script>
 
 <template>
   <div class="content">
     <div id="upper-infos">
       <div id="title-div">
-        <h1 class="title">Assasin's Creed</h1>
-        <div class="button delete-button" @click=""><p>Supprimer</p></div> <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
+        <h1 class="title">{{ videogame.name }}</h1>
+        <div class="button delete-button" v-if="canDelete" @click=""><p>Supprimer</p></div>
+        <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
       </div>
       <div>
-        <router-link :to="{name : 'company'}">
+        <router-link :to="{name : 'company',params: {id:videogame.company.id}}">
           <div class="main-infos">
             <div class="yellowRound">
               <img src="@/assets/img/building.png" alt="building"/>
             </div>
-            <p class="textOnBlue">Ubisoft</p>
+            <p class="textOnBlue">{{ videogame.company.name }}</p>
           </div>
         </router-link>
         <div class="main-infos">
@@ -23,7 +43,7 @@
             <img src="@/assets/img/controller_2.png" alt="controller"/>
           </div>
           <div>
-            <p class="textOnBlue">RPG, Aventure</p>
+            <p class="textOnBlue">{{ videogame.type }}</p>
           </div>
         </div>
         <div class="main-infos">
@@ -31,7 +51,7 @@
             <img src="@/assets/img/desktop.png" alt="desktop"/>
           </div>
           <div>
-            <p class="textOnBlue">PC, Console</p>
+            <p class="textOnBlue">{{ videogame.support.toString() }}</p>
           </div>
         </div>
       </div>
@@ -40,52 +60,62 @@
     <div id="lower-infos">
       <h2>Playtests</h2>
       <div class="list">
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
-        <router-link :to="{name:'playtest'}" class="block"><p>Playtest 1</p></router-link>
+        <router-link :to="{name:'playtest',params:{id:playtest.id}}" class="block"
+                     v-for="playtest in listePlayTests" :key="playtest.id"
+        >
+          <p>Playtest {{playtest.id}}</p>
+        </router-link>
       </div>
-      <div class="bottom-button"><div class="button" @click="$router.push({name : 'playtests'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des playtests du jeux vidéo -->
+      <div class="bottom-button">
+        <div class="button" @click="$router.push({name : 'playtestsByVideoGames',params:{id:videogame.id}})"><p>Voir plus</p></div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 @import '@/assets/singleVue.css';
-.content{
+
+.content {
   width: 100%;
-  & #upper-infos{
+
+  & #upper-infos {
     & div#title-div {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-bottom: 50px;
-      & h1{
-        margin-bottom: 0!important;
+
+      & h1 {
+        margin-bottom: 0 !important;
       }
-      & .button{
-        margin-left:15px;
+
+      & .button {
+        margin-left: 15px;
       }
     }
-    & > div:nth-child(2){
+
+    & > div:nth-child(2) {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       width: 80%;
       margin-top: 40px;
     }
+
     & .textOnBlue {
       font-size: 30px;
     }
   }
+
   & #lower-infos {
     height: 50%;
+
     & h2 {
       margin-bottom: 0;
     }
-    & .list{
-      row-gap: 70%!important;
+
+    & .list {
+      row-gap: 70% !important;
       column-gap: 10%;
     }
   }

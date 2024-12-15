@@ -6,7 +6,7 @@ defineProps<{playtest: Playtest}>();
 <template>
   <div class="content-box bigger-box">
     <div>
-      <router-link :to="{name: 'playtest' }" class="clickable" id="router-link">
+      <router-link :to="{name: 'playtest',params:{id:playtest.id} }" class="clickable" id="router-link">
         <img src="@/assets/img/playtest.png" alt="playtest"/>
         <p>Playtest {{ playtest.id }}</p>
       </router-link>

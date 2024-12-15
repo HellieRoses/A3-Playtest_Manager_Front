@@ -6,7 +6,7 @@ defineProps<{videogame: VideoGame}>();
 <template>
   <div class="content-box bigger-box">
     <div>
-      <router-link :to="{name: 'videogame' }" class="clickable" id="router-link">
+      <router-link :to="{name: 'videogame',params:{id:videogame.id} }" class="clickable" id="router-link">
         <img src="@/assets/img/videoGame.png" alt="videogame"/>
         <p>{{ videogame.name }}</p>
       </router-link>
