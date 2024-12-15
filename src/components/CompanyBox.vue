@@ -13,7 +13,7 @@
   </div>
   <div id="infos">
     <div>
-    <div class="blueRound">
+    <div class="round blueRound">
       <img src="@/assets/img/phone.png"/>
     </div>
     <p>099398239</p>

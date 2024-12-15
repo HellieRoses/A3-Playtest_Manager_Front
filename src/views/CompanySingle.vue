@@ -9,13 +9,13 @@
       <p id="description">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsumorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsu</p>
       <div>
         <div class="main-infos">
-          <div class="yellowRound">
+          <div class="round yellowRound">
             <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">3 rue du studio Ubisoft, Montpellier 34000</p>
         </div>
         <div class="main-infos">
-          <div class="yellowRound">
+          <div class="round yellowRound">
             <img src="@/assets/img/phone_light.png" alt="phone"/>
           </div>
           <div>

@@ -1,0 +1,22 @@
+.group{
+    display: flex;
+    flex-direction: column-reverse;
+    width: 60%;
+    margin: 15px 0;
+    & > input{
+        box-sizing: border-box;
+        border: 1px solid black;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        background-color: #D9D9D9 ;
+    }
+    & > input[required] + label:after {
+        content: ' *';
+        color: red;
+    }
+    & > input:focus {
+        background-color: rgba(122, 152,251,0.4);
+        outline: none;
+    }
+}

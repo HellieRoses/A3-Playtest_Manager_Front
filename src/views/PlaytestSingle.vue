@@ -9,7 +9,7 @@
       <div>
         <router-link :to="{name : 'company'}">
           <div class="main-infos">
-            <div class="yellowRound">
+            <div class="round yellowRound">
               <img src="@/assets/img/building.png" alt="building"/>
             </div>
             <div>
@@ -18,7 +18,7 @@
           </div>
         </router-link>
         <div class="main-infos">
-          <div class="yellowRound">
+          <div class="round yellowRound">
             <img src="@/assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
@@ -28,7 +28,7 @@
         </div>
         <router-link :to="{name : 'videogame'}">
           <div class="main-infos">
-            <div class="yellowRound">
+            <div class="round yellowRound">
               <img src="@/assets/img/videoGame.png" alt="videogame"/>
             </div>
             <div>
@@ -37,7 +37,7 @@
           </div>
         </router-link>
         <div class="main-infos">
-          <div class="yellowRound">
+          <div class="round yellowRound">
             <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">3 rue du studio Ubisoft, Montpellier 34000</p>

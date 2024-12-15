@@ -14,13 +14,13 @@
     </div>
     <div id="infos">
       <div>
-        <div class="blueRound">
+        <div class="round blueRound">
           <img src="@/assets/img/playtest.png"/>
         </div>
         <p>6</p>
       </div>
       <div>
-        <div class="blueRound">
+        <div class="round blueRound">
           <img src="@/assets/img/building.png"/>
         </div>
         <p>Ubisoft</p>
