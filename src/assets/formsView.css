@@ -70,10 +70,3 @@
 .bottom-button{
     width: auto;
 }
-
-button {
-    background: none;
-    border: none;
-    outline: none;
-    box-shadow: none;
-}

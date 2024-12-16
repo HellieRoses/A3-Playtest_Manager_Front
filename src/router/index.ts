@@ -58,6 +58,16 @@ const router = createRouter({
       path: '/:type',
       name: 'register',
       component : () => import('@/views/users/UserForms.vue')
+    },
+    {
+      path: '/updateCompany', /*TODO CHANGE*/
+      name: 'updateCompany',
+      component : () => import('@/components/user/FormUpdateCompany.vue')
+    },
+    {
+      path: '/updatePlayer', /*TODO CHANGE*/
+      name: 'updatePlayer',
+      component : () => import('@/components/user/FormUpdatePlayer.vue')
     }
   ]
 })

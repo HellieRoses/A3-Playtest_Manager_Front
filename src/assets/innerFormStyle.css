@@ -3,7 +3,7 @@
     flex-direction: column-reverse;
     width: 60%;
     margin: 15px 0;
-    & > input{
+    & > input,textarea{
         box-sizing: border-box;
         border: 1px solid black;
         width: 100%;
@@ -15,7 +15,7 @@
         content: ' *';
         color: red;
     }
-    & > input:focus {
+    & > input:focus , textarea:focus{
         background-color: rgba(122, 152,251,0.4);
         outline: none;
     }

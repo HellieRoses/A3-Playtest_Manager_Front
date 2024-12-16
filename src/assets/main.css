@@ -174,3 +174,10 @@ h1,h2{
   margin-bottom: 50px;
   width: fit-content;
 }
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}

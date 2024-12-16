@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
+import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
+
 let accountType = 'player';
 let playerForm;
 let companyForm;
@@ -42,28 +45,7 @@ function clickOnRound(type){
 
     <form @submit.prevent="" id="playerForm"> <!-- fonction inscrire player-->
       <div>
-        <div class="group">
-          <input type="text" required placeholder="Votre nom d'utilisateur..."/>
-          <label for="username">Nom d'Utilisateur</label>
-        </div>
-        <div id="names">
-          <div class="group">
-            <input type="text" required placeholder="Votre nom..."/>
-            <label for="username">Nom</label>
-          </div>
-          <div class="group">
-            <input type="text" required placeholder="Votre prénom..."/>
-            <label for="firstname">Prénom</label>
-          </div>
-        </div>
-        <div class="group">
-          <input type="email" required placeholder="Votre email..."/>
-          <label for="email">Email</label>
-        </div>
-        <div class="group">
-          <input type="password" required placeholder="Votre mot de passe..."/>
-          <label for="password">Mot de passe</label>
-        </div>
+        <PlayerFormContent/>
       </div>
       <div class="bottom-button">
         <button class="button">
@@ -74,22 +56,7 @@ function clickOnRound(type){
 
     <form @submit.prevent="" id="companyForm"> <!-- fonction inscrire company -->
       <div>
-        <div class="group">
-          <input type="text" required placeholder="Votre nom d'utilisateur..."/>
-          <label for="username">Nom d'Utilisateur</label>
-        </div>
-        <div class="group">
-          <input type="text" required placeholder="Nom d'entreprise..."/>
-          <label for="companyName">Nom d'Entreprise</label>
-        </div>
-        <div class="group">
-          <input type="email" required placeholder="Votre email..."/>
-          <label for="email">Email</label>
-        </div>
-        <div class="group">
-          <input type="password" required placeholder="Votre mot de passe..."/>
-          <label for="password">Mot de passe</label>
-        </div>
+        <CompanyFormContent />
       </div>
       <div class="bottom-button">
         <button class="button">
@@ -107,15 +74,6 @@ form{
 }
 .group{
   margin: 8px 0;
-}
-#names{
-  width: 60%;
-  display: flex;
-  justify-content: space-between;
-
-  & .group{
-    width: 45%;
-  }
 }
 #choice{
   width: 100%;
