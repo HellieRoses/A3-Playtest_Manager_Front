@@ -19,18 +19,27 @@ const router = createRouter({
       component : () => import('@/views/CompanyList.vue')
     },
     {
-      path: '/company',//todo change to /companies/:id
+      path: '/company/:id',
       name : 'company',
       component : () => import('@/views/CompanySingle.vue')
-    }
-    ,
+    },
+    {
+      path: '/company/:id/videogames',
+      name : 'videogamesByCompany',
+      component : () => import('@/views/VideoGamesByCompany.vue')
+    },
+    {
+      path: '/videogames/:id/playtests',
+      name : 'playtestsByVideoGames',
+      component : () => import('@/views/PlaytestsByVideoGames.vue')
+    },
     {
       path: '/videogames',
       name : 'videogames',
       component : () => import('@/views/VideoGameList.vue')
     },
     {
-      path: '/videogame',//todo change to /videogames/:id
+      path: '/videogame/:id',
       name : 'videogame',
       component : () => import('@/views/VideoGameSingle.vue')
     },
@@ -40,7 +49,7 @@ const router = createRouter({
       component : () => import('@/views/PlaytestList.vue')
     },
     {
-      path: '/playtest',//todo change to /playtests/:id
+      path: '/playtest/:id',
       name : 'playtest',
       component : () => import('@/views/PlaytestSingle.vue')
     },

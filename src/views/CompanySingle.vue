@@ -1,26 +1,41 @@
 <script setup lang="ts">
+import {useRoute} from "vue-router";
+import {apiStore} from "@/util/apiStore.ts";
+import {ref} from 'vue';
+
+const route = useRoute();
+const id = route.params.id;
+const company = ref();
+const listVideoGames= [];
+
+apiStore.getById('companies', id)
+  .then(reponseJSON => {
+    company.value = reponseJSON;
+    for (let i=0; i<Math.min(3,company.value.videoGames.length); i++) {
+      listVideoGames.push(company.value.videoGames[i]);
+    }
+  })
 
 </script>
 
 <template>
   <div class="content">
     <div id="upper-infos">
-      <h1 class="title">Ubisoft</h1>
-      <p id="description">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsumorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsuorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsu</p>
+      <h1 class="title">{{ company.name }}</h1>
+      <p id="description">{{ company.description }}</p>
       <div>
         <div class="main-infos">
           <div class="yellowRound">
             <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
-          <p class="textOnBlue">3 rue du studio Ubisoft, Montpellier 34000</p>
+          <p class="textOnBlue">{{ company.adress }}</p>
         </div>
         <div class="main-infos">
           <div class="yellowRound">
             <img src="@/assets/img/phone_light.png" alt="phone"/>
           </div>
           <div>
-            <p class="textOnBlue">0541451372</p>
-            <p class="textOnBlue">ubisoft.ubi@ubisoft.com</p>
+            <p class="textOnBlue">{{ company.contact }}</p>
           </div>
         </div>
       </div>
@@ -28,11 +43,15 @@
     <div id="lower-infos">
       <h2>Jeux Vidéo</h2>
       <div class="list">
-        <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
-        <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
-        <router-link :to="{name:'videogame'}" class="block"><p>Assassin's Creed</p></router-link>
+        <router-link :to="{name:'videogame',params:{id:videogame.id}}" class="block"
+                     v-for="videogame in listVideoGames" :key="videogame.id"
+        >
+          <p>{{videogame.name}}</p>
+        </router-link>
       </div>
-     <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogames'})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+      <div class="bottom-button">
+        <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir plus</p></div>
+      </div>
     </div>
   </div>
 </template>

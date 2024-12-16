@@ -1,8 +1,9 @@
 export interface VideoGame {
   id: number;
   name: string;
+  description: string;
   type: string;
-  support: string;
+  support: string[];
   playtests:  Playtest[];
   company: Company;
 }
@@ -15,10 +16,12 @@ export interface Playtest{
   company: Company;
   visibility: boolean;
   nbMaxPlayer: number;
+  participants: Player[];
+  typePlayerSearched: string;
 }
 
 export interface Company{
-  id: number;
+  id: string;
   login: string;
   email: string;
   password: string;
@@ -26,4 +29,17 @@ export interface Company{
   description: string;
   adress: string;
   contact: string;
+  videoGames: VideoGame[];
+}
+
+export interface Player{
+  id: string;
+  login: string;
+  email: string;
+  password: string;
+  name: string;
+  firstName: string;
+  birthdayDate: string;
+  favoriteGames: string[];
+  participants: VideoGame[];
 }
