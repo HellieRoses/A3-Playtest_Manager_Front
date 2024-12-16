@@ -34,7 +34,7 @@ function canDelete() {
         <div class="button delete-button" v-if="canDelete" @click=""><p>Supprimer</p></div>
         <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
       </div>
-      <div>
+      <div class="list">
         <router-link :to="{name : 'company',params: {id:videogame.company.id}}">
           <div class="main-infos">
             <div class="yellowRound">
@@ -113,14 +113,11 @@ function canDelete() {
   }
 
   & #lower-infos {
-    height: 50%;
-
     & h2 {
       margin-bottom: 0;
     }
-
-    & .list {
-      row-gap: 70% !important;
+    & .list{
+      row-gap: 3em!important;
       column-gap: 10%;
     }
   }

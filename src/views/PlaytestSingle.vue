@@ -55,7 +55,7 @@ function canDelete(){
         </router-link>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/calendar.png" alt="calendar"/>
+            <img src="@/assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
             <p class="textOnBlue">Début : {{ (new Date(playtest.begin)).toLocaleString("fr") }}</p>
@@ -74,7 +74,7 @@ function canDelete(){
         </router-link>
         <div class="main-infos">
           <div class="yellowRound">
-            <img src="@/assets/img/pin.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">{{ playtest.adress }}</p>
         </div>
@@ -103,11 +103,8 @@ function canDelete(){
 .content {
   align-items: center;
   padding: 15px;
-
-  & #upper-infos {
-    height: 50%;
-
-    & > div {
+  & #upper-infos{
+    & > div{
       display: grid;
       grid-template-columns: 1fr 1Fr;
       row-gap: 20%;

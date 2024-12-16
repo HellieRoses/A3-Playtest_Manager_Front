@@ -1,0 +1,16 @@
+@import "./list.css";
+.blockContent {
+    height: 45%;
+    border-radius: 15px;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    & .list {
+        width: 90%;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 5em;
+    }
+}

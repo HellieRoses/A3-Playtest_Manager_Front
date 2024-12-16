@@ -97,9 +97,6 @@ header > #connectButton {
   }
   & #profileButton{
     display: none;
-    background-color: #7A98FB;/*if on profile #FFE285 */
-    padding: 5px;
-    border-radius: 100%;
   }
 }
 
@@ -122,6 +119,21 @@ header > #connectButton {
 .delete-button {
   background-color: #E65759!important;
 }
+
+.bottom-button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  & .button {
+    background-color: #BBFFE9;
+
+    & p {
+      font-weight: normal;
+    }
+  }
+}
+
 .clickable:hover, .button:hover, a:hover{
   filter: brightness(120%);
   cursor: pointer;
@@ -132,7 +144,9 @@ header > #connectButton {
   }
   border-bottom: 1px #FFFFFF solid;
 }
-
+.active-profile > .button{
+  background-color: #FFE285!important;
+}
 .textOnBlue{
   color: #B2EBFF;
 }
