@@ -1,7 +1,7 @@
 import {reactive} from "vue";
 
 export const apiStore = reactive({
-    apiUrl: "http://localhost/playtest_manager/public/api/",
+    apiUrl: "http://localhost/playtest-manager/public/api/",
     utilisateurConnecte: null,
     estConnecte: false,
 
