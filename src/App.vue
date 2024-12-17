@@ -15,10 +15,10 @@ import router from "@/router";
     </div>
 
     <div id="connectButton">
-      <div class="button" id="login"><p>Log In</p></div>
-      <div class="button" id="getStarted"><p>Get Started</p></div>
+      <div @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
+      <div @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
       <router-link :to="{name : 'profile'}" active-class="active-profile">
-        <div class="button blueRound" id="profileButton">
+        <div class="button round blueRound" id="profileButton">
         <img src="@/assets/img/profile.png" alt="profile">
       </div>
       </router-link>
@@ -26,7 +26,7 @@ import router from "@/router";
 
   </header>
 
-  <main>
+  <main class="main">
     <router-view />
   </main>
 </template>

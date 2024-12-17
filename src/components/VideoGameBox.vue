@@ -15,13 +15,13 @@ defineProps<{videogame: VideoGame}>();
     </div>
     <div id="infos">
       <div>
-        <div class="blueRound">
+        <div class="round blueRound">
           <img src="@/assets/img/playtest.png"/>
         </div>
         <p>{{videogame.playtests.length}}</p>
       </div>
       <div>
-        <div class="blueRound">
+        <div class="round blueRound">
           <img src="@/assets/img/building.png"/>
         </div>
         <p>{{ videogame.company.name }}</p>

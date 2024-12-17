@@ -15,7 +15,7 @@ defineProps<{company: Company}>();
   </div>
   <div id="infos">
     <div>
-    <div class="blueRound">
+    <div class="round blueRound">
       <img src="@/assets/img/phone.png"/>
     </div>
     <p>{{ company.contact }}</p>
