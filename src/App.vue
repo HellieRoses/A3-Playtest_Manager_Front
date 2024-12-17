@@ -1,15 +1,27 @@
 <script setup lang="ts">
-
 import router from "@/router";
 import {apiStore} from "@/util/apiStore.ts";
+import {onMounted, ref} from "vue";
+
+const loaded = ref(false);
 
 async function deconnect() {
   await apiStore.logout();
 }
+
+onMounted(async () => {
+  try {
+    await apiStore.refresh();
+  } catch (error) {
+
+  } finally {
+    loaded.value = true;
+  }
+});
 </script>
 
 <template>
-  <header>
+  <header v-if="loaded">
     <div id="mainHeader">
       <img @click="$router.push({name : 'home'})" src="@/assets/img/logo.png" alt="logo">
       <div id="tabs">
@@ -32,7 +44,7 @@ async function deconnect() {
 
   </header>
 
-  <main class="main">
+  <main  v-if="loaded" class="main">
     <router-view />
   </main>
 </template>
