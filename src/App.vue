@@ -1,6 +1,11 @@
 <script setup lang="ts">
 
 import router from "@/router";
+import {apiStore} from "@/util/apiStore.ts";
+
+async function deconnect() {
+  await apiStore.logout();
+}
 </script>
 
 <template>
@@ -15,8 +20,9 @@ import router from "@/router";
     </div>
 
     <div id="connectButton">
-      <div @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
-      <div @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
+      <div v-if="!apiStore.estConnecte" @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
+      <div v-if="apiStore.estConnecte" @click="deconnect" class="button" id="login"><p>Log Out</p></div>
+      <div v-if="!apiStore.estConnecte" @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
       <router-link :to="{name : 'profile'}" active-class="active-profile">
         <div class="button round blueRound" id="profileButton">
         <img src="@/assets/img/profile.png" alt="profile">

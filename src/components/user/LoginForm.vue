@@ -8,7 +8,7 @@ const connectingUser = ref({
 });
 
 async function connect(): Promise<void> {
-  console.log(await apiStore.login(connectingUser.value.login, connectingUser.value.password))
+  await apiStore.login(connectingUser.value.login, connectingUser.value.password);
 }
 </script>
 
