@@ -17,11 +17,11 @@ import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
         </div>
         <div class="optionalForm">
           <div class="group">
-            <textarea placeholder="Votre jeux vidéo favoris..." rows="10"/>
+            <textarea id="favoriteVideoGame" placeholder="Votre jeux vidéo favoris..." rows="10"/>
             <label for="favoriteVideoGame">Jeux Vidéo Préférés</label>
           </div>
           <div class="group">
-            <input type="text" placeholder="Votre Contact..."/>
+            <input id="contact" type="text" placeholder="Votre Contact..."/>
             <label for="contact">Contact</label>
           </div>
         </div>

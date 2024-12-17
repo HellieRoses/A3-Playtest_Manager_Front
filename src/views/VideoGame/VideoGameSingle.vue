@@ -13,14 +13,14 @@
         <router-link :to="{name : 'company'}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="@/assets/img/building.png" alt="building"/>
+              <img src="../../assets/img/building.png" alt="building"/>
             </div>
             <p class="textOnBlue">Ubisoft</p>
           </div>
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="@/assets/img/controller_2.png" alt="controller"/>
+            <img src="../../assets/img/controller_2.png" alt="controller"/>
           </div>
           <div>
             <p class="textOnBlue">RPG, Aventure</p>
@@ -28,7 +28,7 @@
         </div>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="@/assets/img/desktop.png" alt="desktop"/>
+            <img src="../../assets/img/desktop.png" alt="desktop"/>
           </div>
           <div>
             <p class="textOnBlue">PC, Console</p>
