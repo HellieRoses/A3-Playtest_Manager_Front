@@ -69,7 +69,7 @@ const router = createRouter({
       component : () => import('@/views/users/UserForms.vue')
     },
     {
-      path: '/updateCompany', /*TODO CHANGE*/
+      path: '/updateCompany/:id',
       name: 'updateCompany',
       component : () => import('@/components/user/FormUpdateCompany.vue')
     },

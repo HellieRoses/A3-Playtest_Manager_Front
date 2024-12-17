@@ -1,7 +1,37 @@
 <script setup lang="ts">
 
-import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
 import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
+import {useRoute} from "vue-router";
+import {ref} from "vue";
+import {apiStore} from "@/util/apiStore.ts";
+
+
+const route = useRoute();
+const id = route.params.id;
+const company = ref();
+
+apiStore.getById('companies', id)
+  .then(reponseJSON => {
+    company.value = reponseJSON;
+  })
+const emit = defineEmits<{ updated: []}>();
+
+
+const updateResource = () => {
+  apiStore.updateRessource('companies', id, {
+      name: company.value.name,
+      description: company.value.description,
+      adress: company.value.adress,
+      contact: company.value.contact,
+      email: company.value.email,
+      currentPlainPassword: "Lapin123",
+    }.value
+  ).then(reponse => {
+    emit('updated');
+    console.log(reponse);
+    //TODO notify
+  })
+}
 </script>
 
 <template>
@@ -10,28 +40,28 @@ import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
       <h1>Modification du Compte</h1>
     </div>
 
-    <form @submit.prevent=""> <!-- fonction inscrire player-->
+    <form @submit.prevent="updateResource"> <!-- fonction inscrire player-->
       <div id="content">
         <div class="mainForm">
-          <CompanyFormContent/>
+          <CompanyFormContent :company="company" />
         </div>
         <div class="optionalForm">
           <div class="group">
-            <textarea placeholder="La description de votre entreprise..." rows="8"/>
+            <textarea v-model="company.description" placeholder="La description de votre entreprise..." rows="8"></textarea>
             <label for="description">Description</label>
           </div>
           <div class="group">
-            <input type="text" placeholder="L'adresse de votre entreprise..."/>
+            <input v-model="company.adress" type="text" placeholder="L'adresse de votre entreprise..."/>
             <label for="address">Adresse</label>
           </div>
           <div class="group">
-            <input type="text" placeholder="Votre contact..."/>
+            <input v-model="company.contact" type="text" placeholder="Votre contact..." />
             <label for="contact">Contact</label>
           </div>
         </div>
       </div>
       <div class="bottom-button">
-        <button class="button">
+        <button  type="submit" class="button">
           <p>Modifier</p>
         </button>
         <div class="button delete-button" @click="">
