@@ -48,7 +48,7 @@ function clickOnRound(type){
         <PlayerFormContent/>
       </div>
       <div class="bottom-button">
-        <button class="button">
+        <button type="submit" class="button">
           <p>Se Connecter</p>
         </button>
       </div>
@@ -59,7 +59,7 @@ function clickOnRound(type){
         <CompanyFormContent />
       </div>
       <div class="bottom-button">
-        <button class="button">
+        <button type="submit" class="button">
           <p>Se Connecter</p>
         </button>
       </div>

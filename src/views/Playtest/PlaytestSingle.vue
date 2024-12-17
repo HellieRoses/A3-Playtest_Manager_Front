@@ -46,7 +46,7 @@ function canDelete(){
         <router-link :to="{name : 'company',params:{id:playtest.company.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="@/assets/img/building.png" alt="building"/>
+              <img src="../../assets/img/building.png" alt="building"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.company.name }}</p>
@@ -55,7 +55,7 @@ function canDelete(){
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="@/assets/img/calendar_light.png" alt="calendar"/>
+            <img src="../../assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
             <p class="textOnBlue">Début : {{ (new Date(playtest.begin)).toLocaleString("fr") }}</p>
@@ -65,7 +65,7 @@ function canDelete(){
         <router-link :to="{name : 'videogame',params:{id:playtest.videoGame.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="@/assets/img/videoGame.png" alt="videogame"/>
+              <img src="../../assets/img/videoGame.png" alt="videogame"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.videoGame.name }}</p>
@@ -74,7 +74,7 @@ function canDelete(){
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="@/assets/img/pin_light.png" alt="pin"/>
+            <img src="../../assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">{{ playtest.adress }}</p>
         </div>

@@ -17,21 +17,21 @@ import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
         </div>
         <div class="optionalForm">
           <div class="group">
-            <textarea placeholder="La description de votre entreprise..." rows="8"/>
+            <textarea id="description" name="description" placeholder="La description de votre entreprise..." rows="8"/>
             <label for="description">Description</label>
           </div>
           <div class="group">
-            <input type="text" placeholder="L'adresse de votre entreprise..."/>
+            <input id="address" name="address" type="text" placeholder="L'adresse de votre entreprise..."/>
             <label for="address">Adresse</label>
           </div>
           <div class="group">
-            <input type="text" placeholder="Votre contact..."/>
+            <input id="contact" name="contact" type="text" placeholder="Votre contact..."/>
             <label for="contact">Contact</label>
           </div>
         </div>
       </div>
       <div class="bottom-button">
-        <button class="button">
+        <button type="submit" class="button">
           <p>Modifier</p>
         </button>
         <div class="button delete-button" @click="">

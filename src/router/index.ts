@@ -16,12 +16,12 @@ const router = createRouter({
     {
       path: '/companies',
       name : 'companies',
-      component : () => import('@/views/CompanyList.vue')
+      component : () => import('@/views/Company/CompanyList.vue')
     },
     {
       path: '/company/:id',
       name : 'company',
-      component : () => import('@/views/CompanySingle.vue')
+      component : () => import('@/views/Company/CompanySingle.vue')
     },
     {
       path: '/company/:id/videogames',
@@ -36,22 +36,22 @@ const router = createRouter({
     {
       path: '/videogames',
       name : 'videogames',
-      component : () => import('@/views/VideoGameList.vue')
+      component : () => import('@/views/VideoGame/VideoGameList.vue')
     },
     {
       path: '/videogame/:id',
       name : 'videogame',
-      component : () => import('@/views/VideoGameSingle.vue')
+      component : () => import('@/views/VideoGame/VideoGameSingle.vue')
     },
     {
       path: '/playtests',
       name : 'playtests',
-      component : () => import('@/views/PlaytestList.vue')
+      component : () => import('@/views/Playtest/PlaytestList.vue')
     },
     {
       path: '/playtest/:id',
       name : 'playtest',
-      component : () => import('@/views/PlaytestSingle.vue')
+      component : () => import('@/views/Playtest/PlaytestSingle.vue')
     },
     {
       path: '/profile',
