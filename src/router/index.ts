@@ -68,7 +68,17 @@ const router = createRouter({
       path: '/updatePlayer', /*TODO CHANGE*/
       name: 'updatePlayer',
       component : () => import('@/components/user/FormUpdatePlayer.vue')
-    }
+    },
+    {
+      path: '/createPlaytest', /*TODO CHANGE*/
+      name: 'createPlaytest',
+      component : () => import('@/views/Playtest/CreatePlaytest.vue')
+    },
+    {
+      path: '/updatePlaytest', /*TODO CHANGE*/
+      name: 'updatePlaytest',
+      component : () => import('@/views/Playtest/UpdatePlaytest.vue')
+    },
   ]
 })
 
