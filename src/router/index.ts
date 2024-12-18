@@ -88,6 +88,17 @@ const router = createRouter({
       name: 'updatePlaytest',
       component : () => import('@/views/Playtest/UpdatePlaytest.vue')
     },
+
+    {
+      path: '/createVideoGame', /*TODO CHANGE*/
+      name: 'createVideoGame',
+      component : () => import('@/views/VideoGame/CreateVideoGame.vue')
+    },
+    {
+      path: '/updateVideoGame', /*TODO CHANGE*/
+      name: 'updateVideoGame',
+      component : () => import('@/views/VideoGame/UpdateVideoGame.vue')
+    },
   ]
 })
 
