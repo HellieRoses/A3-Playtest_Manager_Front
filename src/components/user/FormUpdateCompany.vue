@@ -47,21 +47,21 @@ const updateResource = () => {
         </div>
         <div class="optionalForm">
           <div class="group">
-            <textarea v-model="company.description" placeholder="La description de votre entreprise..." rows="8"></textarea>
+            <textarea id="description" name="description" placeholder="La description de votre entreprise..." rows="8" v-model="company.description"/>
             <label for="description">Description</label>
           </div>
           <div class="group">
-            <input v-model="company.adress" type="text" placeholder="L'adresse de votre entreprise..."/>
+            <input id="address" name="address" type="text" placeholder="L'adresse de votre entreprise..." v-model="company.adress"/>
             <label for="address">Adresse</label>
           </div>
           <div class="group">
-            <input v-model="company.contact" type="text" placeholder="Votre contact..." />
+            <input id="contact" name="contact" type="text" placeholder="Votre contact..." v-model="company.contact"/>
             <label for="contact">Contact</label>
           </div>
         </div>
       </div>
       <div class="bottom-button">
-        <button  type="submit" class="button">
+        <button type="submit" class="button">
           <p>Modifier</p>
         </button>
         <div class="button delete-button" @click="">
