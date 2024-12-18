@@ -74,7 +74,7 @@ const router = createRouter({
       component : () => import('@/components/user/FormUpdateCompany.vue')
     },
     {
-      path: '/updatePlayer', /*TODO CHANGE*/
+      path: '/updatePlayer/:id',
       name: 'updatePlayer',
       component : () => import('@/components/user/FormUpdatePlayer.vue')
     }
