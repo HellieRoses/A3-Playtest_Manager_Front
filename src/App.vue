@@ -9,9 +9,15 @@ async function deconnect() {
   await apiStore.logout();
 }
 
-apiStore.refresh().then( response => {
-  loaded.value = true;
-})
+onMounted(async () => {
+  try {
+    await apiStore.refresh();
+  } catch (error) {
+
+  } finally {
+    loaded.value = true;
+  }
+});
 </script>
 
 <template>
