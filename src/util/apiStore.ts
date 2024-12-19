@@ -103,9 +103,14 @@ export const apiStore = reactive({
       })
         .then(reponsehttp => reponsehttp.json())
     },
-    updateRessource(ressource: string, id: number): Promise<any> {
+    updateRessource(ressource: string, id: number,data: any): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id, {
-        method: "PATCH"
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
       })
         .then(reponsehttp => reponsehttp.json())
     },

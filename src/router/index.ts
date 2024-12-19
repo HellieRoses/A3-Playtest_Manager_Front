@@ -16,12 +16,12 @@ const router = createRouter({
     {
       path: '/companies',
       name : 'companies',
-      component : () => import('@/views/CompanyList.vue')
+      component : () => import('@/views/Company/CompanyList.vue')
     },
     {
       path: '/company/:id',
       name : 'company',
-      component : () => import('@/views/CompanySingle.vue')
+      component : () => import('@/views/Company/CompanySingle.vue')
     },
     {
       path: '/company/:id/videogames',
@@ -36,22 +36,22 @@ const router = createRouter({
     {
       path: '/videogames',
       name : 'videogames',
-      component : () => import('@/views/VideoGameList.vue')
+      component : () => import('@/views/VideoGame/VideoGameList.vue')
     },
     {
       path: '/videogame/:id',
       name : 'videogame',
-      component : () => import('@/views/VideoGameSingle.vue')
+      component : () => import('@/views/VideoGame/VideoGameSingle.vue')
     },
     {
       path: '/playtests',
       name : 'playtests',
-      component : () => import('@/views/PlaytestList.vue')
+      component : () => import('@/views/Playtest/PlaytestList.vue')
     },
     {
       path: '/playtest/:id',
       name : 'playtest',
-      component : () => import('@/views/PlaytestSingle.vue')
+      component : () => import('@/views/Playtest/PlaytestSingle.vue')
     },
     {
       path: '/profile',
@@ -69,7 +69,7 @@ const router = createRouter({
       component : () => import('@/views/users/UserForms.vue')
     },
     {
-      path: '/updateCompany', /*TODO CHANGE*/
+      path: '/updateCompany/:id',
       name: 'updateCompany',
       component : () => import('@/components/user/FormUpdateCompany.vue')
     },
@@ -77,7 +77,28 @@ const router = createRouter({
       path: '/updatePlayer', /*TODO CHANGE*/
       name: 'updatePlayer',
       component : () => import('@/components/user/FormUpdatePlayer.vue')
-    }
+    },
+    {
+      path: '/createPlaytest', /*TODO CHANGE*/
+      name: 'createPlaytest',
+      component : () => import('@/views/Playtest/CreatePlaytest.vue')
+    },
+    {
+      path: '/updatePlaytest', /*TODO CHANGE*/
+      name: 'updatePlaytest',
+      component : () => import('@/views/Playtest/UpdatePlaytest.vue')
+    },
+
+    {
+      path: '/createVideoGame', /*TODO CHANGE*/
+      name: 'createVideoGame',
+      component : () => import('@/views/VideoGame/CreateVideoGame.vue')
+    },
+    {
+      path: '/updateVideoGame', /*TODO CHANGE*/
+      name: 'updateVideoGame',
+      component : () => import('@/views/VideoGame/UpdateVideoGame.vue')
+    },
   ]
 })
 

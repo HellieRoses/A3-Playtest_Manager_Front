@@ -3,7 +3,7 @@
     flex-direction: column-reverse;
     width: 60%;
     margin: 15px 0;
-    & > input,textarea{
+    & > input,textarea,select{
         box-sizing: border-box;
         border: 1px solid black;
         width: 100%;
@@ -18,5 +18,8 @@
     & > input:focus , textarea:focus{
         background-color: rgba(122, 152,251,0.4);
         outline: none;
+    }
+    & select > option:checked {
+        background-color:rgba(122, 152,251,0.4);
     }
 }
