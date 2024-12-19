@@ -77,7 +77,28 @@ const router = createRouter({
       path: '/updatePlayer', /*TODO CHANGE*/
       name: 'updatePlayer',
       component : () => import('@/components/user/FormUpdatePlayer.vue')
-    }
+    },
+    {
+      path: '/createPlaytest', /*TODO CHANGE*/
+      name: 'createPlaytest',
+      component : () => import('@/views/Playtest/CreatePlaytest.vue')
+    },
+    {
+      path: '/updatePlaytest', /*TODO CHANGE*/
+      name: 'updatePlaytest',
+      component : () => import('@/views/Playtest/UpdatePlaytest.vue')
+    },
+
+    {
+      path: '/createVideoGame', /*TODO CHANGE*/
+      name: 'createVideoGame',
+      component : () => import('@/views/VideoGame/CreateVideoGame.vue')
+    },
+    {
+      path: '/updateVideoGame', /*TODO CHANGE*/
+      name: 'updateVideoGame',
+      component : () => import('@/views/VideoGame/UpdateVideoGame.vue')
+    },
   ]
 })
 
