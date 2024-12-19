@@ -1,10 +1,27 @@
 <script setup lang="ts">
-
 import router from "@/router";
+import {apiStore} from "@/util/apiStore.ts";
+import {onMounted, ref} from "vue";
+
+const loaded = ref(false);
+
+async function deconnect() {
+  await apiStore.logout();
+}
+
+onMounted(async () => {
+  try {
+    await apiStore.refresh();
+  } catch (error) {
+
+  } finally {
+    loaded.value = true;
+  }
+});
 </script>
 
 <template>
-  <header>
+  <header v-if="loaded">
     <div id="mainHeader">
       <img @click="$router.push({name : 'home'})" src="@/assets/img/logo.png" alt="logo">
       <div id="tabs">
@@ -15,8 +32,9 @@ import router from "@/router";
     </div>
 
     <div id="connectButton">
-      <div @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
-      <div @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
+      <div v-if="!apiStore.estConnecte" @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
+      <div v-if="apiStore.estConnecte" @click="deconnect" class="button" id="login"><p>Log Out</p></div>
+      <div v-if="!apiStore.estConnecte" @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
       <router-link :to="{name : 'profile'}" active-class="active-profile">
         <div class="button round blueRound" id="profileButton">
         <img src="@/assets/img/profile.png" alt="profile">
@@ -26,7 +44,7 @@ import router from "@/router";
 
   </header>
 
-  <main class="main">
+  <main  v-if="loaded" class="main">
     <router-view />
   </main>
 </template>

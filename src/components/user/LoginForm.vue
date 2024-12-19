@@ -1,5 +1,15 @@
 <script setup lang="ts">
+import {ref} from "vue";
+import {apiStore} from "@/util/apiStore.ts";
 
+const connectingUser = ref({
+  login: "",
+  password:""
+});
+
+async function connect(): Promise<void> {
+  await apiStore.login(connectingUser.value.login, connectingUser.value.password);
+}
 </script>
 
 <template>
@@ -10,14 +20,14 @@
         <img src="@/assets/img/profile_bigger.png">
       </div>
     </div>
-    <form @submit.prevent=""> <!-- fonction connect -->
+    <form @submit.prevent="connect"> <!-- fonction connect -->
       <div>
         <div class="group">
-          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..."/>
+          <input v-model="connectingUser.login" id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..."/>
           <label for="username">Nom d'Utilisateur</label>
         </div>
         <div class="group">
-          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..."/>
+          <input v-model="connectingUser.password" id="password" name="password" type="password" required placeholder="Votre mot de passe..."/>
           <label for="password">Mot de passe</label>
         </div>
       </div>

@@ -70,6 +70,21 @@ export const apiStore = reactive({
           'Content-Type': 'application/json'
         }
       })
+        .then(reponsehttp => {
+          if (!reponsehttp.ok) {
+            return reponsehttp.json()
+              .then(reponseJSON => {
+                return {success: false, error: reponseJSON.message};
+              })
+          } else {
+            this.estConnecte = true;
+            return reponsehttp.json()
+              .then(reponseJSON => {
+                this.utilisateurConnecte = reponseJSON;
+                return {success: true};
+              })
+          }
+        })
     },
     createRessource(ressource: string, data: any): Promise<any> {
       return fetch(this.apiUrl + ressource, {
