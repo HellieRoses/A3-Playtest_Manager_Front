@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
 import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 
@@ -17,6 +16,9 @@ const firstName = ref("");
 const birthdayDate = ref();
 const mail = ref("");
 const password = ref("");
+const adress = ref("");
+const contact = ref("");
+const companyName = ref("");
 
 function clickOnRound(type){
   if(accountType != type){
@@ -35,8 +37,13 @@ function clickOnRound(type){
   }
 }
 
-async function signUp(type) {
-  await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+async function signUp() {
+  if (accountType === "player") {
+    await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+  }
+  else if (accountType === "company") {
+    await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
+  }
 }
 </script>
 
@@ -53,7 +60,7 @@ async function signUp(type) {
         </div>
       </div>
     </div>
-    <form @submit.prevent="signUp('player')" id="playerForm"> <!-- fonction inscrire player-->
+    <form @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
       <div>
         <div class="group">
           <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
@@ -89,9 +96,32 @@ async function signUp(type) {
       </div>
     </form>
 
-    <form @submit.prevent="" id="companyForm"> <!-- fonction inscrire company -->
+    <form @submit.prevent="signUp" id="companyForm"> <!-- fonction inscrire company -->
       <div>
-        <CompanyFormContent />
+        <div class="group">
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
+          <label for="username">Nom d'Utilisateur</label>
+        </div>
+        <div class="group">
+          <input id="companyAdress" name="companyAdress" type="text" required placeholder="Adresse de l'entreprise..." v-model="adress"/>
+          <label for="companyAdress">Adresse</label>
+        </div>
+        <div class="group">
+          <input id="companyContact" name="companyContact" type="tel" required placeholder="Numéro de téléphone de l'entreprise..." v-model="contact"/>
+          <label for="companyName">Numéro de téléphone</label>
+        </div>
+        <div class="group">
+          <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="companyName"/>
+          <label for="companyName">Nom d'Entreprise</label>
+        </div>
+        <div class="group">
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="mail"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="password"/>
+          <label for="password">Mot de passe</label>
+        </div>
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
