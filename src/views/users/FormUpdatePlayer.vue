@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
 import {useRoute} from "vue-router";
 import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";

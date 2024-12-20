@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
 import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
+import {ref} from "vue";
+import {apiStore} from "@/util/apiStore.ts";
 
 let accountType = 'player';
 let playerForm;
@@ -10,6 +11,12 @@ window.onload = () => {
   companyForm = document.getElementById('companyForm');
   companyForm.style.display = 'none';
 }
+const login = ref("");
+const surname = ref("");
+const firstName = ref("");
+const birthdayDate = ref();
+const mail = ref("");
+const password = ref("");
 
 function clickOnRound(type){
   if(accountType != type){
@@ -27,6 +34,10 @@ function clickOnRound(type){
     }
   }
 }
+
+async function signUp(type) {
+  await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+}
 </script>
 
 <template>
@@ -42,10 +53,34 @@ function clickOnRound(type){
         </div>
       </div>
     </div>
-
-    <form @submit.prevent="" id="playerForm"> <!-- fonction inscrire player-->
+    <form @submit.prevent="signUp('player')" id="playerForm"> <!-- fonction inscrire player-->
       <div>
-        <PlayerFormContent />
+        <div class="group">
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
+          <label for="username">Nom d'Utilisateur</label>
+        </div>
+        <div id="names">
+          <div class="group">
+            <input id="name" name="name" type="text" required placeholder="Votre nom..." v-model="surname"/>
+            <label for="name">Nom</label>
+          </div>
+          <div class="group">
+            <input id="firstname" name="firstname"  type="text" required placeholder="Votre prénom..." v-model="firstName"/>
+            <label for="firstname">Prénom</label>
+          </div>
+        </div>
+        <div class="group">
+          <input id="birthdaydate" name="birthdaydate" type="date" required v-model="birthdayDate"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="mail"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="password"/>
+          <label for="password">Mot de passe</label>
+        </div>
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
@@ -79,5 +114,14 @@ form{
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+#names{
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+
+  & .group{
+    width: 45%;
+  }
 }
 </style>
