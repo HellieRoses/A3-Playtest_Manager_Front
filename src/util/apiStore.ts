@@ -65,21 +65,19 @@ export const apiStore = reactive({
     refresh() {
       return fetch(this.apiUrl + "token/refresh", {
         method: "POST",
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        credentials: 'include'
       })
         .then(reponsehttp => {
           if (!reponsehttp.ok) {
+            this.estConnecte = false;
             return reponsehttp.json()
               .then(reponseJSON => {
                 return {success: false, error: reponseJSON.message};
               })
           } else {
-            this.estConnecte = true;
             return reponsehttp.json()
               .then(reponseJSON => {
+                this.estConnecte = true;
                 this.utilisateurConnecte = reponseJSON;
                 return {success: true};
               })

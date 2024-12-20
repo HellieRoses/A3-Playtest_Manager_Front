@@ -45,7 +45,7 @@ function clickOnRound(type){
 
     <form @submit.prevent="" id="playerForm"> <!-- fonction inscrire player-->
       <div>
-        <PlayerFormContent/>
+        <PlayerFormContent />
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
