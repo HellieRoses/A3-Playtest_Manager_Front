@@ -11,7 +11,7 @@ async function deconnect() {
 
 onMounted(async () => {
   try {
-    await apiStore.refresh();
+    apiStore.refresh();
   } catch (error) {
 
   } finally {
@@ -21,10 +21,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header v-if="loaded">
+  <header>
     <div id="mainHeader">
       <img @click="$router.push({name : 'home'})" src="@/assets/img/logo.png" alt="logo">
-      <div id="tabs">
+      <div id="tabs" v-if="loaded">
       <router-link :to="{name : 'companies'}" active-class="active-header"><p>Entreprises</p></router-link>
         <router-link :to="{name : 'playtests'}" active-class="active-header"><p>Playtests</p></router-link>
         <router-link :to="{name : 'videogames'}" active-class="active-header"><p>Jeux Vidéo</p></router-link>
@@ -44,10 +44,15 @@ onMounted(async () => {
 
   </header>
 
-  <main  v-if="loaded" class="main">
-    <router-view />
+  <main class="main">
+    <router-view v-if="loaded"/>
+    <img id="loader" v-if="!loaded" src="@/assets/img/loader.gif" alt="loader">
   </main>
 </template>
 
 <style scoped>
+#loader{
+  width: 200px;
+  height: 172px;
+}
 </style>
