@@ -43,7 +43,22 @@ const updateResource = () => {
     <form @submit.prevent="updateResource"> <!-- fonction inscrire player-->
       <div id="content">
         <div class="mainForm">
-          <CompanyFormContent :company="company" />
+          <div class="group">
+            <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="company.login"/>
+            <label for="username">Nom d'Utilisateur</label>
+          </div>
+          <div class="group">
+            <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="company.name"/>
+            <label for="companyName">Nom d'Entreprise</label>
+          </div>
+          <div class="group">
+            <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="company.email"/>
+            <label for="email">Email</label>
+          </div>
+          <div class="group">
+            <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="company.password"/>
+            <label for="password">Mot de passe</label>
+          </div>
         </div>
         <div class="optionalForm">
           <div class="group">

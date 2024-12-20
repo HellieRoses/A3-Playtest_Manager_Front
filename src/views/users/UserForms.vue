@@ -2,7 +2,7 @@
 import {useRoute} from "vue-router";
 import LoginForm from "@/components/user/LoginForm.vue";
 import RegisterForm from "@/components/user/RegisterForm.vue";
-import FormUpdatePlayer from "@/components/user/FormUpdatePlayer.vue";
+import FormUpdatePlayer from "@/views/users/FormUpdatePlayer.vue";
 
 const route = useRoute();
 let type = route.params.type;

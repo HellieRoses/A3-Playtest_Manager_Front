@@ -59,24 +59,24 @@ const router = createRouter({
       component : () => import('@/views/users/ProfileUser.vue')
     },
     {
-      path: '/:type',
+      path: '/login/:type',
       name: 'login',
       component : () => import('@/views/users/UserForms.vue')
     },
     {
-      path: '/:type',
+      path: '/register/:type',
       name: 'register',
       component : () => import('@/views/users/UserForms.vue')
     },
     {
       path: '/updateCompany/:id',
       name: 'updateCompany',
-      component : () => import('@/components/user/FormUpdateCompany.vue')
+      component : () => import('@/views/Company/FormUpdateCompany.vue')
     },
     {
       path: '/updatePlayer/:id',
       name: 'updatePlayer',
-      component : () => import('@/components/user/FormUpdatePlayer.vue')
+      component : () => import('@/views/users/FormUpdatePlayer.vue')
     },
     {
       path: '/createPlaytest', /*TODO CHANGE*/

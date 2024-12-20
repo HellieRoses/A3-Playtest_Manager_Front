@@ -51,8 +51,8 @@ const updateResource = () => {
             <label for="favoriteVideoGame">Jeux Vidéo Préférés</label>
           </div>
           <div class="group">
-            <input id="contact" name="contact" type="text" placeholder="Votre Contact..." v-model="player.birthdayDate"/>
-            <label for="contact">Contact</label>
+            <input id="birthday" name="birthday" type="text" placeholder="Votre Date de Naissance..." v-model="player.birthdayDate"/>
+            <label for="birthday">Date de Naissance</label>
           </div>
         </div>
       </div>

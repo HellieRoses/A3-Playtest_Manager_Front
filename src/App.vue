@@ -11,7 +11,9 @@ async function deconnect() {
 
 onMounted(async () => {
   try {
-    await apiStore.refresh();
+    apiStore.refresh().then(response => {
+      console.log(response)
+    }); // TODO crash ici (enlever await)
   } catch (error) {
 
   } finally {
@@ -44,8 +46,8 @@ onMounted(async () => {
 
   </header>
 
-  <main  v-if="loaded" class="main">
-    <router-view />
+  <main  class="main">
+    <router-view v-if="loaded"/>
   </main>
 </template>
 
