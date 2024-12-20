@@ -78,6 +78,7 @@ export const apiStore = reactive({
             return reponsehttp.json()
               .then(reponseJSON => {
                 this.estConnecte = true;
+                console.log(reponseJSON)
                 this.utilisateurConnecte = reponseJSON;
                 return {success: true};
               })
@@ -120,8 +121,8 @@ export const apiStore = reactive({
       return fetch(this.apiUrl + 'players/' + id + '/playtests')
         .then(reponsehttp => reponsehttp.json())
     },
-    createParticipation(ressource: string, data: any): Promise<any> {
-      return fetch(this.apiUrl + '/playtests/participate', {
+    createParticipation(data: any): Promise<any> {
+      return fetch(this.apiUrl + 'playtests/participate', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

@@ -1,47 +1,127 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {onBeforeMount, ref, type Ref} from 'vue';
+import {Playtest} from "@/types.ts";
 
 const route = useRoute();
 const id = route.params.id;
-const playtest = ref();
+const refid = ref("");
+const playtest: Ref<Playtest> = ref({
+  id: 0,
+  videoGame: {},
+  begin: "",
+  end: "",
+  adress: "",
+  company: {},
+  visibility: false,
+  nbMaxPlayer: 0,
+  typePlayerSearched: ""
+});
+const currentParticipation = ref(-1);
+const participationsOfPlayer:Ref = ref([]);
 
-apiStore.getById('playtests', id)
-  .then(reponseJSON => {
+const canSub = ref(false);
+const canUnsub = ref(false);
+const canDeletePlaytest = ref(false);
+
+async function chargerPlaytest() {
+  await apiStore.getById('playtests', id).then(reponseJSON => {
     playtest.value = reponseJSON;
+    refid.value = reponseJSON["@id"];
   })
 
-function canSubscribe(){
-  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
-    if (playtest.value.participants.length < playtest.value.nbMaxPlayer && !playtest.value.participants.contains(utilisateurConnecte))
-    return true;
-  }
-  return false;
 }
-function canUnSubscribe(){
-  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
-    if (playtest.value.participants.contains(utilisateurConnecte)){
-      return true;
+
+async function getParticipation() {
+  await apiStore.getParticipationPlayer(playtest.value.id).then(reponseJSON => {
+    participationsOfPlayer.value = reponseJSON["member"];
+
+    canSubscribe();
+    canUnSubscribe();
+    canDelete();
+  })
+}
+
+
+function canSubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    if (participationsOfPlayer.value.length < playtest.value.nbMaxPlayer) {
+      for (const i in participationsOfPlayer.value) {
+        const participation = participationsOfPlayer.value[i];
+        if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+          let idParticipation = participation["@id"];
+          currentParticipation.value = parseInt(idParticipation.split("/").pop());
+          canSub.value = false;
+          return;
+        }
+      }
+      canSub.value = true;
+      return;
     }
   }
-  return false;
+  canSub.value = false;
+  return;
+
 }
-function canDelete(){
-  if (apiStore.utilisateurConnecte){
-    if (playtest.value.company == apiStore.utilisateurConnecte){
-      return true;
+
+function canUnSubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    for (const i in participationsOfPlayer.value) {
+      const participation = participationsOfPlayer.value[i];
+      if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+        canUnsub.value = true;
+        return;
+      }
     }
   }
-  return false;
+  canUnsub.value = false;
 }
+
+function canDelete() {
+  console.log(apiStore.utilisateurConnecte)
+  if (apiStore.utilisateurConnecte.type == "Company") {
+    if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
+      canDeletePlaytest.value = true;
+      return;
+    }
+  }
+  canDeletePlaytest.value = false;
+  return;
+}
+
+function subscribe() {
+  console.log(refid.value)
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    apiStore.createParticipation({"playtest": refid.value}).then(reponseJSON => {
+      currentParticipation.value = reponseJSON["id"];
+      canSubscribe();
+      canUnSubscribe();
+    })
+  }
+}
+
+function unsubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
+      canSubscribe();
+      canUnSubscribe();
+    })
+  }
+}
+
+onBeforeMount(async () => {
+  await chargerPlaytest();
+  await getParticipation();
+})
+
 
 </script>
 
 <template>
   <div class="content">
     <div id="upper-infos">
-      <h1 class="title">Playtest {{playtest.id}}</h1>
+      <h1 class="title">Playtest {{ playtest.id }}</h1>
       <div>
         <router-link :to="{name : 'company',params:{id:playtest.company.id}}">
           <div class="main-infos">
@@ -85,13 +165,13 @@ function canDelete(){
       <!-- TODO change to nbMaxPlayer -->
       <p>{{ playtest.typePlayerSearched }}</p>
       <div class="bottom-button">
-        <div class="button" v-if="canSubscribe" @click=""><p>S'inscrire</p></div>
+        <div class="button" v-if="canSub" @click="subscribe"><p>S'inscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + pas inscrit -->
       <div class="bottom-button">
-        <div class="button" v-if="canUnSubscribe" @click=""><p>Désinscrire</p></div>
+        <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
       <div class="bottom-button">
-        <div class="button delete-button" v-if="canDelete" @click=""><p>Supprimer</p></div>
+        <div class="button delete-button" v-if="canDeletePlaytest" @click="canDeletePlaytest"><p>Supprimer</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
     </div>
   </div>

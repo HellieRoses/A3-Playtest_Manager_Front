@@ -11,7 +11,7 @@ async function deconnect() {
 
 onMounted(async () => {
   try {
-    apiStore.refresh();
+    await apiStore.refresh();
   } catch (error) {
 
   } finally {
