@@ -14,8 +14,8 @@ window.onload = () => {
 function clickOnRound(type){
   if(accountType != type){
     accountType=type;
-    let currentYellow = document.getElementById('choice').querySelector('.yellowRound');
-    let other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
+    const currentYellow = document.getElementById('choice').querySelector('.yellowRound');
+    const other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
     if(type == 'player'){

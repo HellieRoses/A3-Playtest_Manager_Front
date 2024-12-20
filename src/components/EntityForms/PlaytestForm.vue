@@ -27,7 +27,7 @@ defineProps<{videoGames:Array<string>}>();
       </div>
       <div class="group">
         <select id="jeuxVidéo" name="jeuxVidéo" type="text" required>
-          <option v-for="videogame in videoGames" value="{{videogame}}">{{videogame}}</option>
+          <option v-for="videogame in videoGames" :key="videogame.id" value="{{videogame}}">{{videogame}}</option>
         </select>
         <label for="jeuxVidéo">Jeux vidéo :</label>
       </div>
