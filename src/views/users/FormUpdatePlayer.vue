@@ -1,4 +1,9 @@
 <script setup lang="ts">
+function getInformationsAnnuaire() {
+  apiStore.getInformationAnnuaire(player.value.codeAnnuaire)
+    .then(reponseJSON => {console.log(reponseJSON);})
+}
+
 
 import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
 import {useRoute} from "vue-router";
@@ -85,6 +90,10 @@ const updateResource = () => {
             <input id="birthday" name="birthday" type="text" placeholder="Votre Date de Naissance..."
                    v-model="player.birthdayDate"/>
             <label for="birthday">Date de Naissance</label>
+          </div>
+          <div class="group">
+            <input id="annuaire" name="annuaire" type="text" placeholder="Votre code annuaire..." v-model="player.codeAnnuaire" @change="getInformationsAnnuaire()"/>
+            <label for="annuaire">Code annuaire</label>
           </div>
         </div>
       </div>

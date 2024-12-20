@@ -6,7 +6,7 @@
   <div id="home_content">
     <p>Bienvenue sur</p>
     <img src="@/assets/img/logo-grand.png" />
-    <p class="textOnBlue">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+    <p class="textOnBlue">Ce site permet aux utilisateurs de rejoindre des sessions de test de jeux vidéos organisés par les entreprises.</p>
   </div>
 </template>
 

@@ -2,6 +2,7 @@ import {reactive} from "vue";
 
 export const apiStore = reactive({
     apiUrl: "http://localhost/playtest_manager/public/api/",
+    apiAnnuaire: "http://localhost/annuaire_web_project/public/profil/utilisateur/",
     utilisateurConnecte: null,
     estConnecte: false,
 
@@ -101,7 +102,7 @@ export const apiStore = reactive({
       })
         .then(reponsehttp => reponsehttp.json())
     },
-    updateRessource(ressource: string, id: number,data: any): Promise<any> {
+    updateRessource(ressource: string, id: number, data: any): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id, {
         method: "PATCH",
         headers: {
@@ -145,5 +146,10 @@ export const apiStore = reactive({
       })
         .then(reponsehttp => reponsehttp.json())
     },
+    getInformationAnnuaire(code: string): Promise<any> {
+      return fetch(this.apiAnnuaire + code + "/json",{
+      })
+        .then(reponsehttp => reponsehttp.json())
+    }
   }
 )
