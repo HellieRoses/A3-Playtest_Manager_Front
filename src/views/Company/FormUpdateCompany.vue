@@ -1,15 +1,18 @@
 <script setup lang="ts">
 
-import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
 import {useRoute} from "vue-router";
-import {ref} from "vue";
+import {type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
+import type {Company} from "@/types.ts";
+import router from "@/router";
 
 
 const route = useRoute();
 const id = route.params.id;
-const company = ref();
-
+const company:Ref<Company[]> = ref('Chargement');
+if (!apiStore.estConnecte || (apiStore.estConnecte && id!==apiStore.utilisateurConnecte.id)) {
+  router.push({name: 'home'})
+}
 apiStore.getById('companies', id)
   .then(reponseJSON => {
     company.value = reponseJSON;
@@ -18,6 +21,7 @@ const emit = defineEmits<{ updated: []}>();
 
 
 const updateResource = () => {
+  console.log(company.value);
   apiStore.updateRessource('companies', id, {
       name: company.value.name,
       description: company.value.description,
@@ -25,7 +29,7 @@ const updateResource = () => {
       contact: company.value.contact,
       email: company.value.email,
       currentPlainPassword: "Lapin123",
-    }.value
+    }
   ).then(reponse => {
     emit('updated');
     console.log(reponse);
