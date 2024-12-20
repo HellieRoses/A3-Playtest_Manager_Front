@@ -39,10 +39,16 @@ function clickOnRound(type){
 
 async function signUp() {
   if (accountType === "player") {
-    await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+    try {
+      await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+    } catch(error) {}
+    await apiStore.login(login.value, password.value);
   }
   else if (accountType === "company") {
-    await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
+    try {
+      await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
+    } catch(error) {}
+    await apiStore.login(login.value, password.value);
   }
 }
 </script>
