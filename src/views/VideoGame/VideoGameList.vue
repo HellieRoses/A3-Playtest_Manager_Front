@@ -2,13 +2,23 @@
 import {apiStore} from "@/util/apiStore.ts";
 import {type Ref, ref} from 'vue';
 import VideoGameBox from "@/components/VideoGameBox.vue";
+import {useRoute} from "vue-router";
 import type {VideoGame} from "@/types.ts";
 
 const videogames:Ref<VideoGame[]>=ref([]);
-apiStore.getAll('video_games')
-.then(reponseJSON => {
-  videogames.value = reponseJSON["member"];
-});
+const route = useRoute();
+const id = route.params.id;
+if(id == undefined){
+  apiStore.getAll('video_games')
+    .then(reponseJSON => {
+      videogames.value = reponseJSON["member"];
+    });
+}else{
+  apiStore.getByCompany('video_games', id).then(reponseJSON => {
+    videogames.value = reponseJSON["member"];
+
+  })
+}
 </script>
 
 <template>

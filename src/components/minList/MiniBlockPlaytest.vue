@@ -1,11 +1,12 @@
 <script setup lang="ts">
 
+defineProps<{idPlaytest:string}>()
 </script>
 
 <template>
-  <!--<router-link :to="{name : 'playtest'}">
-    <p>Playtest 1</p>
-  </router-link>--> <!-- TODO La route est mauvaise (il manque l'id) -->
+<router-link :to="{name : 'playtest', params :{id: idPlaytest} }">
+  <p>Playtest {{idPlaytest}}</p>
+</router-link>
 </template>
 
 <style scoped>

@@ -30,6 +30,7 @@ export interface Company{
   contact: string;
   type: string;
   videoGames: VideoGame[];
+  type: string;
 }
 
 export interface Player{
@@ -43,4 +44,5 @@ export interface Player{
   favoriteGames: string[];
   type: string;
   participants: VideoGame[];
+  type: string;
 }

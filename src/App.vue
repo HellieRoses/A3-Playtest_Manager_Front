@@ -33,13 +33,13 @@ onMounted(async () => {
 
     <div id="connectButton">
       <div v-if="!apiStore.estConnecte" @click="$router.push({name:'login', params: {type: 'login'}})" class="button" id="login"><p>Log In</p></div>
-      <div v-if="apiStore.estConnecte" @click="deconnect" class="button" id="login"><p>Log Out</p></div>
       <div v-if="!apiStore.estConnecte" @click="$router.push({name:'register', params: {type: 'register'}})" class="button" id="getStarted"><p>Get Started</p></div>
-      <router-link :to="{name : 'profile'}" active-class="active-profile">
+      <router-link v-if="apiStore.estConnecte" :to="{name : 'profile'}" active-class="active-profile">
         <div class="button round blueRound" id="profileButton">
-        <img src="@/assets/img/profile.png" alt="profile">
-      </div>
+          <img src="@/assets/img/profile.png" alt="profile">
+        </div>
       </router-link>
+      <div v-if="apiStore.estConnecte" @click="deconnect" class="button" id="login"><p>Log Out</p></div>
     </div>
 
   </header>

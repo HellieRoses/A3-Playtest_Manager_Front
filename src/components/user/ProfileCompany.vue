@@ -2,7 +2,47 @@
 
 import PlaytestMinListBox from "@/components/minList/PlaytestMinListBox.vue";
 import VideoGameMinListBox from "@/components/minList/VideoGameMinListBox.vue";
+import type {Company, Playtest, VideoGame} from "@/types.ts";
+import {onBeforeMount, ref, type Ref} from "vue";
+import {apiStore} from "@/util/apiStore.ts";
 const title1 = "Playtests Organisés"
+const company:Ref<Company> = ref({
+  id: 0,
+  login: "",
+  email: "",
+  password: "",
+  name: "",
+  description: "",
+  adress: "",
+  contact: "",
+  videoGames: [],
+  type: "",
+})
+
+const playtests:Ref<Playtest[]> = ref([]);
+const videogamesFirst4:Ref<VideoGame[]> = ref([]);
+async function getCompany(){
+  await apiStore.getById('companies', apiStore.utilisateurConnecte.id).then(reponseJSON => {
+    company.value = reponseJSON;
+    for(let i=0; i < Math.min(4, company.value.videoGames.length); i++){
+      videogamesFirst4.value.push(company.value.videoGames[i]);
+    }
+  })
+}
+async function getPlaytests(){
+  await apiStore.getByCompany('playtests', apiStore.utilisateurConnecte.id).then(reponseJSON => {
+    const playtestsCurrent = reponseJSON["member"];
+    for (let i = 0; i < Math.min(4, playtestsCurrent.length); i++) {
+      playtests.value.push(playtestsCurrent[i]);
+    }
+  })
+}
+
+onBeforeMount(async() => {
+  await getCompany();
+  await getPlaytests();
+})
+
 </script>
 
 <template>
@@ -10,21 +50,21 @@ const title1 = "Playtests Organisés"
     <div class="main-content">
       <div>
         <div>
-          <h1>Ubisoft</h1>
-          <p id="description">Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummyIpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem IpsumLorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum</p>
+          <h1>{{ company.name }}</h1>
+          <p id="description">{{company.description}}</p>
         </div>
         <div class="infos">
           <div class="icon">
             <img src="@/assets/img/pin.png" alt="pin" />
-            <p> 3 rue du studio Ubisoft, Montpellier 34000</p>
+            <p>{{ company.adress }}</p>
           </div>
           <div class="icon">
             <img src="@/assets/img/phone.png" alt="phone" />
-            <p> 0786543762</p>
+            <p> {{company.contact}}</p>
           </div>
           <div class="icon">
             <img src="@/assets/img/mail.png" alt="mail" />
-            <p> maelys.boissezon@gmail.com</p>
+            <p> {{company.email}}</p>
           </div>
         </div>
       </div>
@@ -32,8 +72,8 @@ const title1 = "Playtests Organisés"
 
     </div>
     <div id="additional-content">
-      <VideoGameMinListBox />
-      <PlaytestMinListBox :title="title1"/>
+     <VideoGameMinListBox :videogames="videogamesFirst4"/>
+      <PlaytestMinListBox :title="title1" :list="playtests" :userId="apiStore.utilisateurConnecte.id" :userType="apiStore.utilisateurConnecte.type"/>
     </div>
   </div>
 </template>
