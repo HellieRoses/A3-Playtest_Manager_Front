@@ -139,11 +139,13 @@ export const apiStore = reactive({
       return fetch(this.apiUrl + 'video_games/' + id + '/playtests')
         .then(reponsehttp => reponsehttp.json())
     },
-    deleteParticipation(id: number): Promise<any> {
+    deleteParticipation(id: number): Promise<never> {
       return fetch(this.apiUrl + 'playtests/participate/' + id, {
-        method: "DELETE"
+        method: "DELETE",
+        credentials: 'include',
+
       })
-        .then(reponsehttp => reponsehttp.json())
+        .then(reponsehttp => reponsehttp)
     },
   }
 )
