@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
+import router from "@/router";
 
 let accountType = 'player';
 let playerForm;
@@ -43,12 +44,14 @@ async function signUp() {
       await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
     } catch(error) {}
     await apiStore.login(login.value, password.value);
+    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
   }
   else if (accountType === "company") {
     try {
       await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
     } catch(error) {}
     await apiStore.login(login.value, password.value);
+    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
   }
 }
 </script>
