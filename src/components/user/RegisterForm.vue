@@ -1,19 +1,35 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import router from "@/router";
+import type {Company, Player} from "@/types.ts";
 
 const accountType = ref('player');
 
-const login = ref("");
-const surname = ref("");
-const firstName = ref("");
-const birthdayDate = ref();
-const mail = ref("");
-const password = ref("");
-const adress = ref("");
-const contact = ref("");
-const companyName = ref("");
+const player: Ref<Player> = ref({
+  id: '',
+  login: '',
+  email: '',
+  password: '',
+  name: '',
+  firstName: '',
+  birthdayDate: '',
+  favoriteGames: [],
+  type: '',
+  participants: []
+});
+const company: Ref<Company> = ref({
+  id: '',
+  login: '',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: []
+});
 
 function clickOnRound(type){
   if(accountType != type){
@@ -28,16 +44,16 @@ function clickOnRound(type){
 async function signUp() {
   if (accountType.value === "player") {
     try {
-      await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
+      await apiStore.createRessource("players", {"login": player.value.login, "name": player.value.name, "firstName": player.value.firstName, "birthdayDate": new Date(player.value.birthdayDate), "email": player.value.email, "plainPassword": player.value.password});
     } catch(error) {}
-    await apiStore.login(login.value, password.value);
+    await apiStore.login(player.value.login, player.value.password);
     await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
   }
   else if (accountType.value === "company") {
     try {
-      await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
+      await apiStore.createRessource("companies", {"login": company.value.login, "adress": company.value.adress, "contact": company.value.contact, "name": company.value.name, "email": company.value.email, "plainPassword": company.value.password})
     } catch(error) {}
-    await apiStore.login(login.value, password.value);
+    await apiStore.login(company.value.login, company.value.password);
     await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
   }
 }
@@ -56,32 +72,32 @@ async function signUp() {
         </div>
       </div>
     </div>
-    <form v-if="accountType === 'player'" @submit.prevent="signUp" id="playerForm"> <!-- fonction inscrire player-->
+    <form v-if="accountType === 'player'" @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
       <div>
         <div class="group">
-          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="player.login"/>
           <label for="username">Nom d'Utilisateur</label>
         </div>
         <div id="names">
           <div class="group">
-            <input id="name" name="name" type="text" required placeholder="Votre nom..." v-model="surname"/>
+            <input id="name" name="name" type="text" required placeholder="Votre nom..." v-model="player.name"/>
             <label for="name">Nom</label>
           </div>
           <div class="group">
-            <input id="firstname" name="firstname"  type="text" required placeholder="Votre prénom..." v-model="firstName"/>
+            <input id="firstname" name="firstname"  type="text" required placeholder="Votre prénom..." v-model="player.firstName"/>
             <label for="firstname">Prénom</label>
           </div>
         </div>
         <div class="group">
-          <input id="birthdaydate" name="birthdaydate" type="date" required v-model="birthdayDate"/>
+          <input id="birthdaydate" name="birthdaydate" type="date" required v-model="player.birthdayDate"/>
           <label for="email">Email</label>
         </div>
         <div class="group">
-          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="mail"/>
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="player.email"/>
           <label for="email">Email</label>
         </div>
         <div class="group">
-          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="password"/>
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="player.password"/>
           <label for="password">Mot de passe</label>
         </div>
       </div>
@@ -92,30 +108,30 @@ async function signUp() {
       </div>
     </form>
 
-    <form v-else @submit.prevent="signUp" id="companyForm"> <!-- fonction inscrire company -->
+    <form v-else @submit.prevent="signUp()" id="companyForm"> <!-- fonction inscrire company -->
       <div>
         <div class="group">
-          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="company.login"/>
           <label for="username">Nom d'Utilisateur</label>
         </div>
         <div class="group">
-          <input id="companyAdress" name="companyAdress" type="text" required placeholder="Adresse de l'entreprise..." v-model="adress"/>
+          <input id="companyAdress" name="companyAdress" type="text" required placeholder="Adresse de l'entreprise..." v-model="company.adress"/>
           <label for="companyAdress">Adresse</label>
         </div>
         <div class="group">
-          <input id="companyContact" name="companyContact" type="tel" required placeholder="Numéro de téléphone de l'entreprise..." v-model="contact"/>
+          <input id="companyContact" name="companyContact" type="tel" required placeholder="Numéro de téléphone de l'entreprise..." v-model="company.contact"/>
           <label for="companyName">Numéro de téléphone</label>
         </div>
         <div class="group">
-          <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="companyName"/>
+          <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="company.name"/>
           <label for="companyName">Nom d'Entreprise</label>
         </div>
         <div class="group">
-          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="mail"/>
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="company.email"/>
           <label for="email">Email</label>
         </div>
         <div class="group">
-          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="password"/>
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="company.password"/>
           <label for="password">Mot de passe</label>
         </div>
       </div>
