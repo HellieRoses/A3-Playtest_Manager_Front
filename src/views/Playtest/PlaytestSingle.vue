@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onBeforeMount, ref, type Ref} from 'vue';
 import {Playtest} from "@/types.ts";
 
 const route = useRoute();
+const router = useRouter();
 const id = route.params.id;
+
 const refid = ref("");
 const playtest: Ref<Playtest> = ref({
   id: 0,
@@ -23,7 +25,7 @@ const participationsOfPlayer:Ref = ref([]);
 
 const canSub = ref(false);
 const canUnsub = ref(false);
-const canDeletePlaytest = ref(false);
+const canDeleteModify = ref(false);
 
 async function chargerPlaytest() {
   await apiStore.getById('playtests', id).then(reponseJSON => {
@@ -82,11 +84,11 @@ function canDelete() {
   console.log(apiStore.utilisateurConnecte)
   if (apiStore.utilisateurConnecte.type == "Company") {
     if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
-      canDeletePlaytest.value = true;
+      canDeleteModify.value = true;
       return;
     }
   }
-  canDeletePlaytest.value = false;
+  canDeleteModify.value = false;
   return;
 }
 
@@ -106,6 +108,14 @@ function unsubscribe() {
     apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
       canSubscribe();
       canUnSubscribe();
+    })
+  }
+}
+
+function deletePlaytest() {
+  if(apiStore.utilisateurConnecte.type == "Company"){
+    apiStore.deleteRessource('playtests', playtest.value.id).then(responseJSON => {
+      router.push({"name": "playtests"})
     })
   }
 }
@@ -170,9 +180,10 @@ onBeforeMount(async () => {
       <div class="bottom-button">
         <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
-      <div class="bottom-button">
-        <div class="button delete-button" v-if="canDeletePlaytest" @click="canDeletePlaytest"><p>Supprimer</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
+      <div class="bottom-button" v-if="canDeleteModify">
+        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div><!-- TODO mettre bonne route playtest-->
+        <div class="button delete-button" @click="deletePlaytest"><p>Supprimer</p></div>
+      </div>
     </div>
   </div>
 </template>
@@ -238,5 +249,8 @@ onBeforeMount(async () => {
     }
 
   }
+}
+.delete-button{
+  margin-left: 2%;
 }
 </style>
