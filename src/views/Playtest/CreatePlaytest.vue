@@ -23,10 +23,9 @@ const playtest:Ref<Playtest>=ref({
 })
 
 function createPlaytest(){
-  console.log(playtest.value.videogame);
   apiStore.createRessource('playtests',
   {
-    videoGame: "/playtest_manager/public/api/video_games/6",
+    videoGame: playtest.value.videoGame["@id"],
     adress: playtest.value.adress,
     begin: playtest.value.begin,
     end: playtest.value.end,
