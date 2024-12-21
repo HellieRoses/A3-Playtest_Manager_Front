@@ -14,9 +14,6 @@ const player:Ref<Player[]> = ref('chargement');
 onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
   const utilisateurId = await apiStore.utilisateurConnecte.id;
-  console.log(estConnecte);
-  console.log(utilisateurId);
-  console.log(id);
 
   if (!estConnecte || Number(id) !== Number(utilisateurId)) {
     await router.push({name: 'home'})
