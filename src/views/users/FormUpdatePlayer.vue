@@ -22,7 +22,7 @@ const player:Ref<Player> = ref({
   participants: ref([])
 });
 
-nMounted(async () => {
+onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
   const utilisateurId = await apiStore.utilisateurConnecte.id;
 

@@ -7,7 +7,7 @@ import {onBeforeMount, ref, type Ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 const title1 = "Playtests Organisés"
 const company:Ref<Company> = ref({
-  id: 0,
+  id: "",
   login: "",
   email: "",
   password: "",
@@ -15,7 +15,7 @@ const company:Ref<Company> = ref({
   description: "",
   adress: "",
   contact: "",
-  videoGames: [],
+  videoGames: ref([]),
   type: "",
 })
 

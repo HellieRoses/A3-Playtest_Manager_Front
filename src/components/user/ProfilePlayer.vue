@@ -7,7 +7,7 @@ import {onBeforeMount, ref, type Ref} from "vue";
 const title1 = "Playtest à Venir";
 const title2 = "Playtest Passés";
 const player:Ref<Player> = ref({
-  id: 0,
+  id: "",
   login: "",
   email: "",
   password: "",
