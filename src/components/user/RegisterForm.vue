@@ -52,7 +52,7 @@ async function signUp() {
       })
     }
     await apiStore.login(player.value.login, player.value.password);
-    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updatePlayer", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
   else if (accountType.value === "company") {
     try {
@@ -65,7 +65,7 @@ async function signUp() {
       })
     }
     await apiStore.login(company.value.login, company.value.password);
-    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updateCompany", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
 }
 </script>

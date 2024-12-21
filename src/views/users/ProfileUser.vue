@@ -12,7 +12,7 @@ if (!apiStore.estConnecte){
   router.push({name:"home"})
 }
 
-if(apiStore.utilisateurConnecte.type == 'Player'){
+if((apiStore.getUtilisateurConnecte())!.type == 'Player'){
   isPlayer.value = true;
 }
 else if(apiStore.getUtilisateurConnecte()!.type == 'Company'){
