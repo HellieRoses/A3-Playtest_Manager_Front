@@ -78,7 +78,6 @@ export const apiStore = reactive({
             return reponsehttp.json()
               .then(reponseJSON => {
                 this.estConnecte = true;
-                console.log(reponseJSON)
                 this.utilisateurConnecte = reponseJSON;
                 return {success: true};
               })
