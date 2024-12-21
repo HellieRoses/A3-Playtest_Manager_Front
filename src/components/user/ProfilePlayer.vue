@@ -2,7 +2,7 @@
 
 import PlaytestMinListBox from "@/components/minList/PlaytestMinListBox.vue";
 import {apiStore} from "@/util/apiStore.ts";
-import type {Player, Playtest, VideoGame} from "@/types.ts";
+import type {Player, Playtest} from "@/types.ts";
 import {onBeforeMount, ref, type Ref} from "vue";
 const title1 = "Playtest à Venir";
 const title2 = "Playtest Passés";
@@ -30,14 +30,14 @@ async function getPlayer(){
 
 async function getPlaytestRegistered(){
    await apiStore.getParticipationPlaytest((apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
-      let playtests = reponseJSON["member"];
+      const playtests = reponseJSON["member"];
       getFirst4PlaytestAfter(playtests);
       getFirst4PlaytestBefore(playtests);
    })
 }
 
 function getFirst4PlaytestAfter(list){
-  let max = Math.min(4, list.length);
+  const max = Math.min(4, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current < max){
@@ -52,7 +52,7 @@ function getFirst4PlaytestAfter(list){
   }
 }
 function getFirst4PlaytestBefore(list){
-  let max = Math.min(3, list.length);
+  const max = Math.min(3, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current <= max){

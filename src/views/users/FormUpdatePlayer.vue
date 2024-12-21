@@ -110,7 +110,7 @@ const updateResource = () => {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" @click="">
+        <div class="button delete-button" ><!-- TODO supprimer Player-->
           <p>Supprimer</p>
         </div>
       </div>

@@ -16,7 +16,7 @@ import VideoGameForm from "@/components/EntityForms/VideoGameForm.vue";
         <button type="submit" class="button">
           <p>Créer</p>
         </button>
-        <div class="button delete-button" @click="">
+        <div class="button delete-button" ><!-- TODO supprimer VideoGame-->
           <p>Supprimer</p>
         </div>
       </div>

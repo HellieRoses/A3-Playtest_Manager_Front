@@ -17,12 +17,12 @@ if(type == undefined){
     apiStore.getParticipationPlaytest(Number(id))
       .then(reponseJSON => {
         const participations = reponseJSON["member"];
-        for(var i in participations){
+        for(const i in participations){
           playtests.value.push(participations[i]["playtest"]);
         }
         playtests.value.sort((a,b) => {
-          let dateA = new Date(a.begin);
-          let dateB = new Date(b.begin);
+          const dateA = new Date(a.begin);
+          const dateB = new Date(b.begin);
           if(dateA >= dateB){
             return -1;
           }else{
