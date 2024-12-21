@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type {Playtest} from "@/types.ts";
 
 defineProps<{idPlaytest:string}>()
 </script>

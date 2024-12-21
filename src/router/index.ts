@@ -44,6 +44,11 @@ const router = createRouter({
       component : () => import('@/views/VideoGame/VideoGameSingle.vue')
     },
     {
+      path: '/videogames/company/:id',
+      name: 'videogamesCompany',
+      component: () => import('@/views/VideoGame/VideoGameList.vue')
+    },
+    {
       path: '/playtests',
       name : 'playtests',
       component : () => import('@/views/Playtest/PlaytestList.vue')

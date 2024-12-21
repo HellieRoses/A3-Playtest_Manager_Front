@@ -19,7 +19,6 @@ const player:Ref<Player> = ref({
   type : "",
 });
 
-const playtestRegistered:Ref<Playtest[]> = ref([]);
 const first4playtestRegiteredBefore:Ref<Playtest[]> = ref([]);
 const first4playtestRegiteredAfter:Ref<Playtest[]> = ref([]);
 
@@ -34,7 +33,6 @@ async function getPlaytestRegistered(){
       let playtests = reponseJSON["member"];
       getFirst4PlaytestAfter(playtests);
       getFirst4PlaytestBefore(playtests);
-     playtestRegistered.value = playtests;
    })
 }
 
@@ -102,8 +100,8 @@ onBeforeMount(async() => {
 
   </div>
   <div id="additional-content">
-    <PlaytestMinListBox :title="title1" :list="first4playtestRegiteredAfter" :playerId="Number(apiStore.utilisateurConnecte.id)"/>
-    <PlaytestMinListBox :title="title2" :list="first4playtestRegiteredBefore" :playerId="Number(apiStore.utilisateurConnecte.id)" />
+    <PlaytestMinListBox :title="title1" :list="first4playtestRegiteredAfter" :userId="Number(apiStore.utilisateurConnecte.id)" :userType="apiStore.utilisateurConnecte.type"/>
+    <PlaytestMinListBox :title="title2" :list="first4playtestRegiteredBefore" :userId="Number(apiStore.utilisateurConnecte.id)" :userType="apiStore.utilisateurConnecte.type"/>
   </div>
 </div>
 </template>

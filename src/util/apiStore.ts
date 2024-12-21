@@ -131,7 +131,7 @@ export const apiStore = reactive({
       })
         .then(reponsehttp => reponsehttp.json())
     },
-    getByCompnever(ressource: string, id: number): Promise<never> {
+    getByCompany(ressource: string, id: number): Promise<never> {
       return fetch(this.apiUrl + 'companies/' + id + '/' + ressource)
         .then(reponsehttp => reponsehttp.json())
     },
