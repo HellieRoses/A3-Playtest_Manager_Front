@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-defineProps<{videoGames:Array<string>}>();
+import type {VideoGame} from "@/types.ts";
+
+defineProps<{videoGames:Array<VideoGame>}>();
 </script>
 
 <template>

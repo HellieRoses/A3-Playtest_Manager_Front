@@ -9,7 +9,18 @@ import router from "@/router";
 
 const route = useRoute();
 const id = route.params.id;
-const company:Ref<Company[]> = ref('Chargement');
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: ref([]),
+});
 
 onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;

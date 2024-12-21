@@ -9,9 +9,20 @@ import router from "@/router";
 
 const route = useRoute();
 const id = route.params.id;
-const player:Ref<Player[]> = ref('chargement');
+const player:Ref<Player> = ref({
+  id:'',
+  login:'',
+  email:'',
+  password:'',
+  name: '',
+  firstName: '',
+  birthdayDate: '',
+  favoriteGames: ref([]),
+  type: '',
+  participants: ref([])
+});
 
-onMounted(async () => {
+nMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
   const utilisateurId = await apiStore.utilisateurConnecte.id;
 

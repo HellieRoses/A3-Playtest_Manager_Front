@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
+import type {Playtest} from "@/types.ts";
 
 const route = useRoute();
 const id = route.params.id;
 const videogame = ref();
-const listePlayTests = [];
+const listePlayTests:Ref<Playtest[]> = ref([]);
 
 apiStore.getById('video_games', id)
   .then(reponseJSON => {
     videogame.value = reponseJSON;
     for (let i = 0; i < Math.min(6, videogame.value.playtests.length); i++) {
-      listePlayTests.push(videogame.value.playtests[i]);
+      listePlayTests.value.push(videogame.value.playtests[i]);
     }
   })
 
@@ -31,7 +32,7 @@ function canDelete() {
     <div id="upper-infos">
       <div id="title-div">
         <h1 class="title">{{ videogame.name }}</h1>
-        <div class="button delete-button" v-if="canDelete" @click=""><p>Supprimer</p></div>
+        <div class="button delete-button" v-if="canDelete()" @click=""><p>Supprimer</p></div>
         <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
       </div>
       <div class="list">

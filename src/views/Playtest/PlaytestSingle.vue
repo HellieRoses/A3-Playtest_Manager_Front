@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onBeforeMount, ref, type Ref} from 'vue';
-import {Playtest} from "@/types.ts";
+import type {Playtest} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
@@ -10,7 +10,7 @@ const router = useRouter();
 const id = route.params.id;
 
 const refid = ref("");
-const playtest: Ref<Playtest> = ref({
+const playtest:Ref<Playtest> = ref({
   id: 0,
   videoGame: {},
   begin: "",
@@ -53,7 +53,7 @@ function canSubscribe() {
       for (const i in participationsOfPlayer.value) {
         const participation = participationsOfPlayer.value[i];
         if (participation["player"].id == apiStore.utilisateurConnecte.id) {
-          let idParticipation = participation["@id"];
+          const idParticipation = participation["@id"];
           currentParticipation.value = parseInt(idParticipation.split("/").pop());
           canSub.value = false;
           return;

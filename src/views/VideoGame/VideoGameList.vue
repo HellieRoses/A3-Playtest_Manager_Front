@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import VideoGameBox from "@/components/VideoGameBox.vue";
+import type {VideoGame} from "@/types.ts";
 
-const videogames=ref([]);
+const videogames:Ref<VideoGame[]>=ref([]);
 apiStore.getAll('video_games')
 .then(reponseJSON => {
   videogames.value = reponseJSON["member"];

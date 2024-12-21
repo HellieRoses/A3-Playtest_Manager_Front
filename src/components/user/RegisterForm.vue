@@ -5,7 +5,6 @@ import router from "@/router";
 import type {Company, Player} from "@/types.ts";
 
 const accountType = ref('player');
-
 const player: Ref<Player> = ref({
   id: '',
   login: '',
@@ -31,11 +30,11 @@ const company: Ref<Company> = ref({
   videoGames: []
 });
 
-function clickOnRound(type){
-  if(accountType != type){
+function clickOnRound(type:any){
+  if(accountType.value != type){
     accountType.value = type;
-    const currentYellow = document.getElementById('choice').querySelector('.yellowRound');
-    const other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
+    const currentYellow = document.getElementById('choice')!.querySelector('.yellowRound')!;
+    const other = document.getElementById('choice')!.querySelector('.round:not(.yellowRound)')!;
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
   }
