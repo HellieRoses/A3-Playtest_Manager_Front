@@ -42,4 +42,5 @@ export interface Player{
   birthdayDate: string;
   favoriteGames: string[];
   participants: VideoGame[];
+  type: "";
 }

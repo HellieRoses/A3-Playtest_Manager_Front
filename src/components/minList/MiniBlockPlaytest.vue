@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type {Playtest} from "@/types.ts";
 
+defineProps<{idPlaytest:string}>()
 </script>
 
 <template>
-<router-link :to="{name : 'playtest'}">
-  <p>Playtest 1</p>
+<router-link :to="{name : 'playtest', params :{id: idPlaytest} }">
+  <p>Playtest {{idPlaytest}}</p>
 </router-link>
 </template>
 
