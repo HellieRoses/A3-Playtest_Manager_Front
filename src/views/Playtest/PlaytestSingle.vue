@@ -48,11 +48,11 @@ async function getParticipation() {
 
 
 function canSubscribe() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
+  if (apiStore.utilisateurConnecte.type == "Player") {
     if (participationsOfPlayer.value.length < playtest.value.nbMaxPlayer) {
       for (const i in participationsOfPlayer.value) {
         const participation = participationsOfPlayer.value[i];
-        if (participation["player"].id == (apiStore.getUtilisateurConnecte())!.id) {
+        if (participation["player"].id == apiStore.utilisateurConnecte.id) {
           const idParticipation = participation["@id"];
           currentParticipation.value = parseInt(idParticipation.split("/").pop());
           canSub.value = false;
@@ -69,10 +69,10 @@ function canSubscribe() {
 }
 
 function canUnSubscribe() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
+  if (apiStore.utilisateurConnecte.type == "Player") {
     for (const i in participationsOfPlayer.value) {
       const participation = participationsOfPlayer.value[i];
-      if (participation["player"].id == (apiStore.getUtilisateurConnecte())!.id) {
+      if (participation["player"].id == apiStore.utilisateurConnecte.id) {
         canUnsub.value = true;
         return;
       }
@@ -82,8 +82,8 @@ function canUnSubscribe() {
 }
 
 function canDelete() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Company") {
-    if (playtest.value.company.id == (apiStore.getUtilisateurConnecte())!.id) {
+  if (apiStore.utilisateurConnecte.type == "Company") {
+    if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
       canDeleteModify.value = true;
       return;
     }
@@ -93,7 +93,7 @@ function canDelete() {
 }
 
 function subscribe() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
+  if (apiStore.utilisateurConnecte.type == "Player") {
     apiStore.createParticipation({"playtest": refid.value}).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {
@@ -118,7 +118,7 @@ function subscribe() {
 }
 
 function unsubscribe() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
+  if (apiStore.utilisateurConnecte.type == "Player") {
     apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {
@@ -143,7 +143,7 @@ function unsubscribe() {
 }
 
 function deletePlaytest() {
-  if ((apiStore.getUtilisateurConnecte())!.type == "Company") {
+  if (apiStore.utilisateurConnecte.type == "Company") {
     apiStore.deleteRessource('playtests', playtest.value.id).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {

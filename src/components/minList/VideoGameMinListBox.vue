@@ -12,7 +12,7 @@ defineProps<{videogames: VideoGame[]}>();
     <div class="list">
       <MiniBlockVideoGame v-for="videogame in videogames" :key="videogame.id" :videoGame="videogame" />
     </div>
-    <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogamesCompany', params: { id : (apiStore.getUtilisateurConnecte())!.id}})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
+    <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogamesCompany', params: { id : apiStore.utilisateurConnecte.id}})"><p>Voir plus</p></div></div> <!-- TODO mettre la liste des jeux vidéos de l'entreprise -->
   </div>
 </template>
 
