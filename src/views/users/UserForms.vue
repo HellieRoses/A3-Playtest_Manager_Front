@@ -2,10 +2,9 @@
 import {useRoute} from "vue-router";
 import LoginForm from "@/components/user/LoginForm.vue";
 import RegisterForm from "@/components/user/RegisterForm.vue";
-import FormUpdatePlayer from "@/views/users/FormUpdatePlayer.vue";
 
 const route = useRoute();
-let type = route.params.type;
+const type = route.params.type;
 console.log(type);
 </script>
 <!-- TODO mon v-if marche pas (quand on change clique direct sur le bouton de login ou d'inscription) -->

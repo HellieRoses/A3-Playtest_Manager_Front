@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import router from "@/router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onMounted, ref} from "vue";
 
@@ -13,7 +12,7 @@ onMounted(async () => {
   try {
     await apiStore.refresh();
   } catch (error) {
-
+    console.log(error);
   } finally {
     loaded.value = true;
   }

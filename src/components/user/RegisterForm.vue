@@ -18,8 +18,8 @@ const companyName = ref("");
 function clickOnRound(type){
   if(accountType != type){
     accountType.value = type;
-    let currentYellow = document.getElementById('choice').querySelector('.yellowRound');
-    let other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
+    const currentYellow = document.getElementById('choice').querySelector('.yellowRound');
+    const other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
   }
@@ -56,7 +56,7 @@ async function signUp() {
         </div>
       </div>
     </div>
-    <form v-if="accountType === 'player'" @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
+    <form v-if="accountType === 'player'" @submit.prevent="signUp" id="playerForm"> <!-- fonction inscrire player-->
       <div>
         <div class="group">
           <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
