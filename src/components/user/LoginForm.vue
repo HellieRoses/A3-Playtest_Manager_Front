@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
+import router from "@/router";
 
 const connectingUser = ref({
   login: "",
@@ -8,7 +9,11 @@ const connectingUser = ref({
 });
 
 async function connect(): Promise<void> {
-  await apiStore.login(connectingUser.value.login, connectingUser.value.password);
+  try {
+    await apiStore.login(connectingUser.value.login, connectingUser.value.password);
+  }
+  catch (error) {}
+  await router.push({name: "profile"});
 }
 </script>
 
