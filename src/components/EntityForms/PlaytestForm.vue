@@ -9,11 +9,11 @@ defineProps<{videoGames:Array<VideoGame>}>();
   <div id="content">
     <div class="mainForm">
       <div class="group">
-        <input type="date" id="dateDebut" name="dateDebut" required placeholder="La date de début..."/>
+        <input type="datetime-local" id="dateDebut" name="dateDebut" required placeholder="La date de début..."/>
         <label for="dateDebut">Date de début :</label>
       </div>
       <div class="group">
-        <input type="date" id="dateFin" name="dateFin" required placeholder="La date de fin..."/>
+        <input type="datetime-local" id="dateFin" name="dateFin" required placeholder="La date de fin..."/>
         <label for="dateFin">Date de fin :</label>
       </div>
       <div class="group">

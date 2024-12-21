@@ -2,11 +2,21 @@
 import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {type Ref, ref} from 'vue';
-import type {Playtest} from "@/types.ts";
+import type {Playtest, VideoGame} from "@/types.ts";
+import MiniBlockPlaytest from "@/components/minList/MiniBlockPlaytest.vue";
 
 const route = useRoute();
 const id = route.params.id;
-const videogame = ref();
+const videogame:Ref<VideoGame> = ref({
+  id: 0,
+  name: "",
+  description: "",
+  type: "",
+  support: "",
+  playtests:  [],
+  company: ""
+});
+
 const listePlayTests:Ref<Playtest[]> = ref([]);
 
 apiStore.getById('video_games', id)
@@ -66,11 +76,7 @@ function canDelete() {
     <div id="lower-infos">
       <h2>Playtests</h2>
       <div class="list">
-        <router-link :to="{name:'playtest',params:{id:playtest.id}}" class="block"
-                     v-for="playtest in listePlayTests" :key="playtest.id"
-        >
-          <p>Playtest {{playtest.id}}</p>
-        </router-link>
+        <MiniBlockPlaytest v-for="playtest in listePlayTests" :key="playtest.id" :idPlaytest="String(playtest.id)" />
       </div>
       <div class="bottom-button">
         <div class="button" @click="$router.push({name : 'playtestsByVideoGames',params:{id:videogame.id}})"><p>Voir plus</p></div>
