@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import MiniBlockPlaytest from "@/components/minList/MiniBlockPlaytest.vue";
 import PlaytestMinListBox from "@/components/minList/PlaytestMinListBox.vue";
 const title1 = "Playtest à Venir";
 const title2 = "Playtest Passés"
