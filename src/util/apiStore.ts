@@ -1,15 +1,18 @@
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
+import type {Company, Player} from "@/types.ts";
 
 export const apiStore = reactive({
     apiUrl: "http://localhost/playtest_manager/public/api/",
     utilisateurConnecte: null,
     estConnecte: false,
-
+    getUtilisateurConnecte(): Player | Company | null {
+      return this.utilisateurConnecte
+    },
     getAll(ressource: string): Promise<any> {
       return fetch(this.apiUrl + ressource)
         .then(reponsehttp => reponsehttp.json())
     },
-    getById(ressource: string, id: string| string[]): Promise<any> {
+    getById(ressource: string, id: string | string[]): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id)
         .then(reponsehttp => reponsehttp.json())
     },
@@ -101,7 +104,7 @@ export const apiStore = reactive({
       })
         .then(reponsehttp => reponsehttp.json())
     },
-    updateRessource(ressource: string, id: string|string[],data: any): Promise<any> {
+    updateRessource(ressource: string, id: string | string[], data: any): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id, {
         method: "PATCH",
         headers: {

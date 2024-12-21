@@ -46,14 +46,14 @@ async function signUp() {
       await apiStore.createRessource("players", {"login": player.value.login, "name": player.value.name, "firstName": player.value.firstName, "birthdayDate": new Date(player.value.birthdayDate), "email": player.value.email, "plainPassword": player.value.password});
     } catch(error) {}
     await apiStore.login(player.value.login, player.value.password);
-    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updatePlayer", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
   else if (accountType.value === "company") {
     try {
       await apiStore.createRessource("companies", {"login": company.value.login, "adress": company.value.adress, "contact": company.value.contact, "name": company.value.name, "email": company.value.email, "plainPassword": company.value.password})
     } catch(error) {}
     await apiStore.login(company.value.login, company.value.password);
-    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updateCompany", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
 }
 </script>
