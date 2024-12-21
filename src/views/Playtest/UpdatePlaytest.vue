@@ -12,7 +12,7 @@ const videoGames = ["Assassin's  Creed", "Hollow Knight", "Celeste", "Hades 2", 
     </div>
 
     <form @submit.prevent=""> <!-- fonction modifier playtest-->
-      <PlaytestForm :video-games="videoGames" />
+      <PlaytestForm :videoGames="videoGames" />
       <div class="bottom-button">
         <button type="submit" class="button">
           <p>Créer</p>

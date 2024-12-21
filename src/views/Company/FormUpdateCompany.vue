@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useRoute} from "vue-router";
-import {type Ref, ref} from "vue";
+import {onMounted, type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Company} from "@/types.ts";
 import router from "@/router";
@@ -9,14 +9,33 @@ import router from "@/router";
 
 const route = useRoute();
 const id = route.params.id;
-const company:Ref<Company[]> = ref('Chargement');
-if (!apiStore.estConnecte || (apiStore.estConnecte && id!==apiStore.utilisateurConnecte.id)) {
-  router.push({name: 'home'})
-}
-apiStore.getById('companies', id)
-  .then(reponseJSON => {
-    company.value = reponseJSON;
-  })
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: ref([]),
+});
+
+onMounted(async () => {
+  const estConnecte = await apiStore.estConnecte;
+  const utilisateurId = await apiStore.utilisateurConnecte.id;
+
+  if (!estConnecte || Number(id) !== Number(utilisateurId)) {
+    await router.push({name: 'home'})
+  }
+
+  await apiStore.getById('companies', id)
+    .then(reponseJSON => {
+      company.value = reponseJSON;
+    });
+});
+
 const emit = defineEmits<{ updated: []}>();
 
 

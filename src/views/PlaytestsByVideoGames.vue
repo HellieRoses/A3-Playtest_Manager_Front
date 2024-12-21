@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import {useRoute} from "vue-router";
 import PlaytestBox from "@/components/PlaytestBox.vue";
+import type {Playtest} from "@/types.ts";
 
 const route = useRoute();
 const id = route.params.id;
 
-const playtests = ref([]);
+const playtests:Ref<Playtest[]> = ref([]);
 apiStore.getByVideoGame(id)
   .then(reponseJSON => {
     playtests.value = reponseJSON["member"];

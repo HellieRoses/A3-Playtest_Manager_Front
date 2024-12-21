@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import VideoGameBox from "@/components/VideoGameBox.vue";
 import {useRoute} from "vue-router";
+import type {VideoGame} from "@/types.ts";
 
-const videogames=ref([]);
+const videogames:Ref<VideoGame[]>=ref([]);
 const route = useRoute();
 const id = route.params.id;
 if(id == undefined){
@@ -18,7 +19,6 @@ if(id == undefined){
 
   })
 }
-
 </script>
 
 <template>
