@@ -3,6 +3,7 @@ import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onBeforeMount, ref, type Ref} from 'vue';
 import {Playtest} from "@/types.ts";
+import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
 const router = useRouter();
@@ -21,7 +22,7 @@ const playtest: Ref<Playtest> = ref({
   typePlayerSearched: ""
 });
 const currentParticipation = ref(-1);
-const participationsOfPlayer:Ref = ref([]);
+const participationsOfPlayer: Ref = ref([]);
 
 const canSub = ref(false);
 const canUnsub = ref(false);
@@ -81,7 +82,6 @@ function canUnSubscribe() {
 }
 
 function canDelete() {
-  console.log(apiStore.utilisateurConnecte)
   if (apiStore.utilisateurConnecte.type == "Company") {
     if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
       canDeleteModify.value = true;
@@ -93,12 +93,26 @@ function canDelete() {
 }
 
 function subscribe() {
-  console.log(refid.value)
   if (apiStore.utilisateurConnecte.type == "Player") {
     apiStore.createParticipation({"playtest": refid.value}).then(reponseJSON => {
-      currentParticipation.value = reponseJSON["id"];
-      canSubscribe();
-      canUnSubscribe();
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Inscription échouée",
+            text: "Il y a eu un problème lors de l'inscription",
+          });
+        }
+      } else {
+        currentParticipation.value = reponseJSON["id"];
+        canSub.value = false;
+        canUnsub.value = true;
+        notify({
+          type: "success",// on peut aussi utiliser warn et error, ou en définir d'autres
+          title: "Inscription réussie",
+          text: "Vous êtes désormais inscrit au playtest " + playtest.value.id,
+        });
+      }
     })
   }
 }
@@ -106,16 +120,47 @@ function subscribe() {
 function unsubscribe() {
   if (apiStore.utilisateurConnecte.type == "Player") {
     apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
-      canSubscribe();
-      canUnSubscribe();
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Désinscription échouée",
+            text: "Il y a eu un problème lors de la désincription",
+          });
+        }
+      } else {
+        currentParticipation.value = -1;
+        canSub.value = true;
+        canUnsub.value = false;
+        notify({
+          type: "success",
+          title: "Désinscription réussie",
+          text: "Vous êtes désormais désinscrit au playtest " + playtest.value.id,
+        });
+      }
     })
   }
 }
 
 function deletePlaytest() {
-  if(apiStore.utilisateurConnecte.type == "Company"){
-    apiStore.deleteRessource('playtests', playtest.value.id).then(responseJSON => {
-      router.push({"name": "playtests"})
+  if (apiStore.utilisateurConnecte.type == "Company") {
+    apiStore.deleteRessource('playtests', playtest.value.id).then(reponseJSON => {
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Suppression échouée",
+            text: "Il y a eu un problème lors de la suppression",
+          });
+        }
+      } else {
+        router.push({"name": "playtests"})
+        notify({
+          type: "success",// on peut aussi utiliser warn et error, ou en définir d'autres
+          title: "Suppression réussie",
+          text: "Vous avez bien supprimé le playtest " + playtest.value.id,
+        });
+      }
     })
   }
 }
@@ -181,7 +226,8 @@ onBeforeMount(async () => {
         <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
       <div class="bottom-button" v-if="canDeleteModify">
-        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div><!-- TODO mettre bonne route playtest-->
+        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div>
+        <!-- TODO mettre bonne route playtest-->
         <div class="button delete-button" @click="deletePlaytest"><p>Supprimer</p></div>
       </div>
     </div>
@@ -194,8 +240,9 @@ onBeforeMount(async () => {
 .content {
   align-items: center;
   padding: 15px;
-  & #upper-infos{
-    & > div{
+
+  & #upper-infos {
+    & > div {
       display: grid;
       grid-template-columns: 1fr 1Fr;
       row-gap: 20%;
@@ -250,7 +297,8 @@ onBeforeMount(async () => {
 
   }
 }
-.delete-button{
+
+.delete-button {
   margin-left: 2%;
 }
 </style>

@@ -2,6 +2,7 @@
 import router from "@/router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onMounted, ref} from "vue";
+import {Notifications} from "@kyvg/vue3-notification";
 
 const loaded = ref(false);
 
@@ -45,6 +46,7 @@ onMounted(async () => {
   </header>
 
   <main class="main">
+    <notifications />
     <router-view v-if="loaded"/>
     <img id="loader" v-if="!loaded" src="@/assets/img/loader.gif" alt="loader">
   </main>
