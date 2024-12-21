@@ -3,14 +3,8 @@ import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import router from "@/router";
 
-let accountType = 'player';
-let playerForm;
-let companyForm;
-window.onload = () => {
-  playerForm = document.getElementById('playerForm');
-  companyForm = document.getElementById('companyForm');
-  companyForm.style.display = 'none';
-}
+const accountType = ref('player');
+
 const login = ref("");
 const surname = ref("");
 const firstName = ref("");
@@ -23,30 +17,23 @@ const companyName = ref("");
 
 function clickOnRound(type){
   if(accountType != type){
-    accountType=type;
+    accountType.value = type;
     let currentYellow = document.getElementById('choice').querySelector('.yellowRound');
     let other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
-    if(type == 'player'){
-      playerForm.style.display= 'flex';
-      companyForm.style.display = 'none';
-    }else if(type == 'company'){
-      playerForm.style.display= 'none';
-      companyForm.style.display = 'flex';
-    }
   }
 }
 
 async function signUp() {
-  if (accountType === "player") {
+  if (accountType.value === "player") {
     try {
       await apiStore.createRessource("players", {"login": login.value, "name": surname.value, "firstName": firstName.value, "birthdayDate": new Date(birthdayDate.value), "email": mail.value, "plainPassword": password.value});
     } catch(error) {}
     await apiStore.login(login.value, password.value);
     await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
   }
-  else if (accountType === "company") {
+  else if (accountType.value === "company") {
     try {
       await apiStore.createRessource("companies", {"login": login.value, "adress": adress.value, "contact": contact.value, "name": companyName.value, "email": mail.value, "plainPassword": password.value})
     } catch(error) {}
@@ -69,7 +56,7 @@ async function signUp() {
         </div>
       </div>
     </div>
-    <form @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
+    <form v-if="accountType === 'player'" @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
       <div>
         <div class="group">
           <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
@@ -105,7 +92,7 @@ async function signUp() {
       </div>
     </form>
 
-    <form @submit.prevent="signUp" id="companyForm"> <!-- fonction inscrire company -->
+    <form v-else @submit.prevent="signUp" id="companyForm"> <!-- fonction inscrire company -->
       <div>
         <div class="group">
           <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="login"/>
