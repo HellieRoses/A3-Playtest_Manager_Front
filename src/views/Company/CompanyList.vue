@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { apiStore } from '@/util/apiStore'
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import CompanyBox from "@/components/CompanyBox.vue";
+import type {Company} from "@/types.ts";
 
-const companies=ref([]);
+const companies:Ref<Company[]>=ref([]);
 apiStore.getAll('companies')
   .then(reponseJSON => {
     companies.value = reponseJSON["member"];

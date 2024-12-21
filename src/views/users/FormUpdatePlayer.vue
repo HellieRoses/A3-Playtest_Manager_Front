@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useRoute} from "vue-router";
-import {ref} from "vue";
+import {ref,type Ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Player} from "@/types.ts";
 import router from "@/router";
@@ -9,8 +9,19 @@ import router from "@/router";
 
 const route = useRoute();
 const id = route.params.id;
-const player:Ref<Player[]> = ref('chargement');
-if (!apiStore.estConnecte || (apiStore.estConnecte && id!==apiStore.utilisateurConnecte.id)) {
+const player:Ref<Player> = ref({
+  id:'',
+  login:'',
+  email:'',
+  password:'',
+  name: '',
+  firstName: '',
+  birthdayDate: '',
+  favoriteGames: ref([]),
+  type: '',
+  participants: ref([])
+});
+if (!apiStore.estConnecte || (apiStore.utilisateurConnecte!==null && id!==apiStore.utilisateurConnecte.id)) {
   router.push({name: 'home'})
 }
 apiStore.getById('players', id)

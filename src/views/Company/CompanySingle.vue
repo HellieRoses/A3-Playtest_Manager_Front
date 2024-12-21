@@ -1,18 +1,30 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
+import type {Company, VideoGame} from "@/types.ts";
 
 const route = useRoute();
 const id = route.params.id;
-const company = ref();
-const listVideoGames= [];
+const company:Ref<Company>=ref({
+  id:'',
+  login:'',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: ref([]),
+});
+const listVideoGames:Ref<VideoGame[]>= ref([]);
 
 apiStore.getById('companies', id)
   .then(reponseJSON => {
     company.value = reponseJSON;
     for (let i=0; i<Math.min(3,company.value.videoGames.length); i++) {
-      listVideoGames.push(company.value.videoGames[i]);
+      listVideoGames.value.push(company.value.videoGames[i]);
     }
   })
 

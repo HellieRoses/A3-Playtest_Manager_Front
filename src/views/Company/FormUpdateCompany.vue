@@ -6,11 +6,21 @@ import {apiStore} from "@/util/apiStore.ts";
 import type {Company} from "@/types.ts";
 import router from "@/router";
 
-
 const route = useRoute();
 const id = route.params.id;
-const company:Ref<Company[]> = ref('Chargement');
-if (!apiStore.estConnecte || (apiStore.estConnecte && id!==apiStore.utilisateurConnecte.id)) {
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: ref([]),
+});
+if (!apiStore.estConnecte || (apiStore.utilisateurConnecte !== null && id!==apiStore.utilisateurConnecte.id)) {
   router.push({name: 'home'})
 }
 apiStore.getById('companies', id)

@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
-import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
 
 let accountType = 'player';
-let playerForm;
-let companyForm;
+let playerForm:HTMLElement;
+let companyForm:HTMLElement;
 window.onload = () => {
-  playerForm = document.getElementById('playerForm');
-  companyForm = document.getElementById('companyForm');
+  playerForm = document.getElementById('playerForm')!;
+  companyForm = document.getElementById('companyForm')!;
   companyForm.style.display = 'none';
 }
 
-function clickOnRound(type){
+function clickOnRound(type:any){
   if(accountType != type){
     accountType=type;
-    const currentYellow = document.getElementById('choice').querySelector('.yellowRound');
-    const other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
+    const currentYellow = document.getElementById('choice')!.querySelector('.yellowRound')!;
+    const other = document.getElementById('choice')!.querySelector('.round:not(.yellowRound)')!;
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
     if(type == 'player'){
@@ -45,7 +43,6 @@ function clickOnRound(type){
 
     <form @submit.prevent="" id="playerForm"> <!-- fonction inscrire player-->
       <div>
-        <PlayerFormContent />
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
@@ -56,7 +53,6 @@ function clickOnRound(type){
 
     <form @submit.prevent="" id="companyForm"> <!-- fonction inscrire company -->
       <div>
-        <CompanyFormContent />
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
