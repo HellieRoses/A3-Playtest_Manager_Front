@@ -3,9 +3,9 @@
 </script>
 
 <template>
-<router-link :to="{name : 'playtest'}">
-  <p>Playtest 1</p>
-</router-link>
+  <!--<router-link :to="{name : 'playtest'}">
+    <p>Playtest 1</p>
+  </router-link>--> <!-- TODO La route est mauvaise (il manque l'id) -->
 </template>
 
 <style scoped>

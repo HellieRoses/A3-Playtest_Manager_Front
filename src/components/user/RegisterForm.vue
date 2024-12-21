@@ -1,30 +1,60 @@
 <script setup lang="ts">
-import PlayerFormContent from "@/components/user/PlayerFormContent.vue";
-import CompanyFormContent from "@/components/user/CompanyFormContent.vue";
+import {type Ref, ref} from "vue";
+import {apiStore} from "@/util/apiStore.ts";
+import router from "@/router";
+import type {Company, Player} from "@/types.ts";
 
-let accountType = 'player';
-let playerForm;
-let companyForm;
-window.onload = () => {
-  playerForm = document.getElementById('playerForm');
-  companyForm = document.getElementById('companyForm');
-  companyForm.style.display = 'none';
-}
+const accountType = ref('player');
+
+const player: Ref<Player> = ref({
+  id: '',
+  login: '',
+  email: '',
+  password: '',
+  name: '',
+  firstName: '',
+  birthdayDate: '',
+  favoriteGames: [],
+  type: '',
+  participants: []
+});
+const company: Ref<Company> = ref({
+  id: '',
+  login: '',
+  email: '',
+  password: '',
+  name: '',
+  description: '',
+  adress: '',
+  contact: '',
+  type: '',
+  videoGames: []
+});
 
 function clickOnRound(type){
   if(accountType != type){
-    accountType=type;
+    accountType.value = type;
     const currentYellow = document.getElementById('choice').querySelector('.yellowRound');
     const other = document.getElementById('choice').querySelector('.round:not(.yellowRound)');
     currentYellow.classList.remove('yellowRound');
     other.classList.add('yellowRound');
-    if(type == 'player'){
-      playerForm.style.display= 'flex';
-      companyForm.style.display = 'none';
-    }else if(type == 'company'){
-      playerForm.style.display= 'none';
-      companyForm.style.display = 'flex';
-    }
+  }
+}
+
+async function signUp() {
+  if (accountType.value === "player") {
+    try {
+      await apiStore.createRessource("players", {"login": player.value.login, "name": player.value.name, "firstName": player.value.firstName, "birthdayDate": new Date(player.value.birthdayDate), "email": player.value.email, "plainPassword": player.value.password});
+    } catch(error) {}
+    await apiStore.login(player.value.login, player.value.password);
+    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
+  }
+  else if (accountType.value === "company") {
+    try {
+      await apiStore.createRessource("companies", {"login": company.value.login, "adress": company.value.adress, "contact": company.value.contact, "name": company.value.name, "email": company.value.email, "plainPassword": company.value.password})
+    } catch(error) {}
+    await apiStore.login(company.value.login, company.value.password);
+    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
   }
 }
 </script>
@@ -42,10 +72,34 @@ function clickOnRound(type){
         </div>
       </div>
     </div>
-
-    <form @submit.prevent="" id="playerForm"> <!-- fonction inscrire player-->
+    <form v-if="accountType === 'player'" @submit.prevent="signUp()" id="playerForm"> <!-- fonction inscrire player-->
       <div>
-        <PlayerFormContent />
+        <div class="group">
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="player.login"/>
+          <label for="username">Nom d'Utilisateur</label>
+        </div>
+        <div id="names">
+          <div class="group">
+            <input id="name" name="name" type="text" required placeholder="Votre nom..." v-model="player.name"/>
+            <label for="name">Nom</label>
+          </div>
+          <div class="group">
+            <input id="firstname" name="firstname"  type="text" required placeholder="Votre prénom..." v-model="player.firstName"/>
+            <label for="firstname">Prénom</label>
+          </div>
+        </div>
+        <div class="group">
+          <input id="birthdaydate" name="birthdaydate" type="date" required v-model="player.birthdayDate"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="player.email"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="player.password"/>
+          <label for="password">Mot de passe</label>
+        </div>
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
@@ -54,9 +108,32 @@ function clickOnRound(type){
       </div>
     </form>
 
-    <form @submit.prevent="" id="companyForm"> <!-- fonction inscrire company -->
+    <form v-else @submit.prevent="signUp()" id="companyForm"> <!-- fonction inscrire company -->
       <div>
-        <CompanyFormContent />
+        <div class="group">
+          <input id="username" name="username" type="text" required placeholder="Votre nom d'utilisateur..." v-model="company.login"/>
+          <label for="username">Nom d'Utilisateur</label>
+        </div>
+        <div class="group">
+          <input id="companyAdress" name="companyAdress" type="text" required placeholder="Adresse de l'entreprise..." v-model="company.adress"/>
+          <label for="companyAdress">Adresse</label>
+        </div>
+        <div class="group">
+          <input id="companyContact" name="companyContact" type="tel" required placeholder="Numéro de téléphone de l'entreprise..." v-model="company.contact"/>
+          <label for="companyName">Numéro de téléphone</label>
+        </div>
+        <div class="group">
+          <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="company.name"/>
+          <label for="companyName">Nom d'Entreprise</label>
+        </div>
+        <div class="group">
+          <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="company.email"/>
+          <label for="email">Email</label>
+        </div>
+        <div class="group">
+          <input id="password" name="password" type="password" required placeholder="Votre mot de passe..." v-model="company.password"/>
+          <label for="password">Mot de passe</label>
+        </div>
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
@@ -79,5 +156,14 @@ form{
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+#names{
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+
+  & .group{
+    width: 45%;
+  }
 }
 </style>
