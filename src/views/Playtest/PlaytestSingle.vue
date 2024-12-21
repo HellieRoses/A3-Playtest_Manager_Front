@@ -1,47 +1,182 @@
 <script setup lang="ts">
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {ref} from 'vue';
+import {onBeforeMount, ref, type Ref} from 'vue';
+import {Playtest} from "@/types.ts";
+import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
+const router = useRouter();
 const id = route.params.id;
-const playtest = ref();
 
-apiStore.getById('playtests', id)
-  .then(reponseJSON => {
+const refid = ref("");
+const playtest: Ref<Playtest> = ref({
+  id: 0,
+  videoGame: {},
+  begin: "",
+  end: "",
+  adress: "",
+  company: {},
+  visibility: false,
+  nbMaxPlayer: 0,
+  typePlayerSearched: ""
+});
+const currentParticipation = ref(-1);
+const participationsOfPlayer: Ref = ref([]);
+
+const canSub = ref(false);
+const canUnsub = ref(false);
+const canDeleteModify = ref(false);
+
+async function chargerPlaytest() {
+  await apiStore.getById('playtests', id).then(reponseJSON => {
     playtest.value = reponseJSON;
+    refid.value = reponseJSON["@id"];
   })
 
-function canSubscribe(){
-  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
-    if (playtest.value.participants.length < playtest.value.nbMaxPlayer && !playtest.value.participants.contains(utilisateurConnecte))
-    return true;
-  }
-  return false;
 }
-function canUnSubscribe(){
-  if (apiStore.utilisateurConnecte/*TODO utilisateurconnecté est un Player et pas une company */){
-    if (playtest.value.participants.contains(utilisateurConnecte)){
-      return true;
+
+async function getParticipation() {
+  await apiStore.getParticipationPlayer(playtest.value.id).then(reponseJSON => {
+    participationsOfPlayer.value = reponseJSON["member"];
+
+    canSubscribe();
+    canUnSubscribe();
+    canDelete();
+  })
+}
+
+
+function canSubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    if (participationsOfPlayer.value.length < playtest.value.nbMaxPlayer) {
+      for (const i in participationsOfPlayer.value) {
+        const participation = participationsOfPlayer.value[i];
+        if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+          let idParticipation = participation["@id"];
+          currentParticipation.value = parseInt(idParticipation.split("/").pop());
+          canSub.value = false;
+          return;
+        }
+      }
+      canSub.value = true;
+      return;
     }
   }
-  return false;
+  canSub.value = false;
+  return;
+
 }
-function canDelete(){
-  if (apiStore.utilisateurConnecte){
-    if (playtest.value.company == apiStore.utilisateurConnecte){
-      return true;
+
+function canUnSubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    for (const i in participationsOfPlayer.value) {
+      const participation = participationsOfPlayer.value[i];
+      if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+        canUnsub.value = true;
+        return;
+      }
     }
   }
-  return false;
+  canUnsub.value = false;
 }
+
+function canDelete() {
+  if (apiStore.utilisateurConnecte.type == "Company") {
+    if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
+      canDeleteModify.value = true;
+      return;
+    }
+  }
+  canDeleteModify.value = false;
+  return;
+}
+
+function subscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    apiStore.createParticipation({"playtest": refid.value}).then(reponseJSON => {
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Inscription échouée",
+            text: "Il y a eu un problème lors de l'inscription",
+          });
+        }
+      } else {
+        currentParticipation.value = reponseJSON["id"];
+        canSub.value = false;
+        canUnsub.value = true;
+        notify({
+          type: "success",// on peut aussi utiliser warn et error, ou en définir d'autres
+          title: "Inscription réussie",
+          text: "Vous êtes désormais inscrit au playtest " + playtest.value.id,
+        });
+      }
+    })
+  }
+}
+
+function unsubscribe() {
+  if (apiStore.utilisateurConnecte.type == "Player") {
+    apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Désinscription échouée",
+            text: "Il y a eu un problème lors de la désincription",
+          });
+        }
+      } else {
+        currentParticipation.value = -1;
+        canSub.value = true;
+        canUnsub.value = false;
+        notify({
+          type: "success",
+          title: "Désinscription réussie",
+          text: "Vous êtes désormais désinscrit au playtest " + playtest.value.id,
+        });
+      }
+    })
+  }
+}
+
+function deletePlaytest() {
+  if (apiStore.utilisateurConnecte.type == "Company") {
+    apiStore.deleteRessource('playtests', playtest.value.id).then(reponseJSON => {
+      if (reponseJSON.code != undefined) {
+        if (reponseJSON.code != 200) {
+          notify({
+            type: "error",
+            title: "Suppression échouée",
+            text: "Il y a eu un problème lors de la suppression",
+          });
+        }
+      } else {
+        router.push({"name": "playtests"})
+        notify({
+          type: "success",// on peut aussi utiliser warn et error, ou en définir d'autres
+          title: "Suppression réussie",
+          text: "Vous avez bien supprimé le playtest " + playtest.value.id,
+        });
+      }
+    })
+  }
+}
+
+onBeforeMount(async () => {
+  await chargerPlaytest();
+  await getParticipation();
+})
+
 
 </script>
 
 <template>
   <div class="content">
     <div id="upper-infos">
-      <h1 class="title">Playtest {{playtest.id}}</h1>
+      <h1 class="title">Playtest {{ playtest.id }}</h1>
       <div>
         <router-link :to="{name : 'company',params:{id:playtest.company.id}}">
           <div class="main-infos">
@@ -85,14 +220,16 @@ function canDelete(){
       <!-- TODO change to nbMaxPlayer -->
       <p>{{ playtest.typePlayerSearched }}</p>
       <div class="bottom-button">
-        <div class="button" v-if="canSubscribe" @click=""><p>S'inscrire</p></div>
+        <div class="button" v-if="canSub" @click="subscribe"><p>S'inscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + pas inscrit -->
       <div class="bottom-button">
-        <div class="button" v-if="canUnSubscribe" @click=""><p>Désinscrire</p></div>
+        <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
-      <div class="bottom-button">
-        <div class="button delete-button" v-if="canDelete" @click=""><p>Supprimer</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
+      <div class="bottom-button" v-if="canDeleteModify">
+        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div>
+        <!-- TODO mettre bonne route playtest-->
+        <div class="button delete-button" @click="deletePlaytest"><p>Supprimer</p></div>
+      </div>
     </div>
   </div>
 </template>
@@ -103,8 +240,9 @@ function canDelete(){
 .content {
   align-items: center;
   padding: 15px;
-  & #upper-infos{
-    & > div{
+
+  & #upper-infos {
+    & > div {
       display: grid;
       grid-template-columns: 1fr 1Fr;
       row-gap: 20%;
@@ -158,5 +296,9 @@ function canDelete(){
     }
 
   }
+}
+
+.delete-button {
+  margin-left: 2%;
 }
 </style>
