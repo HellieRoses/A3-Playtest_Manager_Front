@@ -13,7 +13,6 @@ if(id == undefined){
       videogames.value = reponseJSON["member"];
     });
 }else{
-  console.log("here")
   apiStore.getByCompany('video_games', id).then(reponseJSON => {
     videogames.value = reponseJSON["member"];
 
