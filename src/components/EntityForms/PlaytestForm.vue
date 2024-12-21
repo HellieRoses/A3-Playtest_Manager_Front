@@ -1,24 +1,29 @@
 <script setup lang="ts">
 
-import type {VideoGame} from "@/types.ts";
+import type {Playtest, VideoGame} from "@/types.ts";
 
-defineProps<{videoGames:Array<VideoGame>}>();
+defineProps<{videoGames:Array<VideoGame>,playtest:Playtest}>();
+
 </script>
 
 <template>
   <div id="content">
     <div class="mainForm">
       <div class="group">
-        <input type="date" id="dateDebut" name="dateDebut" required placeholder="La date de début..."/>
+        <input v-model="playtest.begin" type="date" id="dateDebut" name="dateDebut" required placeholder="La date de début..."/>
         <label for="dateDebut">Date de début :</label>
       </div>
       <div class="group">
-        <input type="date" id="dateFin" name="dateFin" required placeholder="La date de fin..."/>
+        <input v-model="playtest.end" type="date" id="dateFin" name="dateFin" required placeholder="La date de fin..."/>
         <label for="dateFin">Date de fin :</label>
       </div>
       <div class="group">
-        <input type="text" id="nbMax" name="nbMax" required placeholder="Nombre d'inscrits maximum ..."/>
+        <input v-model="playtest.nbMaxPlayer" type="number" id="nbMax" name="nbMax" required placeholder="Nombre d'inscrits maximum ..."/>
         <label for="nbMax">Nombre d'inscrits max :</label>
+      </div>
+      <div class="group">
+        <input v-model="playtest.visibility" type="checkbox" id="visibility" name="visibility" required />
+        <label for="visible">Playtest Visible ?</label>
       </div>
     </div>
     <div class="optionalForm">
@@ -28,14 +33,14 @@ defineProps<{videoGames:Array<VideoGame>}>();
         <label for="adresse">Adresse du lieu :</label>
       </div>
       <div class="group">
-        <select id="jeuxVidéo" name="jeuxVidéo" type="text" required>
-          <option v-for="videogame in videoGames" :key="videogame.id" value="{{videogame}}">{{videogame}}</option>
+        <select id="jeuxVidéo" name="jeuxVidéo" type="text" required v-model="playtest.videoGame">
+          <option v-for="videogame in videoGames" :key="videogame.id" :value="videogame" >{{videogame.name}}</option>
         </select>
         <label for="jeuxVidéo">Jeux vidéo :</label>
       </div>
       <div class="group">
         <textarea id="typeJoueurs" name="typeJoueurs" placeholder="Les types de joueurs recherchés..." rows="2" />
-        <label for="typeJoueurs">Contact</label>
+        <label for="typeJoueurs">Type de joueurs recherchés</label>
       </div>
     </div>
   </div>
