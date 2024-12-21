@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useRoute} from "vue-router";
-import {ref,type Ref} from "vue";
+import {onMounted, type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Player} from "@/types.ts";
 import router from "@/router";
@@ -21,13 +21,21 @@ const player:Ref<Player> = ref({
   type: '',
   participants: ref([])
 });
-if (!apiStore.estConnecte || (apiStore.utilisateurConnecte!==null && id!==apiStore.utilisateurConnecte.id)) {
-  router.push({name: 'home'})
-}
-apiStore.getById('players', id)
-  .then(reponseJSON => {
-    player.value = reponseJSON;
-  })
+
+nMounted(async () => {
+  const estConnecte = await apiStore.estConnecte;
+  const utilisateurId = await apiStore.utilisateurConnecte.id;
+
+  if (!estConnecte || Number(id) !== Number(utilisateurId)) {
+    await router.push({name: 'home'})
+  }
+
+  await apiStore.getById('players', id)
+    .then(reponseJSON => {
+      player.value = reponseJSON;
+    });
+});
+
 const emit = defineEmits<{ updated: [] }>();
 
 const updateResource = () => {
