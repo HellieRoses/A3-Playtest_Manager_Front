@@ -100,12 +100,12 @@ const router = createRouter({
     },
 
     {
-      path: '/createVideoGame', /*TODO CHANGE*/
+      path: '/createVideoGame',
       name: 'createVideoGame',
       component : () => import('@/views/VideoGame/CreateVideoGame.vue')
     },
     {
-      path: '/updateVideoGame', /*TODO CHANGE*/
+      path: '/updateVideoGame/:id',
       name: 'updateVideoGame',
       component : () => import('@/views/VideoGame/UpdateVideoGame.vue')
     },
