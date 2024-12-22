@@ -187,7 +187,7 @@ onBeforeMount(async () => {
         <router-link :to="{name : 'company',params:{id:playtest.company.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="../../assets/img/building.png" alt="building"/>
+              <img src="@/assets/img/building.png" alt="building"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.company.name }}</p>
@@ -196,7 +196,7 @@ onBeforeMount(async () => {
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/calendar_light.png" alt="calendar"/>
+            <img src="@/assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
             <p class="textOnBlue">Début : {{ (new Date(playtest.begin)).toLocaleString("fr") }}</p>
@@ -206,7 +206,7 @@ onBeforeMount(async () => {
         <router-link :to="{name : 'videogame',params:{id:playtest.videoGame.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="../../assets/img/videoGame.png" alt="videogame"/>
+              <img src="@/assets/img/videoGame.png" alt="videogame"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.videoGame.name }}</p>
@@ -215,7 +215,7 @@ onBeforeMount(async () => {
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/pin_light.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">{{ playtest.adress }}</p>
         </div>
@@ -227,10 +227,10 @@ onBeforeMount(async () => {
       <p>{{ playtest.typePlayerSearched }}</p>
       <div class="bottom-button">
         <div class="button" v-if="canSub" @click="subscribe"><p>S'inscrire</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + pas inscrit -->
+      </div>
       <div class="bottom-button">
         <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
+      </div>
     </div>
   </div>
 </template>

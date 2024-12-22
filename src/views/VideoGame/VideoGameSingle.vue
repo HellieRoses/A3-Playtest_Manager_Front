@@ -39,14 +39,14 @@ function canDelete() {
         <router-link :to="{name : 'company',params: {id:videogame.company.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="../../assets/img/building.png" alt="building"/>
+              <img src="@/assets/img/building.png" alt="building"/>
             </div>
             <p class="textOnBlue">{{ videogame.company.name }}</p>
           </div>
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/controller_2.png" alt="controller"/>
+            <img src="@/assets/img/controller_2.png" alt="controller"/>
           </div>
           <div>
             <p class="textOnBlue">{{ videogame.type }}</p>
@@ -54,7 +54,7 @@ function canDelete() {
         </div>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/desktop.png" alt="desktop"/>
+            <img src="@/assets/img/desktop.png" alt="desktop"/>
           </div>
           <div>
             <p class="textOnBlue">{{ videogame.support.toString() }}</p>
