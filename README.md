@@ -4,7 +4,7 @@
 
 - Annuaire : https://webinfo.iutmontp.univ-montp2.fr/~hamelc/annuaire_web_project/public/
 - PlayTest Manager : http://webinfo.iutmontp.univ-montp2.fr/~boissezonm/playtest_manager/public/api
-- PlayTest Manager Front : https://webinfo.iutmontp.univ-montp2.fr/~boissezonm/playtest_manager_front
+- PlayTest Manager Front : https://webinfo.iutmontp.univ-montp2.fr/~boissezonm/playtest_manager_front/dist
 
 ## Lien du dépot git
 
