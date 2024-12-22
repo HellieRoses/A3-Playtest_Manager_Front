@@ -69,14 +69,14 @@ const router = createRouter({
       component : () => import('@/views/users/ProfileUser.vue')
     },
     {
-      path: '/login/:type',
+      path: '/login',
       name: 'login',
-      component : () => import('@/views/users/UserForms.vue')
+      component : () => import('@/views/users/LoginForm.vue')
     },
     {
-      path: '/register/:type',
+      path: '/register',
       name: 'register',
-      component : () => import('@/views/users/UserForms.vue')
+      component : () => import('@/views/users/RegisterForm.vue')
     },
     {
       path: '/updateCompany/:id',
