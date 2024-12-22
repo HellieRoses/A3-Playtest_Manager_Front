@@ -69,10 +69,10 @@ async function signUp() {
         <h1>Inscription</h1>
         <div id="choice">
           <div class="round yellowRound" @click="clickOnRound('player')">
-            <img src="../../assets/img/videoGame.png">
+            <img src="@/assets/img/videoGame.png">
           </div>
           <div class="round">
-            <img src="../../assets/img/building_bigger.png" @click="clickOnRound('company')">
+            <img src="@/assets/img/building_bigger.png" @click="clickOnRound('company')">
           </div>
         </div>
       </div>
