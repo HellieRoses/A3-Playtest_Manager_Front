@@ -118,6 +118,8 @@ button {
   vertical-align: center;
   font-size: 20px;
   font-weight: normal;
+
+  font-family: "Montserrat", sans-serif ;
 }
 .delete-button {
   background-color: #E65759!important;
