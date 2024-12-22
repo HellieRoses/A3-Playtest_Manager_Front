@@ -27,7 +27,7 @@ async function connect(): Promise<void> {
       <div>
         <h1>Connexion</h1>
         <div class="round">
-          <img src="../../assets/img/profile_bigger.png">
+          <img src="@/assets/img/profile_bigger.png">
         </div>
       </div>
       <form @submit.prevent="connect"> <!-- fonction connect -->
