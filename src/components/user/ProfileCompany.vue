@@ -68,7 +68,7 @@ onBeforeMount(async() => {
           </div>
         </div>
       </div>
-      <div class="bottom-button"><div class="button" @click="$router.push({name : 'videogames'})"><p>Modifier Son Compte</p></div></div> <!-- TODO formulaire mise à jour compte company -->
+      <div class="bottom-button"><div class="button" @click="$router.push({name : 'updateCompany', params: {id: apiStore.getUtilisateurConnecte()!.id}})"><p>Modifier Son Compte</p></div></div> <!-- TODO formulaire mise à jour compte company -->
 
     </div>
     <div id="additional-content">
