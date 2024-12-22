@@ -5,6 +5,7 @@ import {onMounted, type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Player} from "@/types.ts";
 import router from "@/router";
+import {notify} from "@kyvg/vue3-notification";
 
 
 const route = useRoute();
@@ -41,8 +42,6 @@ onMounted(async () => {
 const emit = defineEmits<{ updated: [] }>();
 
 const updateResource = () => {
-  console.log("test");
-  console.log(player.value);
   apiStore.updateRessource('players', id, {
       name: player.value.name,
       firstName: player.value.firstName,
@@ -53,8 +52,11 @@ const updateResource = () => {
     }
   ).then(reponse => {
     emit('updated');
-    console.log(reponse);
-    //TODO notify
+    notify({
+      type: "success",
+      title: "Modification sauvegardée",
+      text: 'Vos modifications ont bien été sauvegardées!',
+    });
   })
 }
 

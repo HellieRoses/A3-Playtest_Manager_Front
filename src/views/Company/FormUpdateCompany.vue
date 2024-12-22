@@ -5,6 +5,7 @@ import {onMounted, type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Company} from "@/types.ts";
 import router from "@/router";
+import {notify} from "@kyvg/vue3-notification";
 
 
 const route = useRoute();
@@ -40,19 +41,21 @@ const emit = defineEmits<{ updated: []}>();
 
 
 const updateResource = () => {
-  console.log(company.value);
   apiStore.updateRessource('companies', id, {
       name: company.value.name,
       description: company.value.description,
       adress: company.value.adress,
       contact: company.value.contact,
       email: company.value.email,
-      currentPlainPassword: "Lapin123",
+      currentPlainPassword: company.value.password,
     }
   ).then(reponse => {
     emit('updated');
-    console.log(reponse);
-    //TODO notify
+    notify({
+      type: "success",
+      title: "Modification sauvegardée",
+      text: 'Vos modifications ont bien été sauvegardées!',
+    });
   })
 }
 
