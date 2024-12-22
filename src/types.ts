@@ -44,3 +44,7 @@ export interface Player{
   participants: VideoGame[];
   type: string;
 }
+
+export interface Participation{
+  playtest : Playtest;
+}

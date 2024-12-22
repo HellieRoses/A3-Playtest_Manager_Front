@@ -51,6 +51,7 @@ const updateResource = () => {
     }
   ).then(() => {
     emit('updated');
+    router.push({name:'profile'})
     notify({
       type: "success",
       title: "Modification sauvegardée",

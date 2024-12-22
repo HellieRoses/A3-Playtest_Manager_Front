@@ -18,7 +18,7 @@ const player: Ref<Player> = ref({
   name: '',
   firstName: '',
   birthdayDate: '',
-  favoriteGames: [],
+  favoriteGames: [""],
   type: '',
   participants: []
 });
@@ -48,7 +48,7 @@ function clickOnRound(type:string){
 async function signUp() {
   if (accountType.value === "player") {
     try {
-      await apiStore.createRessource("players", {"login": player.value.login, "name": player.value.name, "firstName": player.value.firstName, "birthdayDate": new Date(player.value.birthdayDate), "email": player.value.email, "plainPassword": player.value.password});
+      await apiStore.createRessource("players", {"login": player.value.login, "name": player.value.name, "firstName": player.value.firstName, "birthdayDate": new Date(player.value.birthdayDate), "email": player.value.email, "plainPassword": player.value.password,"favoriteGames": []});
     } catch(error) {
       notify({
         type: "error",

@@ -2,8 +2,9 @@
 
 import PlaytestMinListBox from "@/components/minList/PlaytestMinListBox.vue";
 import {apiStore} from "@/util/apiStore.ts";
-import type {Player, Playtest} from "@/types.ts";
+import type {Participation, Player, Playtest} from "@/types.ts";
 import {onBeforeMount, ref, type Ref} from "vue";
+import router from "@/router";
 const title1 = "Playtest à Venir";
 const title2 = "Playtest Passés";
 const player:Ref<Player> = ref({
@@ -36,12 +37,12 @@ async function getPlaytestRegistered(){
    })
 }
 
-function getFirst4PlaytestAfter(list:Array<Array<string>>){
+function getFirst4PlaytestAfter(list:Array<Participation>){
   const max = Math.min(4, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current < max){
-      const playtest:Playtest = list[i]["playtest"];
+      const playtest:Playtest = list[i].playtest;
       if(new Date(playtest.begin).getDate() >= Date.now()){
         first4playtestRegiteredAfter.value.push(playtest);
         current++;
@@ -51,12 +52,12 @@ function getFirst4PlaytestAfter(list:Array<Array<string>>){
     }
   }
 }
-function getFirst4PlaytestBefore(list:Array<Array<Playtest>>){
+function getFirst4PlaytestBefore(list:Array<Participation>){
   const max = Math.min(3, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current <= max){
-      const playtest = list[i]["playtest"];
+      const playtest:Playtest = list[i].playtest;
       if(new Date(playtest.begin).getDate() < Date.now()){
         first4playtestRegiteredBefore.value.push(playtest);
         current++;
@@ -68,8 +69,13 @@ function getFirst4PlaytestBefore(list:Array<Array<Playtest>>){
 }
 
 onBeforeMount(async() => {
-  await getPlayer();
-  await getPlaytestRegistered();
+  if(await apiStore.estConnecte){
+
+    await getPlayer();
+    await getPlaytestRegistered();
+  }else{
+    router.push({name: "home"})
+  }
 })
 </script>
 
