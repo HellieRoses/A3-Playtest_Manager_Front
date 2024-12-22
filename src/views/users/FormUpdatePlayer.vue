@@ -49,7 +49,7 @@ const updateResource = () => {
       email: player.value.email,
       currentPlainPassword: player.value.password,
     }
-  ).then(reponse => {
+  ).then(() => {
     emit('updated');
     notify({
       type: "success",
@@ -118,10 +118,10 @@ async function deleteAccount() {
       </div>
       <div class="bottom-button">
         <button type="submit" class="button">
-          <p>Modifier</p>
+          Modifier
         </button>
         <div class="button delete-button" @click="deleteAccount()">
-          <p>Supprimer</p>
+         <p>Supprimer</p>
         </div>
       </div>
     </form>
