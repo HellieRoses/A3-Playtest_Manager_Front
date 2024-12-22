@@ -175,6 +175,12 @@ onBeforeMount(async () => {
 
 <template>
   <div class="content">
+    <div id="buttons">
+      <div class="bottom-button" v-if="canDeleteModify">
+        <div id="edit" class="button round" @click="$router.push({name : 'updatePlaytest', params : {id: playtest.id}})"><img src="@/assets/img/edit.png" alt="edit"/></div>
+        <div class="button round delete-button" @click="deletePlaytest"><img src="@/assets/img/delete.png" alt="delete"/></div>
+      </div>
+    </div>
     <div id="upper-infos">
       <h1 class="title">Playtest {{ playtest.id }}</h1>
       <div>
@@ -225,11 +231,6 @@ onBeforeMount(async () => {
       <div class="bottom-button">
         <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
       </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
-      <div class="bottom-button" v-if="canDeleteModify">
-        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div>
-        <!-- TODO mettre bonne route playtest-->
-        <div class="button delete-button" @click="deletePlaytest"><p>Supprimer</p></div>
-      </div>
     </div>
   </div>
 </template>
@@ -240,7 +241,8 @@ onBeforeMount(async () => {
 .content {
   align-items: center;
   padding: 15px;
-
+  position: relative;
+  width: 100%;
   & #upper-infos {
     & > div {
       display: grid;
@@ -256,7 +258,7 @@ onBeforeMount(async () => {
     }
   }
 
-  .button {
+  .button:not(.round) {
     background-color: #BBFFE9;
 
     & p {
@@ -297,6 +299,26 @@ onBeforeMount(async () => {
 
   }
 }
+
+#buttons{
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: fit-content;
+  height: fit-content;
+  & .button:first-child{
+    margin-right: 10px;
+  }
+  & img{
+    width: 48px;
+    height: 48px;
+  }
+}
+#edit{
+  background-color: #38dd38;
+}
+
 
 .delete-button {
   margin-left: 2%;
