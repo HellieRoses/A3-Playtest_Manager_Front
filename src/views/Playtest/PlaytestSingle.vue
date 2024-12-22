@@ -11,7 +11,7 @@ const id = route.params.id;
 
 const refid = ref("");
 const company:Ref<Company> = ref({
-  id:'',
+  id:'0',
   login:'',
   email:'',
   password:'',
@@ -186,8 +186,12 @@ function deletePlaytest() {
 }
 
 onBeforeMount(async () => {
+  if(!await apiStore.estConnecte){
+    await router.push({name:"home"})
+  }
   await chargerPlaytest();
-  await getParticipation();
+    await getParticipation();
+
 })
 
 

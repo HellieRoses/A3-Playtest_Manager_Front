@@ -8,10 +8,6 @@ import {notify} from "@kyvg/vue3-notification";
 import router from "@/router";
 
 const videogames:Ref<VideoGame[]> = ref([]);
-apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
-  .then(reponseJSON => {
-    videogames.value=reponseJSON["member"];
-  })
 
 const company:Ref<Company> = ref({
   id:'',
@@ -44,9 +40,19 @@ const playtest:Ref<Playtest>=ref({
   nbMaxPlayer : 0,
   typePlayerSearched : ""
 })
-apiStore.getById('companies',(apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
-  playtest.value.company = reponseJSON;
-})
+
+if(!apiStore.estConnecte || (apiStore.getUtilisateurConnecte())!.type != "Company") {
+  router.push({name: "home"});
+}else{
+  apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
+    .then(reponseJSON => {
+      videogames.value=reponseJSON["member"];
+    })
+  apiStore.getById('companies',(apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
+    playtest.value.company = reponseJSON;
+  })
+
+}
 
 function createPlaytest(){
   if(playtest.value.adress == ""){

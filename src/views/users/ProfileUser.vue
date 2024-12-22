@@ -10,14 +10,16 @@ const isCompany = ref(false);
 
 if (!apiStore.estConnecte){
   router.push({name:"home"})
+}else{
+  if((apiStore.getUtilisateurConnecte())!.type == 'Player'){
+    isPlayer.value = true;
+  }
+  else if(apiStore.getUtilisateurConnecte()!.type == 'Company'){
+    isCompany.value = true;
+  }
 }
 
-if((apiStore.getUtilisateurConnecte())!.type == 'Player'){
-  isPlayer.value = true;
-}
-else if(apiStore.getUtilisateurConnecte()!.type == 'Company'){
-  isCompany.value = true;
-}
+
 </script>
 
 <template>

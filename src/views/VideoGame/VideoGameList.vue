@@ -18,11 +18,17 @@ if(id == undefined){
     videogames.value = reponseJSON["member"];
   })
 }
+const isCompany = ref(false)
+if(apiStore.estConnecte){
+  if((apiStore.getUtilisateurConnecte())!.type == 'Company'){
+    isCompany.value = true ;
+  }
+}
 </script>
 
 <template>
   <div class="container">
-  <div class="button" v-if="(apiStore.getUtilisateurConnecte())!.type == 'Company'" @click="$router.push({name : 'createVideoGame'})"><p>Create</p></div>
+  <div class="button" v-if="isCompany" @click="$router.push({name : 'createVideoGame'})"><p>Create</p></div>
   <div class="list" v-if="videogames.length > 0">
     <VideoGameBox
       v-for="videogame in videogames" :key="videogame.id"

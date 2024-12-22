@@ -5,6 +5,10 @@ import router from "@/router";
 import type {Company, Player} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
+if(apiStore.estConnecte){
+  router.push({name :"home"})
+}
+
 const accountType = ref('player');
 const player: Ref<Player> = ref({
   id: '',
@@ -53,7 +57,7 @@ async function signUp() {
       });
     }
     await apiStore.login(player.value.login, player.value.password);
-    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updatePlayer", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
   else if (accountType.value === "company") {
     try {
@@ -66,7 +70,7 @@ async function signUp() {
       });
     }
     await apiStore.login(company.value.login, company.value.password);
-    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updateCompany", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
 }
 </script>
@@ -164,7 +168,9 @@ async function signUp() {
 <style scoped>
 @import "@/assets/formsView.css";
 form{
-  padding-top: 5%!important;
+  padding-top: 2%!important;
+}
+h1{
 }
 .group{
   margin: 8px 0;
@@ -173,6 +179,10 @@ form{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  & img{
+    width :48px;
+    height : 48px;
+  }
 }
 #names{
   width: 60%;
@@ -182,5 +192,12 @@ form{
   & .group{
     width: 45%;
   }
+}
+
+.group input{
+  padding: 6px 20px!important;
+}
+.form{
+  height: 98%;
 }
 </style>
