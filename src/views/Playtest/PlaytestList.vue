@@ -40,12 +40,13 @@ if(type == undefined){
 <template>
   <div class="container">
     <div class="button" v-if="(apiStore.getUtilisateurConnecte())!.type == 'Company'" @click="$router.push({name : 'createPlaytest'})"><p>Create</p></div>
-    <div class="list">
+    <div class="list" v-if="playtests.length > 0">
       <PlaytestBox
         v-for="playtest of playtests" :key="playtest.id"
         :playtest="playtest"
       />
     </div>
+    <p v-else class="textOnBlue">Il n'y a aucune Session de Jeu disponible</p>
   </div>
 
 </template>
