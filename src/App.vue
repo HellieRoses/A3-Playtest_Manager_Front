@@ -2,10 +2,12 @@
 import {apiStore} from "@/util/apiStore.ts";
 import {onMounted, ref} from "vue";
 import {Notifications} from "@kyvg/vue3-notification";
+import router from "@/router";
 
 const loaded = ref(false);
 
 async function deconnect() {
+  await router.push({name: "home"});
   await apiStore.logout();
 }
 
