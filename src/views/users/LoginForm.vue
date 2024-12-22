@@ -8,6 +8,9 @@ const connectingUser = ref({
   login: "",
   password:""
 });
+if(apiStore.estConnecte){
+  router.push({name :"home"})
+}
 
 async function connect(): Promise<void> {
   try {

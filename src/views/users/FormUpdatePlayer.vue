@@ -25,9 +25,8 @@ const player:Ref<Player> = ref({
 
 onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
-  const utilisateurId = await (apiStore.getUtilisateurConnecte())!.id;
 
-  if (!estConnecte || Number(id) !== Number(utilisateurId)) {
+  if (!estConnecte || Number(id) !== Number((apiStore.getUtilisateurConnecte())!.id)) {
     await router.push({name: 'home'})
   }
 

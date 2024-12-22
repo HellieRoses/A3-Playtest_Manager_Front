@@ -14,6 +14,10 @@ const router = createRouter({
       component: HomePage
     },
     {
+      path: '/:pathMatch(.*)*',
+      redirect: {name: 'home'}
+    },
+    {
       path: '/companies',
       name : 'companies',
       component : () => import('@/views/Company/CompanyList.vue')
