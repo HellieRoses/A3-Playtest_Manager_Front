@@ -44,7 +44,7 @@ const playtest:Ref<Playtest>=ref({
   nbMaxPlayer : 0,
   typePlayerSearched : ""
 })
-apiStore.getById('companies',playtest.value.company.id).then(reponseJSON => {
+apiStore.getById('companies',(apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
   playtest.value.company = reponseJSON;
 })
 
