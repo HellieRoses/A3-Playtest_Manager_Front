@@ -113,6 +113,12 @@ header > #connectButton {
     font-weight: bolder;
   }
 }
+
+button {
+  vertical-align: center;
+  font-size: 20px;
+  font-weight: normal;
+}
 .delete-button {
   background-color: #E65759!important;
 }

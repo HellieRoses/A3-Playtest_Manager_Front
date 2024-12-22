@@ -24,7 +24,7 @@ const company:Ref<Company> = ref({
 
 onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
-  const utilisateurId = await apiStore.utilisateurConnecte.id;
+  const utilisateurId = await (apiStore.getUtilisateurConnecte())!.id;
 
   if (!estConnecte || Number(id) !== Number(utilisateurId)) {
     await router.push({name: 'home'})
@@ -102,7 +102,7 @@ const updateResource = () => {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" @click="">
+        <div class="button delete-button" ><!-- TODO supprimer Company-->
           <p>Supprimer</p>
         </div>
       </div>

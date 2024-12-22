@@ -7,7 +7,7 @@ import {onBeforeMount, ref, type Ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 const title1 = "Playtests Organisés"
 const company:Ref<Company> = ref({
-  id: 0,
+  id: "",
   login: "",
   email: "",
   password: "",
@@ -15,14 +15,14 @@ const company:Ref<Company> = ref({
   description: "",
   adress: "",
   contact: "",
-  videoGames: [],
+  videoGames: ref([]),
   type: "",
 })
 
 const playtests:Ref<Playtest[]> = ref([]);
 const videogamesFirst4:Ref<VideoGame[]> = ref([]);
 async function getCompany(){
-  await apiStore.getById('companies', apiStore.utilisateurConnecte.id).then(reponseJSON => {
+  await apiStore.getById('companies', (apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
     company.value = reponseJSON;
     for(let i=0; i < Math.min(4, company.value.videoGames.length); i++){
       videogamesFirst4.value.push(company.value.videoGames[i]);
@@ -30,7 +30,7 @@ async function getCompany(){
   })
 }
 async function getPlaytests(){
-  await apiStore.getByCompany('playtests', apiStore.utilisateurConnecte.id).then(reponseJSON => {
+  await apiStore.getByCompany('playtests', (apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
     const playtestsCurrent = reponseJSON["member"];
     for (let i = 0; i < Math.min(4, playtestsCurrent.length); i++) {
       playtests.value.push(playtestsCurrent[i]);
@@ -73,7 +73,7 @@ onBeforeMount(async() => {
     </div>
     <div id="additional-content">
      <VideoGameMinListBox :videogames="videogamesFirst4"/>
-      <PlaytestMinListBox :title="title1" :list="playtests" :userId="apiStore.utilisateurConnecte.id" :userType="apiStore.utilisateurConnecte.type"/>
+      <PlaytestMinListBox :title="title1" :list="playtests" :userId="Number((apiStore.getUtilisateurConnecte())!.id)" :userType="(apiStore.getUtilisateurConnecte())!.type"/>
     </div>
   </div>
 </template>

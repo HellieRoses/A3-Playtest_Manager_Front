@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onBeforeMount, ref, type Ref} from 'vue';
-import type {Playtest} from "@/types.ts";
+import type {Company, Playtest} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
@@ -10,17 +10,37 @@ const router = useRouter();
 const id = route.params.id;
 
 const refid = ref("");
-const playtest:Ref<Playtest> = ref({
-  id: 0,
-  videoGame: {},
-  begin: "",
-  end: "",
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email:'',
+  password:'',
+  name: "",
+  description: "",
   adress: "",
-  company: {},
-  visibility: false,
-  nbMaxPlayer: 0,
-  typePlayerSearched: ""
-});
+  contact: "",
+  type: "",
+  videoGames: ref([]),
+})
+const playtest:Ref<Playtest>=ref({
+  id : 0,
+  videoGame : {
+    id: 0,
+    name: "",
+    description: "",
+    type: "",
+    support: ref([]),
+    playtests: ref([]),
+    company: company
+  },
+  begin : "",
+  end  :"",
+  adress : "",
+  company : company,
+  visibility :  true,
+  nbMaxPlayer : 0,
+  typePlayerSearched : ""
+})
 const currentParticipation = ref(-1);
 const participationsOfPlayer: Ref = ref([]);
 
@@ -48,11 +68,11 @@ async function getParticipation() {
 
 
 function canSubscribe() {
-  if (apiStore.utilisateurConnecte.type == "Player") {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
     if (participationsOfPlayer.value.length < playtest.value.nbMaxPlayer) {
       for (const i in participationsOfPlayer.value) {
         const participation = participationsOfPlayer.value[i];
-        if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+        if (participation["player"].id == (apiStore.getUtilisateurConnecte())!.id) {
           const idParticipation = participation["@id"];
           currentParticipation.value = parseInt(idParticipation.split("/").pop());
           canSub.value = false;
@@ -69,10 +89,10 @@ function canSubscribe() {
 }
 
 function canUnSubscribe() {
-  if (apiStore.utilisateurConnecte.type == "Player") {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
     for (const i in participationsOfPlayer.value) {
       const participation = participationsOfPlayer.value[i];
-      if (participation["player"].id == apiStore.utilisateurConnecte.id) {
+      if (participation["player"].id == (apiStore.getUtilisateurConnecte())!.id) {
         canUnsub.value = true;
         return;
       }
@@ -82,8 +102,8 @@ function canUnSubscribe() {
 }
 
 function canDelete() {
-  if (apiStore.utilisateurConnecte.type == "Company") {
-    if (playtest.value.company.id == apiStore.utilisateurConnecte.id) {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Company") {
+    if (playtest.value.company.id == (apiStore.getUtilisateurConnecte())!.id) {
       canDeleteModify.value = true;
       return;
     }
@@ -93,7 +113,7 @@ function canDelete() {
 }
 
 function subscribe() {
-  if (apiStore.utilisateurConnecte.type == "Player") {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
     apiStore.createParticipation({"playtest": refid.value}).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {
@@ -118,7 +138,7 @@ function subscribe() {
 }
 
 function unsubscribe() {
-  if (apiStore.utilisateurConnecte.type == "Player") {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Player") {
     apiStore.deleteParticipation(currentParticipation.value).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {
@@ -143,7 +163,7 @@ function unsubscribe() {
 }
 
 function deletePlaytest() {
-  if (apiStore.utilisateurConnecte.type == "Company") {
+  if ((apiStore.getUtilisateurConnecte())!.type == "Company") {
     apiStore.deleteRessource('playtests', playtest.value.id).then(reponseJSON => {
       if (reponseJSON.code != undefined) {
         if (reponseJSON.code != 200) {
@@ -175,13 +195,19 @@ onBeforeMount(async () => {
 
 <template>
   <div class="content">
+    <div id="buttons">
+      <div class="bottom-button" v-if="canDeleteModify">
+        <div id="edit" class="button round" @click="$router.push({name : 'updatePlaytest', params : {id: playtest.id}})"><img src="@/assets/img/edit.png" alt="edit"/></div>
+        <div class="button round delete-button" @click="deletePlaytest"><img src="@/assets/img/delete.png" alt="delete"/></div>
+      </div>
+    </div>
     <div id="upper-infos">
       <h1 class="title">Playtest {{ playtest.id }}</h1>
       <div>
         <router-link :to="{name : 'company',params:{id:playtest.company.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="../../assets/img/building.png" alt="building"/>
+              <img src="@/assets/img/building.png" alt="building"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.company.name }}</p>
@@ -190,7 +216,7 @@ onBeforeMount(async () => {
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/calendar_light.png" alt="calendar"/>
+            <img src="@/assets/img/calendar_light.png" alt="calendar"/>
           </div>
           <div>
             <p class="textOnBlue">Début : {{ (new Date(playtest.begin)).toLocaleString("fr") }}</p>
@@ -200,7 +226,7 @@ onBeforeMount(async () => {
         <router-link :to="{name : 'videogame',params:{id:playtest.videoGame.id}}">
           <div class="main-infos">
             <div class="round yellowRound">
-              <img src="../../assets/img/videoGame.png" alt="videogame"/>
+              <img src="@/assets/img/videoGame.png" alt="videogame"/>
             </div>
             <div>
               <p class="textOnBlue">{{ playtest.videoGame.name }}</p>
@@ -209,7 +235,7 @@ onBeforeMount(async () => {
         </router-link>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/pin_light.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">{{ playtest.adress }}</p>
         </div>
@@ -221,14 +247,9 @@ onBeforeMount(async () => {
       <p>{{ playtest.typePlayerSearched }}</p>
       <div class="bottom-button">
         <div class="button" v-if="canSub" @click="subscribe"><p>S'inscrire</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + pas inscrit -->
+      </div>
       <div class="bottom-button">
         <div class="button" v-if="canUnsub" @click="unsubscribe"><p>Désinscrire</p></div>
-      </div> <!-- TODO inscrire user à un playtest à n'afficher que si player + inscrit-->
-      <div class="bottom-button" v-if="canDeleteModify">
-        <div class="button" @click="$router.push({name : 'updatePlaytest'})"><p>Modifier</p></div>
-        <!-- TODO mettre bonne route playtest-->
-        <div class="button delete-button" @click="deletePlaytest"><p>Supprimer</p></div>
       </div>
     </div>
   </div>
@@ -240,7 +261,8 @@ onBeforeMount(async () => {
 .content {
   align-items: center;
   padding: 15px;
-
+  position: relative;
+  width: 100%;
   & #upper-infos {
     & > div {
       display: grid;
@@ -256,7 +278,7 @@ onBeforeMount(async () => {
     }
   }
 
-  .button {
+  .button:not(.round) {
     background-color: #BBFFE9;
 
     & p {
@@ -297,6 +319,26 @@ onBeforeMount(async () => {
 
   }
 }
+
+#buttons{
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: fit-content;
+  height: fit-content;
+  & .button:first-child{
+    margin-right: 10px;
+  }
+  & img{
+    width: 48px;
+    height: 48px;
+  }
+}
+#edit{
+  background-color: #38dd38;
+}
+
 
 .delete-button {
   margin-left: 2%;

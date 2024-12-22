@@ -4,13 +4,18 @@ import ProfileCompany from "@/components/user/ProfileCompany.vue";
 import {apiStore} from "@/util/apiStore.ts";
 import ProfilePlayer from "@/components/user/ProfilePlayer.vue";
 import {ref} from "vue";
+import router from "@/router";
 const isPlayer = ref(false);
 const isCompany = ref(false);
 
-if(apiStore.utilisateurConnecte.type == 'Player'){
+if (!apiStore.estConnecte){
+  router.push({name:"home"})
+}
+
+if((apiStore.getUtilisateurConnecte())!.type == 'Player'){
   isPlayer.value = true;
 }
-else if(apiStore.utilisateurConnecte.type == 'Company'){
+else if(apiStore.getUtilisateurConnecte()!.type == 'Company'){
   isCompany.value = true;
 }
 </script>
