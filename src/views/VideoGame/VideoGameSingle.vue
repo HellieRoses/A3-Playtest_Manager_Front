@@ -9,18 +9,18 @@ import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
 const id = route.params.id;
-const videogame:Ref<VideoGame> = ref({
+const videogame: Ref<VideoGame> = ref({
   id: 0,
   name: "",
   description: "",
   type: "",
   support: ref([]),
-  playtests:  ref([]),
+  playtests: ref([]),
   company: {
-    id:'',
-    login:'',
-    email:'',
-    password:'',
+    id: '0',
+    login: '',
+    email: '',
+    password: '',
     name: "",
     description: "",
     adress: "",
@@ -29,60 +29,69 @@ const videogame:Ref<VideoGame> = ref({
     videoGames: ref([]),
   }
 })
-const listePlayTests:Ref<Playtest[]> = ref([]);
+const listePlayTests: Ref<Playtest[]> = ref([]);
 const canDeleteModify = ref(false);
+async function getVideoGame(){
+  await apiStore.getById('video_games', id)
+    .then(reponseJSON => {
+      if (reponseJSON.status != undefined) {
+        if (reponseJSON.status != 200) {
+          router.push({name: "videogames"})
+        }
+      } else {
+        videogame.value = reponseJSON;
+        for (let i = 0; i < Math.min(6, videogame.value.playtests.length); i++) {
+          listePlayTests.value.push(videogame.value.playtests[i]);
+        }
+        if(apiStore.estConnecte)
+          canDelete();
+      }
+
+    })
+}
 
 onBeforeMount(async () => {
-    await apiStore.getById('video_games', id)
-      .then(reponseJSON => {
-        if (reponseJSON.status != undefined) {
-          if (reponseJSON.status != 200) {
-            router.push({name: "videogames"})
-          }
-        } else {
-          videogame.value = reponseJSON;
-          for (let i = 0; i < Math.min(6, videogame.value.playtests.length); i++) {
-            listePlayTests.value.push(videogame.value.playtests[i]);
-          }
-          canDelete();
-        }
-
-      })
+  const estConnecte = await apiStore.estConnecte;
+  if (!estConnecte) {
+    await router.push({name: "home"})
+  }
+  await getVideoGame();
 })
 
 
 function canDelete() {
-  if ((apiStore.getUtilisateurConnecte())!.type == 'Company'){
-    if (videogame.value.company.id == (apiStore.getUtilisateurConnecte())!.id){
+  if ((apiStore.getUtilisateurConnecte())!.type == 'Company') {
+    if (videogame.value.company.id == (apiStore.getUtilisateurConnecte())!.id) {
       canDeleteModify.value = true;
-      return ;
+      return;
     }
   }
   canDeleteModify.value = false;
-  return ;
+  return;
 }
-function deleteVG(){
-  if((apiStore.getUtilisateurConnecte())!.type == 'Company'){
-   if( confirm('Etes-vous sûre de supprimer le jeux vidéo '+videogame.value.name) ){
-     apiStore.deleteRessource("video_games",videogame.value.id).then(reponseJSON => {
-       if (reponseJSON.code != undefined) {
-         if (reponseJSON.code != 200) {
-           notify({
-             type: "error",
-             title: "Jeux video non-supprimé",
-             text: "Il y a eu un problème lors de la suppression du jeux vidéo"
-           });
-         }
-       } else {
-         notify({
-           type: "success",
-           title: "Jeux vidéo supprimé",
-           text: "Le jeu " + videogame.value.name + " a été supprimé."
-         });
-         router.push({name:"videogames"})
-       }
-     })
-   }
+
+function deleteVG() {
+  if ((apiStore.getUtilisateurConnecte())!.type == 'Company') {
+    if (confirm('Etes-vous sûre de supprimer le jeux vidéo ' + videogame.value.name)) {
+      apiStore.deleteRessource("video_games", videogame.value.id).then(reponseJSON => {
+        if (reponseJSON.code != undefined) {
+          if (reponseJSON.code != 200) {
+            notify({
+              type: "error",
+              title: "Jeux video non-supprimé",
+              text: "Il y a eu un problème lors de la suppression du jeux vidéo"
+            });
+          }
+        } else {
+          notify({
+            type: "success",
+            title: "Jeux vidéo supprimé",
+            text: "Le jeu " + videogame.value.name + " a été supprimé."
+          });
+          router.push({name: "videogames"})
+        }
+      })
+    }
   }
 }
 </script>
@@ -90,13 +99,16 @@ function deleteVG(){
 <template>
   <div class="content">
     <div id="buttons">
-      <div class="button round" id="edit" v-if="canDeleteModify" @click="$router.push({name : 'updateVideoGame', params: {id: videogame.id}})" ><img src="@/assets/img/edit.png" alt="edit"/></div>
-      <div class="button round delete-button"  v-if="canDeleteModify" @click="deleteVG"><img src="@/assets/img/delete.png" alt="delete"/></div>
+      <div class="button round" id="edit" v-if="canDeleteModify"
+           @click="$router.push({name : 'updateVideoGame', params: {id: videogame.id}})"><img
+        src="@/assets/img/edit.png" alt="edit"/></div>
+      <div class="button round delete-button" v-if="canDeleteModify" @click="deleteVG"><img
+        src="@/assets/img/delete.png" alt="delete"/></div>
     </div>
     <div id="upper-infos">
       <div id="title-div">
         <h1 class="title">{{ videogame.name }}</h1>
-        <p id="description">{{videogame.description}}</p>
+        <p id="description">{{ videogame.description }}</p>
         <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
       </div>
       <div class="list">
@@ -130,10 +142,11 @@ function deleteVG(){
     <div id="lower-infos">
       <h2>Playtests</h2>
       <div class="list">
-        <MiniBlockPlaytest v-for="playtest in listePlayTests" :key="playtest.id" :idPlaytest="String(playtest.id)" />
+        <MiniBlockPlaytest v-for="playtest in listePlayTests" :key="playtest.id" :idPlaytest="String(playtest.id)"/>
       </div>
       <div class="bottom-button">
-        <div class="button" @click="$router.push({name : 'playtestsByVideoGames',params:{id:videogame.id}})"><p>Voir plus</p></div>
+        <div class="button" @click="$router.push({name : 'playtestsByVideoGames',params:{id:videogame.id}})"><p>Voir
+          plus</p></div>
       </div>
     </div>
   </div>
@@ -145,6 +158,7 @@ function deleteVG(){
 .content {
   width: 100%;
   position: relative;
+
   & #upper-infos {
     & div#title-div {
       display: flex;
@@ -178,39 +192,45 @@ function deleteVG(){
     & h2 {
       margin-bottom: 0;
     }
-    & .list{
-      row-gap: 3em!important;
+
+    & .list {
+      row-gap: 3em !important;
       column-gap: 10%;
     }
   }
 }
-#edit{
-background-color: #38dd38;
+
+#edit {
+  background-color: #38dd38;
 }
-#buttons{
+
+#buttons {
   display: flex;
   position: absolute;
   right: 10px;
   top: 10px;
   width: fit-content;
   height: fit-content;
-  & .button:first-child{
+
+  & .button:first-child {
     margin-right: 10px;
   }
-  & img{
+
+  & img {
     width: 48px;
     height: 48px;
   }
 }
 
 #upper-infos {
-  & #description{
+  & #description {
     width: 80%;
     text-align: center;
     font-size: 18px;
     margin-top: 50px;
   }
-  & > div{
+
+  & > div {
     display: flex;
     justify-content: space-around;
     width: 80%;

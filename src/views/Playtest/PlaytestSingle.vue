@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {onBeforeMount, ref, type Ref} from 'vue';
+import {onBeforeMount, onMounted, ref, type Ref} from 'vue';
 import type {Company, Playtest} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
@@ -11,7 +11,7 @@ const id = route.params.id;
 
 const refid = ref("");
 const company:Ref<Company> = ref({
-  id:'',
+  id:'0',
   login:'',
   email:'',
   password:'',
@@ -186,8 +186,12 @@ function deletePlaytest() {
 }
 
 onBeforeMount(async () => {
+  if(!await apiStore.estConnecte){
+    await router.push({name:"home"})
+  }
   await chargerPlaytest();
-  await getParticipation();
+    await getParticipation();
+
 })
 
 

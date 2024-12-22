@@ -17,7 +17,7 @@ const videogame:Ref<VideoGame> = ref({
   support: ref([]),
   playtests: ref([]),
   company: {
-    id:'',
+    id:'0',
     login:'',
     email:'',
     password:'',
@@ -29,10 +29,17 @@ const videogame:Ref<VideoGame> = ref({
     videoGames: ref([]),
   }
 });
+if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company"){
+  router.push({name: "home"});
+}else{
+  apiStore.getById("video_games", idVG).then(reponseJSON => {
+    videogame.value = reponseJSON;
+    if(Number(apiStore.getUtilisateurConnecte().id) != Number(videogame.value.company.id)){
+      router.push({name:"home"})
+    }
+  })
+}
 
-apiStore.getById("video_games", idVG).then(reponseJSON => {
-  videogame.value = reponseJSON;
-})
 
 function update(){
   let support;

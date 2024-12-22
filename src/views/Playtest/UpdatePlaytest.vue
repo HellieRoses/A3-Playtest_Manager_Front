@@ -10,10 +10,21 @@ import router from "@/router";
 const videogames:Ref<VideoGame[]> = ref([]);
 const route = useRoute();
 const id = route.params.id;
-apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
-  .then(reponseJSON => {
-    videogames.value=reponseJSON["member"];
+if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company") {
+  router.push({name: "home"});
+}else{
+  apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
+    .then(reponseJSON => {
+      videogames.value=reponseJSON["member"];
+    })
+  apiStore.getById('playtests',id).then(reponseJSON => {
+    playtest.value= reponseJSON;
+    if(Number(playtest.value.company.id) != Number(apiStore.getUtilisateurConnecte().id)){
+      router.push({name: "home"});
+    }
   })
+}
+
 
 const company:Ref<Company> = ref({
   id:'',
@@ -46,9 +57,7 @@ const playtest:Ref<Playtest>=ref({
   nbMaxPlayer : 0,
   typePlayerSearched : ""
 })
-apiStore.getById('playtests',id).then(reponseJSON => {
-  playtest.value= reponseJSON;
-})
+
 function updateP(){
   if(playtest.value.adress == ""){
     playtest.value.adress = playtest.value.company.adress;

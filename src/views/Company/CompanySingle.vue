@@ -4,11 +4,12 @@ import {apiStore} from "@/util/apiStore.ts";
 import {type Ref, ref} from 'vue';
 import type {Company, VideoGame} from "@/types.ts";
 import MiniBlockVideoGame from "@/components/minList/MiniBlockVideoGame.vue";
+import router from "@/router";
 
 const route = useRoute();
 const id = route.params.id;
 const company: Ref<Company> = ref({
-  id: '',
+  id: '0',
   login: '',
   email: '',
   password: '',
@@ -20,14 +21,18 @@ const company: Ref<Company> = ref({
   videoGames: ref([]),
 });
 const listVideoGames: Ref<VideoGame[]> = ref([]);
+if(!apiStore.estConnecte){
+  router.push({name: "home"});
+} else {
+  apiStore.getById('companies', id)
+    .then(reponseJSON => {
+      company.value = reponseJSON;
+      for (let i = 0; i < Math.min(3, company.value.videoGames.length); i++) {
+        listVideoGames.value.push(company.value.videoGames[i]);
+      }
+    })
+}
 
-apiStore.getById('companies', id)
-  .then(reponseJSON => {
-    company.value = reponseJSON;
-    for (let i = 0; i < Math.min(3, company.value.videoGames.length); i++) {
-      listVideoGames.value.push(company.value.videoGames[i]);
-    }
-  })
 
 </script>
 

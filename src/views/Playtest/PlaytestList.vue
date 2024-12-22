@@ -9,6 +9,7 @@ const route = useRoute();
 const type = route.params.type;
 const id = route.params.id;
 
+const isCompany = ref(false);
 if(type == undefined){
   apiStore.getAll('playtests')
     .then(reponseJSON => {
@@ -34,12 +35,16 @@ if(type == undefined){
       });
   }
 }
-
+if(apiStore.estConnecte){
+  if((apiStore.getUtilisateurConnecte())!.type == 'Company'){
+    isCompany.value = true ;
+  }
+}
 </script>
 
 <template>
   <div class="container">
-    <div class="button" v-if="(apiStore.getUtilisateurConnecte())!.type == 'Company'" @click="$router.push({name : 'createPlaytest'})"><p>Create</p></div>
+    <div class="button" v-if="isCompany" @click="$router.push({name : 'createPlaytest'})"><p>Create</p></div>
     <div class="list" v-if="playtests.length > 0">
       <PlaytestBox
         v-for="playtest of playtests" :key="playtest.id"
