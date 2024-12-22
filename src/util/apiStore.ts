@@ -1,4 +1,4 @@
-import {reactive, ref} from "vue";
+import {reactive} from "vue";
 import type {Company, Player} from "@/types.ts";
 
 export const apiStore = reactive({

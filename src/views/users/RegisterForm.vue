@@ -31,7 +31,7 @@ const company: Ref<Company> = ref({
   videoGames: []
 });
 
-function clickOnRound(type:any){
+function clickOnRound(type:string){
   if(accountType.value != type){
     accountType.value = type;
     const currentYellow = document.getElementById('choice')!.querySelector('.yellowRound')!;
