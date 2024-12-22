@@ -89,23 +89,23 @@ const router = createRouter({
       component : () => import('@/views/users/FormUpdatePlayer.vue')
     },
     {
-      path: '/createPlaytest', /*TODO CHANGE*/
+      path: '/createPlaytest',
       name: 'createPlaytest',
       component : () => import('@/views/Playtest/CreatePlaytest.vue')
     },
     {
-      path: '/updatePlaytest', /*TODO CHANGE*/
+      path: '/updatePlaytest/:id',
       name: 'updatePlaytest',
       component : () => import('@/views/Playtest/UpdatePlaytest.vue')
     },
 
     {
-      path: '/createVideoGame', /*TODO CHANGE*/
+      path: '/createVideoGame',
       name: 'createVideoGame',
       component : () => import('@/views/VideoGame/CreateVideoGame.vue')
     },
     {
-      path: '/updateVideoGame', /*TODO CHANGE*/
+      path: '/updateVideoGame/:id',
       name: 'updateVideoGame',
       component : () => import('@/views/VideoGame/UpdateVideoGame.vue')
     },

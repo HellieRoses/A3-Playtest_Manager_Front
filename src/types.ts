@@ -28,7 +28,6 @@ export interface Company{
   description: string;
   adress: string;
   contact: string;
-  type: string;
   videoGames: VideoGame[];
   type: string;
 }
@@ -42,7 +41,6 @@ export interface Player{
   firstName: string;
   birthdayDate: string;
   favoriteGames: string[];
-  type: string;
   participants: VideoGame[];
   type: string;
 }

@@ -23,13 +23,13 @@ const first4playtestRegiteredBefore:Ref<Playtest[]> = ref([]);
 const first4playtestRegiteredAfter:Ref<Playtest[]> = ref([]);
 
 async function getPlayer(){
-  await apiStore.getById('players', apiStore.utilisateurConnecte.id).then(reponseJSON => {
+  await apiStore.getById('players', (apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
     player.value = reponseJSON;
   })
 }
 
 async function getPlaytestRegistered(){
-   await apiStore.getParticipationPlaytest(apiStore.utilisateurConnecte.id).then(reponseJSON => {
+   await apiStore.getParticipationPlaytest((apiStore.getUtilisateurConnecte())!.id).then(reponseJSON => {
       const playtests = reponseJSON["member"];
       getFirst4PlaytestAfter(playtests);
       getFirst4PlaytestBefore(playtests);
@@ -100,8 +100,8 @@ onBeforeMount(async() => {
 
   </div>
   <div id="additional-content">
-    <PlaytestMinListBox :title="title1" :list="first4playtestRegiteredAfter" :userId="Number(apiStore.utilisateurConnecte.id)" :userType="apiStore.utilisateurConnecte.type"/>
-    <PlaytestMinListBox :title="title2" :list="first4playtestRegiteredBefore" :userId="Number(apiStore.utilisateurConnecte.id)" :userType="apiStore.utilisateurConnecte.type"/>
+    <PlaytestMinListBox :title="title1" :list="first4playtestRegiteredAfter" :userId="Number((apiStore.getUtilisateurConnecte())!.id)" :userType="(apiStore.getUtilisateurConnecte())!.type"/>
+    <PlaytestMinListBox :title="title2" :list="first4playtestRegiteredBefore" :userId="Number((apiStore.getUtilisateurConnecte())!.id)" :userType="(apiStore.getUtilisateurConnecte())!.type"/>
   </div>
 </div>
 </template>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type {Playtest} from '@/types';
+import {apiStore} from "@/util/apiStore.ts";
 defineProps<{playtest: Playtest}>();
 </script>
 
 <template>
-  <div class="content-box bigger-box">
+  <div class="content-box bigger-box" v-if="playtest.visibility || playtest.company.id == apiStore.getUtilisateurConnecte().id">
     <div>
       <router-link :to="{name: 'playtest',params:{id:playtest.id} }" class="clickable" id="router-link">
         <img src="@/assets/img/playtest.png" alt="playtest"/>
@@ -17,13 +18,13 @@ defineProps<{playtest: Playtest}>();
     <div id="infos">
       <div>
         <div class="round blueRound">
-          <img src="@/assets/img/building.png"/>
+          <img src="@/assets/img/building.png" alt="building"/>
         </div>
         <p>{{playtest.company.name}}</p>
       </div>
       <div>
         <div class="round blueRound">
-          <img src="@/assets/img/videoGame.png"/>
+          <img src="@/assets/img/videoGame.png" alt="building"/>
         </div>
         <p>{{playtest.videoGame.name}}</p>
       </div>

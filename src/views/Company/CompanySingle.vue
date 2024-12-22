@@ -39,13 +39,13 @@ apiStore.getById('companies', id)
       <div>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/pin_light.png" alt="pin"/>
+            <img src="@/assets/img/pin_light.png" alt="pin"/>
           </div>
           <p class="textOnBlue">{{ company.adress }}</p>
         </div>
         <div class="main-infos">
           <div class="round yellowRound">
-            <img src="../../assets/img/phone_light.png" alt="phone"/>
+            <img src="@/assets/img/phone_light.png" alt="phone"/>
           </div>
           <div>
             <p class="textOnBlue">{{ company.contact }}</p>

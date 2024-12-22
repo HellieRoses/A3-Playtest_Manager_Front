@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import { apiStore } from '@/util/apiStore'
 import PlaytestBox from "@/components/PlaytestBox.vue";
 import {useRoute} from "vue-router";
-const playtests=ref([]);
+import type {Playtest} from "@/types.ts";
+const playtests:Ref<Playtest[]>=ref([]);
 const route = useRoute();
 const type = route.params.type;
 const id = route.params.id;
+
 if(type == undefined){
   apiStore.getAll('playtests')
     .then(reponseJSON => {
@@ -33,18 +35,32 @@ if(type == undefined){
   }
 }
 
-console.log(playtests);
 </script>
 
 <template>
-  <div class="list">
-    <PlaytestBox
-      v-for="playtest of playtests" :key="playtest.id"
-      :playtest="playtest"
-    />
+  <div class="container">
+    <div class="button" v-if="(apiStore.getUtilisateurConnecte())!.type == 'Company'" @click="$router.push({name : 'createPlaytest'})"><p>Create</p></div>
+    <div class="list">
+      <PlaytestBox
+        v-for="playtest of playtests" :key="playtest.id"
+        :playtest="playtest"
+      />
+    </div>
   </div>
+
 </template>
 
 <style scoped>
 @import "@/assets/list.css";
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  align-items: center;
+}
+.button{
+  background-color: #38dd38;
+}
+
 </style>
