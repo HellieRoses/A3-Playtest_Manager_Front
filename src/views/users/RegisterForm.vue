@@ -5,6 +5,10 @@ import router from "@/router";
 import type {Company, Player} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
+if(apiStore.estConnecte){
+  router.push({name :"home"})
+}
+
 const accountType = ref('player');
 const player: Ref<Player> = ref({
   id: '',
@@ -53,7 +57,7 @@ async function signUp() {
       });
     }
     await apiStore.login(player.value.login, player.value.password);
-    await router.push({name: "updatePlayer", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updatePlayer", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
   else if (accountType.value === "company") {
     try {
@@ -66,7 +70,7 @@ async function signUp() {
       });
     }
     await apiStore.login(company.value.login, company.value.password);
-    await router.push({name: "updateCompany", params: {id: apiStore.utilisateurConnecte.id}});
+    await router.push({name: "updateCompany", params: {id: (apiStore.getUtilisateurConnecte())!.id}});
   }
 }
 </script>

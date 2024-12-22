@@ -6,7 +6,7 @@ import type {VideoGame} from "@/types.ts";
 import {apiStore} from "@/util/apiStore.ts";
 import {notify} from "@kyvg/vue3-notification";
 import router from "@/router";
-if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company") {
+if(!apiStore.estConnecte || (apiStore.getUtilisateurConnecte())!.type != "Company") {
   router.push({name: "home"});
 }
 const videogame:Ref<VideoGame> = ref({

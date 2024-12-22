@@ -25,7 +25,7 @@ const company:Ref<Company> = ref({
 onMounted(async () => {
   const estConnecte = await apiStore.estConnecte;
 
-  if (!estConnecte || Number(id) !== Number(apiStore.getUtilisateurConnecte().id)) {
+  if (!estConnecte || Number(id) !== Number((apiStore.getUtilisateurConnecte())!.id)) {
    await router.push({name: 'home'})
   }
 

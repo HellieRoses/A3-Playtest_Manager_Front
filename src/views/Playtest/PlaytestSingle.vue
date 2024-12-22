@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
-import {onBeforeMount, onMounted, ref, type Ref} from 'vue';
+import {onBeforeMount, ref, type Ref} from 'vue';
 import type {Company, Playtest} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 

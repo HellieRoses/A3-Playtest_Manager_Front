@@ -10,7 +10,7 @@ import router from "@/router";
 const videogames:Ref<VideoGame[]> = ref([]);
 const route = useRoute();
 const id = route.params.id;
-if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company") {
+if(!apiStore.estConnecte || (apiStore.getUtilisateurConnecte())!.type != "Company") {
   router.push({name: "home"});
 }else{
   apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
@@ -19,7 +19,7 @@ if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company")
     })
   apiStore.getById('playtests',id).then(reponseJSON => {
     playtest.value= reponseJSON;
-    if(Number(playtest.value.company.id) != Number(apiStore.getUtilisateurConnecte().id)){
+    if(Number(playtest.value.company.id) != Number((apiStore.getUtilisateurConnecte())!.id)){
       router.push({name: "home"});
     }
   })

@@ -41,7 +41,7 @@ const playtest:Ref<Playtest>=ref({
   typePlayerSearched : ""
 })
 
-if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company") {
+if(!apiStore.estConnecte || (apiStore.getUtilisateurConnecte())!.type != "Company") {
   router.push({name: "home"});
 }else{
   apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
