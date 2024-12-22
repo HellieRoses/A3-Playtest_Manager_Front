@@ -7,9 +7,9 @@ import MiniBlockVideoGame from "@/components/minList/MiniBlockVideoGame.vue";
 
 const route = useRoute();
 const id = route.params.id;
-const company:Ref<Company>=ref({
-  id:'',
-  login:'',
+const company: Ref<Company> = ref({
+  id: '',
+  login: '',
   email: '',
   password: '',
   name: '',
@@ -19,12 +19,12 @@ const company:Ref<Company>=ref({
   type: '',
   videoGames: ref([]),
 });
-const listVideoGames:Ref<VideoGame[]>= ref([]);
+const listVideoGames: Ref<VideoGame[]> = ref([]);
 
 apiStore.getById('companies', id)
   .then(reponseJSON => {
     company.value = reponseJSON;
-    for (let i=0; i<Math.min(3,company.value.videoGames.length); i++) {
+    for (let i = 0; i < Math.min(3, company.value.videoGames.length); i++) {
       listVideoGames.value.push(company.value.videoGames[i]);
     }
   })
@@ -55,32 +55,39 @@ apiStore.getById('companies', id)
     </div>
     <div id="lower-infos">
       <h2>Jeux Vidéo</h2>
-      <div class="list">
-        <MiniBlockVideoGame v-for="videogame in listVideoGames" :key="videogame.id" :videoGame="videogame" />
+      <div v-if="listVideoGames.length > 0">
+        <div class="list">
+          <MiniBlockVideoGame v-for="videogame in listVideoGames" :key="videogame.id" :videoGame="videogame"/>
+        </div>
+        <div class="bottom-button">
+          <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir
+            plus</p></div>
+        </div>
       </div>
-      <div class="bottom-button">
-        <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir plus</p></div>
-      </div>
+      <p class="textOnBlue" v-else> L'entreprise n'a aucun Jeu vidéo disponible</p>/
     </div>
   </div>
 </template>
 
 <style scoped>
 @import "@/assets/singleVue.css";
-  .content{
-    padding: 15px;
-    & #upper-infos{
-      & #description{
-        width: 80%;
-        text-align: center;
-        font-size: 18px;
-      }
-      & > div{
-        display: flex;
-        justify-content: space-around;
-        width: 80%;
-        margin-top: 40px;
-      }
+
+.content {
+  padding: 15px;
+
+  & #upper-infos {
+    & #description {
+      width: 80%;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    & > div {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+      margin-top: 40px;
     }
   }
+}
 </style>
