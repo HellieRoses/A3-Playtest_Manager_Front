@@ -33,18 +33,32 @@ if(type == undefined){
   }
 }
 
-console.log(playtests);
 </script>
 
 <template>
-  <div class="list">
-    <PlaytestBox
-      v-for="playtest of playtests" :key="playtest.id"
-      :playtest="playtest"
-    />
+  <div class="container">
+    <div class="button" v-if="(apiStore.getUtilisateurConnecte())!.type == 'Company'" @click="$router.push({name : 'createPlaytest'})"><p>Create</p></div>
+    <div class="list">
+      <PlaytestBox
+        v-for="playtest of playtests" :key="playtest.id"
+        :playtest="playtest"
+      />
+    </div>
   </div>
+
 </template>
 
 <style scoped>
 @import "@/assets/list.css";
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  align-items: center;
+}
+.button{
+  background-color: #38dd38;
+}
+
 </style>
