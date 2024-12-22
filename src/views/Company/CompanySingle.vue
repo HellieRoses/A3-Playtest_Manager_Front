@@ -3,6 +3,7 @@ import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {type Ref, ref} from 'vue';
 import type {Company, VideoGame} from "@/types.ts";
+import MiniBlockVideoGame from "@/components/minList/MiniBlockVideoGame.vue";
 
 const route = useRoute();
 const id = route.params.id;
@@ -55,11 +56,7 @@ apiStore.getById('companies', id)
     <div id="lower-infos">
       <h2>Jeux Vidéo</h2>
       <div class="list">
-        <router-link :to="{name:'videogame',params:{id:videogame.id}}" class="block"
-                     v-for="videogame in listVideoGames" :key="videogame.id"
-        >
-          <p>{{videogame.name}}</p>
-        </router-link>
+        <MiniBlockVideoGame v-for="videogame in listVideoGames" :key="videogame.id" :videoGame="videogame" />
       </div>
       <div class="bottom-button">
         <div class="button" @click="$router.push({name : 'videogamesByCompany',params: {id:company.id}})"><p>Voir plus</p></div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
+import MiniBlockPlaytest from "@/components/minList/MiniBlockPlaytest.vue";
 import {onBeforeMount, type Ref, ref} from 'vue';
 import type {Playtest, VideoGame} from "@/types.ts";
 import router from "@/router";
@@ -128,12 +129,17 @@ function deleteVG(){
 
     <div id="lower-infos">
       <h2>Playtests</h2>
+<<<<<<< src/views/VideoGame/VideoGameSingle.vue
+      <div class="list">
+        <MiniBlockPlaytest v-for="playtest in listePlayTests" :key="playtest.id" :idPlaytest="String(playtest.id)" />
+=======
      <div class="list">
         <router-link :to="{name:'playtest',params:{id:playtest.id}}" class="block"
                      v-for="playtest in listePlayTests" :key="playtest.id"
         >
           <p>Playtest {{playtest.id}}</p>
         </router-link>
+>>>>>>> src/views/VideoGame/VideoGameSingle.vue
       </div>
       <div class="bottom-button">
         <div class="button" @click="$router.push({name : 'playtestsByVideoGames',params:{id:videogame.id}})"><p>Voir plus</p></div>
