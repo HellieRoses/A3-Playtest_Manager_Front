@@ -55,6 +55,13 @@ const updateResource = () => {
     //TODO notify
   })
 }
+
+async function deleteAccount() {
+  await apiStore.deleteRessource('companies', id);
+  await apiStore.logout();
+  await router.push({name: 'home'});
+  apiStore.refresh();
+}
 </script>
 
 <template>
@@ -102,7 +109,7 @@ const updateResource = () => {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" ><!-- TODO supprimer Company-->
+        <div class="button delete-button" @click="deleteAccount()"><!-- TODO supprimer Company-->
           <p>Supprimer</p>
         </div>
       </div>

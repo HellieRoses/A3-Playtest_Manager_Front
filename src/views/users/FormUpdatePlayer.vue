@@ -34,6 +34,8 @@ onMounted(async () => {
     .then(reponseJSON => {
       player.value = reponseJSON;
     });
+
+  player.value.birthdayDate = new Date(player.value.birthdayDate).toISOString().split('T')[0];
 });
 
 const emit = defineEmits<{ updated: [] }>();
@@ -44,7 +46,7 @@ const updateResource = () => {
   apiStore.updateRessource('players', id, {
       name: player.value.name,
       firstName: player.value.firstName,
-      birthdayDate: player.value.birthdayDate,
+      birthdayDate: new Date(player.value.birthdayDate),
       favoriteGames: player.value.favoriteGames,
       email: player.value.email,
       currentPlainPassword: player.value.password,
@@ -54,6 +56,13 @@ const updateResource = () => {
     console.log(reponse);
     //TODO notify
   })
+}
+
+async function deleteAccount() {
+  await apiStore.deleteRessource('players', id);
+  await apiStore.logout();
+  await router.push({name: 'home'});
+  apiStore.refresh();
 }
 </script>
 
@@ -100,7 +109,7 @@ const updateResource = () => {
             <label for="favoriteVideoGame">Jeux Vidéo Préférés</label>
           </div>
           <div class="group">
-            <input id="birthday" name="birthday" type="text" placeholder="Votre Date de Naissance..."
+            <input id="birthday" name="birthday" type="date" placeholder="Votre Date de Naissance..."
                    v-model="player.birthdayDate"/>
             <label for="birthday">Date de Naissance</label>
           </div>
@@ -110,7 +119,7 @@ const updateResource = () => {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" ><!-- TODO supprimer Player-->
+        <div class="button delete-button" @click="deleteAccount()">
           <p>Supprimer</p>
         </div>
       </div>
