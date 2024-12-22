@@ -55,7 +55,7 @@ function updateP(){
   }
   apiStore.createRessource('playtests',
     {
-      videoGame: playtest.value.videoGame["@id"],
+      videoGame: "/playtest_manager/public/api/playtests/"+playtest.value.videoGame.id,
       adress: playtest.value.adress,
       begin: playtest.value.begin,
       end: playtest.value.end,

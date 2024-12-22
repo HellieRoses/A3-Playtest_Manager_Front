@@ -54,7 +54,7 @@ function createPlaytest(){
   }
   apiStore.createRessource('playtests',
   {
-    videoGame: playtest.value.videoGame["@id"],
+    videoGame: "/playtest_manager/public/api/video_games/"+playtest.value.videoGame.id,
     adress: playtest.value.adress,
     begin: playtest.value.begin,
     end: playtest.value.end,
