@@ -164,7 +164,9 @@ async function signUp() {
 <style scoped>
 @import "@/assets/formsView.css";
 form{
-  padding-top: 5%!important;
+  padding-top: 2%!important;
+}
+h1{
 }
 .group{
   margin: 8px 0;
@@ -173,6 +175,10 @@ form{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  & img{
+    width :48px;
+    height : 48px;
+  }
 }
 #names{
   width: 60%;
@@ -182,5 +188,12 @@ form{
   & .group{
     width: 45%;
   }
+}
+
+.group input{
+  padding: 6px 20px!important;
+}
+.form{
+  height: 98%;
 }
 </style>
