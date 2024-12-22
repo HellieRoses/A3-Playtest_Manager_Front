@@ -95,9 +95,6 @@ header > #connectButton {
       color : #7A98FB;
     }
   }
-  & #profileButton{
-    display: none;
-  }
 }
 
 

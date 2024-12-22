@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
+import router from "@/router";
+import {notify} from "@kyvg/vue3-notification";
 
 const connectingUser = ref({
   login: "",
@@ -8,7 +10,17 @@ const connectingUser = ref({
 });
 
 async function connect(): Promise<void> {
-  await apiStore.login(connectingUser.value.login, connectingUser.value.password);
+  try {
+    await apiStore.login(connectingUser.value.login, connectingUser.value.password);
+  }
+  catch (error) {
+    notify({
+      type: "error",
+      title: "Connexion échouée",
+      text: error,
+    })
+  }
+  await router.push({name: "profile"});
 }
 </script>
 

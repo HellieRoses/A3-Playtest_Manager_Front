@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
+import type {VideoGame} from "@/types.ts";
+
+defineProps<{videoGame:VideoGame}>()
 </script>
 
 <template>
-  <router-link :to="{name : 'videogame'}">
-    <p>Assasin's Creed</p>
+  <router-link :to="{name : 'videogame', params : {id: videoGame.id}}">
+    <p>{{videoGame.name}}</p>
   </router-link>
 </template>
 

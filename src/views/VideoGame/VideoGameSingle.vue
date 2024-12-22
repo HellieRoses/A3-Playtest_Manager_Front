@@ -32,7 +32,7 @@ function canDelete() {
     <div id="upper-infos">
       <div id="title-div">
         <h1 class="title">{{ videogame.name }}</h1>
-        <div class="button delete-button" v-if="canDelete()" @click=""><p>Supprimer</p></div>
+        <div class="button delete-button" v-if="canDelete()" ><p>Supprimer</p></div><!-- TODO supprimer VideGame-->
         <!-- TODO inscrire user à un playtest à n'afficher que si company qui a créé-->
       </div>
       <div class="list">

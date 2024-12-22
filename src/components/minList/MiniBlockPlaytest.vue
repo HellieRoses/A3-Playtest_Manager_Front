@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
+defineProps<{idPlaytest:string}>()
 </script>
 
 <template>
-<router-link :to="{name : 'playtest'}">
-  <p>Playtest 1</p>
+<router-link :to="{name : 'playtest', params :{id: idPlaytest} }">
+  <p>Playtest {{idPlaytest}}</p>
 </router-link>
 </template>
 

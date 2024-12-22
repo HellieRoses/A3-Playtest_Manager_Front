@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
 import {useRoute} from "vue-router";
-import {type Ref, ref} from "vue";
+import {onMounted, type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import type {Company} from "@/types.ts";
 import router from "@/router";
+
 
 const route = useRoute();
 const id = route.params.id;
@@ -20,13 +21,21 @@ const company:Ref<Company> = ref({
   type: '',
   videoGames: ref([]),
 });
-if (!apiStore.estConnecte || (apiStore.utilisateurConnecte !== null && id!==apiStore.utilisateurConnecte.id)) {
-  router.push({name: 'home'})
-}
-apiStore.getById('companies', id)
-  .then(reponseJSON => {
-    company.value = reponseJSON;
-  })
+
+onMounted(async () => {
+  const estConnecte = await apiStore.estConnecte;
+  const utilisateurId = await (apiStore.getUtilisateurConnecte())!.id;
+
+  if (!estConnecte || Number(id) !== Number(utilisateurId)) {
+    await router.push({name: 'home'})
+  }
+
+  await apiStore.getById('companies', id)
+    .then(reponseJSON => {
+      company.value = reponseJSON;
+    });
+});
+
 const emit = defineEmits<{ updated: []}>();
 
 
@@ -93,7 +102,7 @@ const updateResource = () => {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" @click="">
+        <div class="button delete-button" ><!-- TODO supprimer Company-->
           <p>Supprimer</p>
         </div>
       </div>
