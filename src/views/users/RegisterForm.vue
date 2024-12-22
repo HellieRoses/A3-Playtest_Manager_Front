@@ -106,7 +106,7 @@ async function signUp() {
           </div>
           <div class="group">
             <input id="birthdaydate" name="birthdaydate" type="date" required v-model="player.birthdayDate"/>
-            <label for="email">Email</label>
+            <label for="email">Date de naissance</label>
           </div>
           <div class="group">
             <input id="email" name="email" type="email" required placeholder="Votre email..." v-model="player.email"/>
@@ -135,8 +135,8 @@ async function signUp() {
             <label for="companyAdress">Adresse</label>
           </div>
           <div class="group">
-            <input id="companyContact" name="companyContact" type="tel" required placeholder="Numéro de téléphone de l'entreprise..." v-model="company.contact"/>
-            <label for="companyName">Numéro de téléphone</label>
+            <input id="companyContact" name="companyContact" type="text" required placeholder="Contact de l'entreprise..." v-model="company.contact"/>
+            <label for="companyName">Contact</label>
           </div>
           <div class="group">
             <input id="companyName" name="companyName" type="text" required placeholder="Nom d'entreprise..." v-model="company.name"/>
