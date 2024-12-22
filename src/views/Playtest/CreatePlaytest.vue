@@ -44,7 +44,6 @@ const playtest:Ref<Playtest>=ref({
 if(!apiStore.estConnecte || apiStore.getUtilisateurConnecte().type != "Company") {
   router.push({name: "home"});
 }else{
-  console.log("youhou")
   apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
     .then(reponseJSON => {
       videogames.value=reponseJSON["member"];
