@@ -16,7 +16,7 @@ if(type == undefined){
     });
 }else{
   if(type == 'Player'){
-    apiStore.getParticipationPlaytest(Number(id))
+    apiStore.getParticipationPlaytest(id)
       .then(reponseJSON => {
         const participations = reponseJSON["member"];
         for(const i in participations){

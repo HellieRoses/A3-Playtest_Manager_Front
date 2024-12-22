@@ -17,7 +17,7 @@ async function connect(): Promise<void> {
     notify({
       type: "error",
       title: "Connexion échouée",
-      text: error,
+      text: 'Erreur : ' + error,
     })
   }
   await router.push({name: "profile"});

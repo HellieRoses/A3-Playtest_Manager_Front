@@ -73,7 +73,7 @@ onBeforeMount(async() => {
     </div>
     <div id="additional-content">
      <VideoGameMinListBox :videogames="videogamesFirst4"/>
-      <PlaytestMinListBox :title="title1" :list="playtests" :userId="(apiStore.getUtilisateurConnecte())!.id" :userType="(apiStore.getUtilisateurConnecte())!.type"/>
+      <PlaytestMinListBox :title="title1" :list="playtests" :userId="Number((apiStore.getUtilisateurConnecte())!.id)" :userType="(apiStore.getUtilisateurConnecte())!.type"/>
     </div>
   </div>
 </template>

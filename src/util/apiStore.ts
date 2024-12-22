@@ -120,7 +120,7 @@ export const apiStore = reactive({
       return fetch(this.apiUrl + 'playtests/' + id + '/players')
         .then(reponsehttp => reponsehttp.json())
     },
-    getParticipationPlaytest(id: number): Promise<any> {
+    getParticipationPlaytest(id: string | string[]): Promise<any> {
       return fetch(this.apiUrl + 'players/' + id + '/playtests')
         .then(reponsehttp => reponsehttp.json())
     },

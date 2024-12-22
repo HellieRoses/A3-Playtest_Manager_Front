@@ -5,7 +5,7 @@ defineProps<{playtest: Playtest}>();
 </script>
 
 <template>
-  <div class="content-box bigger-box" v-if="playtest.visibility || playtest.company.id == apiStore.getUtilisateurConnecte().id">
+  <div class="content-box bigger-box" v-if="playtest.visibility || playtest.company.id == (apiStore.getUtilisateurConnecte())!.id">
     <div>
       <router-link :to="{name: 'playtest',params:{id:playtest.id} }" class="clickable" id="router-link">
         <img src="@/assets/img/playtest.png" alt="playtest"/>

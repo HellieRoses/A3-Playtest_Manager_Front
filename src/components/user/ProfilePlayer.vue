@@ -36,13 +36,13 @@ async function getPlaytestRegistered(){
    })
 }
 
-function getFirst4PlaytestAfter(list){
+function getFirst4PlaytestAfter(list:Array<Array<string>>){
   const max = Math.min(4, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current < max){
-      const playtest = list[i]["playtest"];
-      if(new Date(playtest.begin) >= Date.now()){
+      const playtest:Playtest = list[i]["playtest"];
+      if(new Date(playtest.begin).getDate() >= Date.now()){
         first4playtestRegiteredAfter.value.push(playtest);
         current++;
       }
@@ -51,13 +51,13 @@ function getFirst4PlaytestAfter(list){
     }
   }
 }
-function getFirst4PlaytestBefore(list){
+function getFirst4PlaytestBefore(list:Array<Array<Playtest>>){
   const max = Math.min(3, list.length);
   let current = 0;
   for (let i = 0; i < list.length; i++) {
     if(current <= max){
       const playtest = list[i]["playtest"];
-      if(new Date(playtest.begin) < Date.now()){
+      if(new Date(playtest.begin).getDate() < Date.now()){
         first4playtestRegiteredBefore.value.push(playtest);
         current++;
       }
