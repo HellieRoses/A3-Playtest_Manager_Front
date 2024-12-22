@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {type Ref, ref} from 'vue';
 import { apiStore } from '@/util/apiStore'
 import PlaytestBox from "@/components/PlaytestBox.vue";
 import {useRoute} from "vue-router";
-const playtests=ref([]);
+import type {Playtest} from "@/types.ts";
+const playtests:Ref<Playtest[]>=ref([]);
 const route = useRoute();
 const type = route.params.type;
 const id = route.params.id;
+
 if(type == undefined){
   apiStore.getAll('playtests')
     .then(reponseJSON => {

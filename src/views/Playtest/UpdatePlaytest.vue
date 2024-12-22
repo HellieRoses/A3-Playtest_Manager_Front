@@ -2,7 +2,7 @@
 
 import PlaytestForm from "@/components/EntityForms/PlaytestForm.vue";
 import {ref, type Ref} from "vue";
-import type {Playtest, VideoGame} from "@/types.ts";
+import type {Company, Playtest, VideoGame} from "@/types.ts";
 import {apiStore} from "@/util/apiStore.ts";
 import {useRoute} from "vue-router";
 import {notify} from "@kyvg/vue3-notification";
@@ -10,18 +10,38 @@ import router from "@/router";
 const videogames:Ref<VideoGame[]> = ref([]);
 const route = useRoute();
 const id = route.params.id;
-apiStore.getByCompany('video_games',apiStore.utilisateurConnecte.id)
+apiStore.getByCompany('video_games',(apiStore.getUtilisateurConnecte())!.id)
   .then(reponseJSON => {
     videogames.value=reponseJSON["member"];
   })
 
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email:'',
+  password:'',
+  name: "",
+  description: "",
+  adress: "",
+  contact: "",
+  type: "",
+  videoGames: ref([]),
+})
 const playtest:Ref<Playtest>=ref({
   id : 0,
-  videoGame : {},
+  videoGame : {
+    id: 0,
+    name: "",
+    description: "",
+    type: "",
+    support: ref([]),
+    playtests: ref([]),
+    company: company
+  },
   begin : "",
   end  :"",
   adress : "",
-  company : apiStore.getUtilisateurConnecte(),
+  company : company,
   visibility :  true,
   nbMaxPlayer : 0,
   typePlayerSearched : ""

@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {apiStore} from "@/util/apiStore.ts";
 import {onBeforeMount, ref, type Ref} from 'vue';
-import type {Playtest} from "@/types.ts";
+import type {Company, Playtest} from "@/types.ts";
 import {notify} from "@kyvg/vue3-notification";
 
 const route = useRoute();
@@ -10,17 +10,37 @@ const router = useRouter();
 const id = route.params.id;
 
 const refid = ref("");
-const playtest:Ref<Playtest> = ref({
-  id: 0,
-  videoGame: {},
-  begin: "",
-  end: "",
+const company:Ref<Company> = ref({
+  id:'',
+  login:'',
+  email:'',
+  password:'',
+  name: "",
+  description: "",
   adress: "",
-  company: {},
-  visibility: false,
-  nbMaxPlayer: 0,
-  typePlayerSearched: ""
-});
+  contact: "",
+  type: "",
+  videoGames: ref([]),
+})
+const playtest:Ref<Playtest>=ref({
+  id : 0,
+  videoGame : {
+    id: 0,
+    name: "",
+    description: "",
+    type: "",
+    support: ref([]),
+    playtests: ref([]),
+    company: company
+  },
+  begin : "",
+  end  :"",
+  adress : "",
+  company : company,
+  visibility :  true,
+  nbMaxPlayer : 0,
+  typePlayerSearched : ""
+})
 const currentParticipation = ref(-1);
 const participationsOfPlayer: Ref = ref([]);
 

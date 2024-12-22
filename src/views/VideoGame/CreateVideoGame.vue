@@ -11,9 +11,20 @@ const videogame:Ref<VideoGame> = ref({
   name: "",
   description: "",
   type: "",
-  support: "",
-  playtests: [],
-  company: ""
+  support: ref([]),
+  playtests: ref([]),
+  company: {
+    id:'',
+    login:'',
+    email:'',
+    password:'',
+    name: "",
+    description: "",
+    adress: "",
+    contact: "",
+    type: "",
+    videoGames: ref([]),
+  }
 });
 
 

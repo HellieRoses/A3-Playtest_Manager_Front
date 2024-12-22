@@ -3,6 +3,7 @@ import {type Ref, ref} from "vue";
 import {apiStore} from "@/util/apiStore.ts";
 import router from "@/router";
 import type {Company, Player} from "@/types.ts";
+import {notify} from "@kyvg/vue3-notification";
 
 const accountType = ref('player');
 const player: Ref<Player> = ref({
@@ -48,7 +49,7 @@ async function signUp() {
       notify({
         type: "error",
         title: "Inscription échouée",
-        text: error,
+        text: 'Erreur : ' + error,
       })
     }
     await apiStore.login(player.value.login, player.value.password);
@@ -61,7 +62,7 @@ async function signUp() {
       notify({
         type: "error",
         title: "Inscription échouée",
-        text: error,
+        text: 'Erreur : ' + error,
       })
     }
     await apiStore.login(company.value.login, company.value.password);
