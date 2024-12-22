@@ -100,9 +100,10 @@ export const apiStore = reactive({
     },
     deleteRessource(ressource: string, id: number): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id, {
-        method: "DELETE"
+        method: "DELETE",
+        credentials: 'include'
       })
-        .then(reponsehttp => reponsehttp.json())
+        .then(reponsehttp => reponsehttp)
     },
     updateRessource(ressource: string, id: string | string[], data: any): Promise<any> {
       return fetch(this.apiUrl + ressource + '/' + id, {
