@@ -61,7 +61,7 @@ const updateResource = () => {
 }
 
 async function deleteAccount() {
-  await apiStore.deleteRessource('players', id);
+  await apiStore.deleteRessource('players', Number(id));
   await apiStore.logout();
   await router.push({name: 'home'});
   apiStore.refresh();

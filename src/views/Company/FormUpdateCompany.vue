@@ -60,7 +60,7 @@ const updateResource = () => {
 }
 
 async function deleteAccount() {
-  await apiStore.deleteRessource('companies', id);
+  await apiStore.deleteRessource('companies', Number(id));
   await apiStore.logout();
   await router.push({name: 'home'});
   apiStore.refresh();
@@ -73,7 +73,7 @@ async function deleteAccount() {
       <h1>Modification du Compte</h1>
     </div>
 
-    <form @submit.prevent="updateResource"> <!-- fonction inscrire player-->
+    <form @submit.prevent="updateResource()">
       <div id="content">
         <div class="mainForm">
           <div class="group">
@@ -112,7 +112,7 @@ async function deleteAccount() {
         <button type="submit" class="button">
           <p>Modifier</p>
         </button>
-        <div class="button delete-button" @click="deleteAccount()"><!-- TODO supprimer Company-->
+        <div class="button delete-button" @click="deleteAccount()">
           <p>Supprimer</p>
         </div>
       </div>
