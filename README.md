@@ -10,7 +10,7 @@
 
 - Annuaire : https://gitlabinfo.iutmontp.univ-montp2.fr/boissezonm/annuaire_web_project
 - PlayTest Manager : https://gitlabinfo.iutmontp.univ-montp2.fr/groupe-projet-web-s5/playtest-manager
-- PlayTest Manager Front : https://gitlabinfo.iutmontp.univ-montp2.fr/groupe-projet-web-s5/playtest-manager-front
+- PlayTest Manager Front : https://github.com/HellieRoses/A3-Playtest_Manager_Front
 
 ## Investissement du groupe
 
