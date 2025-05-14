@@ -8,15 +8,15 @@
 
 ## Lien du dépot git
 
-- Annuaire : https://gitlabinfo.iutmontp.univ-montp2.fr/boissezonm/annuaire_web_project
-- PlayTest Manager : https://gitlabinfo.iutmontp.univ-montp2.fr/groupe-projet-web-s5/playtest-manager
+- Annuaire : https://github.com/HellieRoses/A3-Annuaire-web
+- PlayTest Manager : https://github.com/HellieRoses/A3-Playtest_Manager_API
 - PlayTest Manager Front : https://github.com/HellieRoses/A3-Playtest_Manager_Front
 
 ## Investissement du groupe
 
 - BOISSEZON Maëlys : Déploiement des 3 projets, Front, inscription/désinscription à un playTest, loader, modifier et créer Playtest et Jeux Vidéos, Profil, protection des routes
-- HAMEL Clément : Connexion, Déconnexion, Refresh_token, Inscription, Suppression compte
-- TOUZE Romain : Corrections problèmes Type-check et Lint, ApiStore, Pages Individuelles et Listes des Jeux Vidéos, Entreprises et Playtests
+- Clément H. : Connexion, Déconnexion, Refresh_token, Inscription, Suppression compte
+- Romain T. : Corrections problèmes Type-check et Lint, ApiStore, Pages Individuelles et Listes des Jeux Vidéos, Entreprises et Playtests
 
 ## Indications supplémentaires
 
